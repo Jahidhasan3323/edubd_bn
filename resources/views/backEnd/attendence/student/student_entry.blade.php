@@ -107,12 +107,18 @@
                 <div class="row">
                     <div class="col-sm-12"><h4>সকল উপস্থিত শিক্ষার্থীদের মার্ক করুন</h4></div>
                 </div>
+
                 <div class="row">
                     @foreach($students as $student)
+                    @php $check = \App\AttenStudent::where([
+                    'student_id'=>$student->student_id,
+                    'school_id'=>Auth::getSchool()
+                    ])->whereDate('date',date('Y-m-d'))->first();
+                    @endphp
                     <div class="col-sm-6">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="student_id[]" value="{{$student->student_id}}">{{$student->user->name}} "শ্রেণী রোল-{{str_replace($s, $r, $student->roll)}}"
+                                <input type="checkbox" name="student_id[]" value="{{$student->student_id}}" {{($check)?'checked':''}}>{{$student->user->name}} "শ্রেণী রোল-{{str_replace($s, $r, $student->roll)}}"
                             </label>
                         </div>
                     </div>

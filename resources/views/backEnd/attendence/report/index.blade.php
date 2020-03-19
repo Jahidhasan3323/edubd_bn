@@ -5,11 +5,19 @@
 @section('active_attendance', 'active')
 
 @section('content')
-<style type="text/css">
+@if(old('user_type')=="student")
+<style type='text/css'>
+    .user-type-student{
+        display: block;
+    }
+</style>
+@else
+<style type='text/css'>
     .user-type-student{
         display: none;
     }
 </style>
+@endif
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
             <h1 class="text-center text-temp">উপস্থিতির রিপোর্ট তৈরী করুন </h1>
@@ -22,7 +30,7 @@
             @include('backEnd.includes.success')
         @endif
         <div class="panel-body">
-            <form id="validate" name="validate" action="{{url('attendence-report/search')}}" method="get" enctype="multipart/form-data">
+            <form id="validate" name="validate" target="__blank" action="{{url('attendence-report/search')}}" method="get" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-sm-4">
@@ -90,13 +98,13 @@
                             <label class="" for="master_class_id">শ্রেণী <span class="star">*</span></label>
                             <div class="">
                                 <select style="width: 100% !important;" class="form-control" name="master_class_id" id="master_class_id">
-                                    <option>...শ্রেণী নির্বাচন করুন...</option>
+                                    <option value="">...শ্রেণী নির্বাচন করুন...</option>
                                     @foreach($classes as $class)
                                         <option value="{{$class->id}}">{{$class->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @if ($errors->has('class'))
+                            @if ($errors->has('master_class_id'))
                                 <span class="help-block">
                                     <strong>{{$errors->first('master_class_id')}}</strong>
                                 </span>
@@ -108,13 +116,13 @@
                             <label class="" for="group_class_id">গ্রুপ / বিভাগ <span class="star">*</span></label>
                             <div class="">
                                 <select style="width: 100% !important;" class="form-control" name="group_class_id" id="group_class_id">
-                                    <option>...গ্রুপ / বিভাগ নির্বাচন করুন...</option>
+                                    <option value="">...গ্রুপ / বিভাগ নির্বাচন করুন...</option>
                                     @foreach($groups as $group)
                                         <option value="{{$group->id}}">{{$group->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @if ($errors->has('class'))
+                            @if ($errors->has('group_class_id'))
                                 <span class="help-block">
                                     <strong>{{$errors->first('group_class_id')}}</strong>
                                 </span>
@@ -125,7 +133,7 @@
                         <div class="form-group {{$errors->has('shift') ? 'has-error' : ''}}">
                             <label class="" for="shift">শিফট <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="shift" id="shift">
+                                <select class="form-control" name="shift" id="shift" style="width: 100% !important;">
                                     <option value="">শিফট নির্বাচন করুন</option>
                                     <option value="সকাল">সকাল</option>
                                     <option value="দিন">দিন</option>
@@ -145,7 +153,7 @@
                             <label class="" for="section">শাখা <span class="star">*</span></label>
                             <div class="">
                                 <select style="width: 100% !important;" class="form-control" name="section" id="section">
-                                    <option>...শাখা নির্বাচন করুন...</option>
+                                    <option value="">...শাখা নির্বাচন করুন...</option>
                                     <option value="ক">ক</option>
                                     <option value="খ">খ</option>
                                     <option value="গ">গ</option>
@@ -193,10 +201,20 @@
             }
          }
     </script>
-    @if(isset($search)&&count($search)>0)
+   
+    @if($errors->any())
     <script>
-        document.getElementById('year').value = "{{$search['year']}}";
-        document.getElementById('month').value = "{{$search['month']}}";
+        document.getElementById('year').value = "{{old('year')}}";
+        document.getElementById('month').value = "{{old('month')}}";
+        document.getElementById('user_type').value = "{{old('user_type')}}";
     </script>
+        @if(old('user_type')=="student")
+           <script>
+               document.getElementById('master_class_id').value = "{{old('master_class_id')}}";
+               document.getElementById('group_class_id').value = "{{old('group_class_id')}}";
+               document.getElementById('shift').value = "{{old('shift')}}";
+               document.getElementById('section').value = "{{old('section')}}";
+           </script>
+        @endif
     @endif
 @endsection

@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        commands\everyDay::class,
+        Commands\everyDay::class,
         Commands\AttendenceSms::class,
         Commands\BirthdayWish::class
     ];
@@ -28,8 +28,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('attendence:sms')->everyMinute();
-        // $schedule->command('birthday:wish')->dailyAt('00:01');
+        $schedule->command('attendence:sms')->everyMinute();
+        $schedule->command('everyday:attendance')->everyMinute();
+        $schedule->command('birthday:wish')->dailyAt('00:01');
     }
 
     /**

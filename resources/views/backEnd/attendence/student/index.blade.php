@@ -16,10 +16,10 @@
         @endif
         <div class="panel-body">
             <h3 class="text-center text-temp">
-             মোট শিক্ষার্থী : {{str_replace($s,$r,$students->total_present()+$students->total_leave()+$students->total_absent()+$students->total_holiday())}} জন,
+             মোট শিক্ষার্থী : {{str_replace($s,$r,$current_students)}} জন,
              মোট উপস্থিতি : {{str_replace($s,$r,$students->total_present())}} জন, 
              মোট ছুটি : {{str_replace($s,$r,$students->total_leave()+$students->total_holiday())}} জন, 
-             মোট অনুপস্থিত : {{str_replace($s, $r,$students->total_absent())}} জন
+             মোট অনুপস্থিত : {{str_replace($s, $r,$current_students-$students->total_present()-$students->total_leave()-$students->total_holiday())}} জন
             </h3>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">
@@ -44,6 +44,7 @@
                             'shift'=>$student->shift,
                             'section'=>$student->section,
                             ];
+                            $total_class_student=$students->total_students($query);
                             $total_present=$students->total($query,'P');
                             $total_leave=$students->total($query,'L');
                             $total_holidays=$students->total($query,'H');
@@ -55,10 +56,10 @@
                             <td>{{$student->group}}</td>
                             <td>{{$student->shift}}</td>
                             <td>{{$student->section}}</td>
-                            <td>{{str_replace($s, $r,$student->total)}}</td>
+                            <td>{{str_replace($s, $r,$total_class_student)}}</td>
                             <td>{{str_replace($s, $r,$total_present)}}</td>
                             <td>{{str_replace($s, $r, ($total_leave+$total_holidays))}}</td>
-                            <td>{{str_replace($s, $r, $total_absent)}}</td>
+                            <td>{{str_replace($s, $r, $total_class_student-$total_present-$total_leave-$total_holidays)}}</td>
                             <td><a href="{{url('attendence/view',[$student->master_class_id,$student->group,$student->shift,$student->section])}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
                         @php($serial++)

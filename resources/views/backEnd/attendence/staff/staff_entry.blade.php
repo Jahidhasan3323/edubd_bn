@@ -41,10 +41,15 @@
                 </div>
                 <div class="row">
                     @foreach($staffs as $staff)
+                    @php $check = \App\AttenEmployee::where([
+                    'staff_id'=>$staff->staff_id,
+                    'school_id'=>Auth::getSchool()
+                    ])->whereDate('date',date('Y-m-d'))->first();
+                    @endphp
                     <div class="col-sm-6">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="staff_id[]" value="{{$staff->staff_id}}">{{$staff->user->name}} "পদবি-{{$staff->designation->name}}"
+                                <input type="checkbox" name="staff_id[]" value="{{$staff->staff_id}}" {{($check)?'checked':''}}>{{$staff->user->name}} "পদবি-{{$staff->designation->name}}"
                             </label>
                         </div>
                     </div>
