@@ -10,10 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+Route::get('/test', 'AccountReportController@test');
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
 
@@ -210,6 +207,15 @@ Route::group(['middleware' => 'auth','prefix' => 'result'], function(){
     Route::get('edit/{id}', 'ResultController@edit');
     Route::post('update/{id}', 'ResultController@update');
     Route::get('delete/{id}', 'ResultController@destroy');
+});
+
+
+Route::group(['middleware' => 'auth','prefix' => 'elective'], function(){
+    Route::get('setting', 'ElectiveSettingController@create');
+    Route::post('store', 'ElectiveSettingController@store');
+    Route::get('edit/{id}', 'ElectiveSettingController@edit');
+    Route::post('update/{id}', 'ElectiveSettingController@update');
+    Route::get('delete/{id}', 'ElectiveSettingController@destroy');
 });
 
 
@@ -471,6 +477,8 @@ Route::group(['middleware' => 'auth','prefix' => 'FineCollection'], function(){
     Route::get('/Manage','FineCollectionController@fine_collection_manage')->name('fine_collection_manage');
     Route::get('/PrintView/{id}','FineCollectionController@fine_collection_view')->name('fine_collection_view');
     Route::delete('/delete','FineCollectionController@fine_collection_delete')->name('fine_collection_delete');
+    Route::get('/sms','FineCollectionController@fine_sms')->name('fine_sms');
+    Route::post('/send_sms','FineCollectionController@send_fine_sms')->name('send_fine_sms');
 });
 
 //   Salary Fund Routes
@@ -708,6 +716,20 @@ Route::group(['middleware' => 'auth','prefix' => 'holiday'], function(){
     Route::post('update/{month}/{year}','HolidayController@update');
     Route::get('delete/{month}/{year}','HolidayController@destroy');
 });
+
+
+Route::group(['middleware' => 'auth','prefix' => 'holiday-cancel'], function(){
+    Route::get('','CancelHolidayController@index');
+    Route::get('show/{month}/{year}','CancelHolidayController@show');
+    Route::get('create','CancelHolidayController@create');
+    Route::get('search','CancelHolidayController@create');
+    Route::post('store','CancelHolidayController@store');
+    Route::get('edit/{month}/{year}','CancelHolidayController@edit');
+    Route::post('update/{month}/{year}','CancelHolidayController@update');
+    Route::get('delete/{id}/{month}/{year}','CancelHolidayController@destroy');
+});
+
+
 Route::group(['middleware' => 'auth','prefix' => 'attendence'], function(){
     Route::get('student','AttendenceController@students');
     Route::get('view/{class_id}/{group}/{shift}/{section}','AttendenceController@view');
@@ -715,8 +737,6 @@ Route::group(['middleware' => 'auth','prefix' => 'attendence'], function(){
     Route::post('print','AttendenceController@print_view');
     Route::get('create','AttendenceController@create');
     Route::post('store','AttendenceController@storeOrUpdate');
-    Route::get('/student/report','AttendenceReportController@student_report');
-    Route::get('/student/report/search','AttendenceReportController@student_report_search');
 });
 
 Route::group(['middleware' => 'auth','prefix' => 'attendence-report'], function(){
@@ -760,6 +780,8 @@ Route::group(['middleware' => 'auth','prefix' => 'leave'], function(){
 Route::group(['middleware' => 'auth','prefix' => 'attendance-list'], function(){
     Route::get('create','AttendanceListController@create');
     Route::get('index','AttendanceListController@index');
+    Route::get('create-monthly','AttendanceListController@create_monthly');
+    Route::get('view','AttendanceListController@view');
 });
 
 Route::group(['middleware' => 'auth','prefix' => 'result-list'], function(){
@@ -1059,8 +1081,3 @@ Route::group(['middleware' => 'auth','prefix' => 'post', 'as'=>'post'], function
     Route::get('/post/love','PostReactController@loveStore')->name('post.like');
 
     Route::post('/add/comment','PostCommentController@store')->name('add.comment')->middleware('auth');
-
-
-    Route::get('/db2data','Db2UserController@index')->name('db2data');
-
-

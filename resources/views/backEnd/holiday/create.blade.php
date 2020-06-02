@@ -1,6 +1,6 @@
 @extends('backEnd.master')
  
-@section('mainTitle', 'কর্মচারী ছুটি এন্ট্রি')
+@section('mainTitle', 'ছুটি এন্ট্রি')
 @section('active_class1', 'active')
 
 @section('content')

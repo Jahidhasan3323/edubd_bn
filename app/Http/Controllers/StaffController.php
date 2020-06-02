@@ -66,7 +66,7 @@ class StaffController extends Controller
             return redirect('/home');
         }
 
-        $designations = Designation::all();
+        $designations = Designation::where('type', 1)->get();
         $groups=Group::whereIn('permission',['teacher','staff'])->get();
         $school_id = Auth::getSchool();
         $staff_id = Staff::where('school_id', $school_id)->select(array('staff_id'))->orderBy('staff_id', 'desc')->first();
@@ -165,7 +165,7 @@ class StaffController extends Controller
             return redirect('/home');
         }
 
-        $designations = Designation::all();
+        $designations = Designation::where('type', 1)->get();
         $groups=Group::whereIn('permission',['admin','teacher','staff'])->get();
 
         return view('backEnd.staffs.edit', compact('designations', 'staff','groups'));
@@ -292,13 +292,13 @@ class StaffController extends Controller
             'gender'=> 'required',
             'designation_id'=> 'required',
             'type'=> 'required',
-            'salary'=> 'nullable | numeric',
+            'salary'=> 'nullable',
             'subject'=> 'required',
             'edu_qulif'=> 'required',
             'training'=> 'nullable',
             'joining_date'=> 'required',
             'retirement_date'=> 'nullable',
-            'index_no'=> 'nullable | numeric',
+            'index_no'=> 'nullable',
             'date_of_mpo'=> 'nullable',
             'staff_id'=> 'required',
             'school_id'=> 'required',
@@ -317,7 +317,7 @@ class StaffController extends Controller
             'pre_unim'=> 'required',
             'pre_subd'=> 'required',
             'pre_district'=> 'required',
-            'pre_postc'=> 'nullable | numeric',
+            'pre_postc'=> 'nullable',
             'per_address'=> 'nullable',
             'per_h_no'=> 'nullable',
             'per_ro_no'=> 'nullable',
@@ -326,17 +326,17 @@ class StaffController extends Controller
             'per_unim'=> 'nullable',
             'per_subd'=> 'nullable',
             'per_district'=> 'nullable',
-            'per_postc'=> 'nullable | numeric',
+            'per_postc'=> 'nullable',
             'father_name'=> 'required',
             'f_career'=> 'required',
-            'f_m_income'=> 'nullable | numeric',
+            'f_m_income'=> 'nullable',
             'f_edu_c'=> 'nullable',
             'f_mobile_no'=> 'nullable',
             'f_email'=> 'nullable',
             'f_nid'=> 'nullable',
             'mother_name'=> 'required',
             'm_career'=> 'required',
-            'm_m_income'=> 'nullable | numeric',
+            'm_m_income'=> 'nullable',
             'relation'=> 'nullable',
             'm_mobile_no'=> 'nullable',
             'm_email'=> 'nullable',
@@ -346,7 +346,7 @@ class StaffController extends Controller
             'wedding_date'=> 'nullable',
             'h_w_edu_qulif'=> 'nullable',
             'h_w_nid_no'=> 'nullable',
-            'h_w_mobile_no'=> 'nullable | numeric',
+            'h_w_mobile_no'=> 'nullable',
             'kids'=> 'nullable',
             'photo'=> 'required|image',
         ]);
@@ -363,13 +363,13 @@ class StaffController extends Controller
             'gender'=> 'required',
             'designation_id'=> 'required',
             'type'=> 'required',
-            'salary'=> 'nullable | numeric',
+            'salary'=> 'nullable',
             'subject'=> 'required',
             'edu_qulif'=> 'required',
             'training'=> 'nullable',
             'joining_date'=> 'required',
             'retirement_date'=> 'nullable',
-            'index_no'=> 'nullable  | numeric',
+            'index_no'=> 'nullable',
             'date_of_mpo'=> 'nullable',
             'birthday'=> 'required',
             'blood_group'=> 'nullable',
@@ -386,7 +386,7 @@ class StaffController extends Controller
             'pre_unim'=> 'required',
             'pre_subd'=> 'required',
             'pre_district'=> 'required',
-            'pre_postc'=> 'nullable | numeric',
+            'pre_postc'=> 'nullable',
             'per_address'=> 'nullable',
             'per_h_no'=> 'nullable',
             'per_ro_no'=> 'nullable',
@@ -395,17 +395,17 @@ class StaffController extends Controller
             'per_unim'=> 'nullable',
             'per_subd'=> 'nullable',
             'per_district'=> 'nullable',
-            'per_postc'=> 'nullable | numeric',
+            'per_postc'=> 'nullable',
             'father_name'=> 'required',
             'f_career'=> 'required',
-            'f_m_income'=> 'nullable  | numeric',
+            'f_m_income'=> 'nullable',
             'f_edu_c'=> 'nullable',
             'f_mobile_no'=> 'nullable',
             'f_email'=> 'nullable',
             'f_nid'=> 'nullable',
             'mother_name'=> 'required',
             'm_career'=> 'required',
-            'm_m_income'=> 'nullable  | numeric',
+            'm_m_income'=> 'nullable',
             'relation'=> 'nullable',
             'm_mobile_no'=> 'nullable',
             'm_email'=> 'nullable',
@@ -415,7 +415,7 @@ class StaffController extends Controller
             'wedding_date'=> 'nullable',
             'h_w_edu_qulif'=> 'nullable',
             'h_w_nid_no'=> 'nullable',
-            'h_w_mobile_no'=> 'nullable | numeric',
+            'h_w_mobile_no'=> 'nullable',
             'kids'=> 'nullable',
             'photo'=> 'nullable|image',
         ]);

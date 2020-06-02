@@ -138,7 +138,7 @@ class ChattingController extends Controller
     public function index($reciver_id)
     {
         // mark all message with the selected contact as read 
-        Chatting::where('from', $reciver_id)->where('to', Auth::id())->update(['read'=>true]);
+        Chatting::where('from', $reciver_id)->where('to', Auth::id())->update(['read'=>1]);
         
         $messages=Chatting::where(function($q) use ($reciver_id) {
                         $q->where('from', Auth::id());

@@ -9,6 +9,7 @@
     <title>@yield('mainTitle') | Education Management System</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('backEnd/img/icon.png')}}" />
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('js/app.js')}}">
     <link rel="stylesheet" href="{{mix('css/all.css')}}">
     <link href="{{asset('backEnd')}}/DataTables/dataTables.bootstrap.min.css" rel='stylesheet' type='text/css'/>
      <!-- Bootstrap Color Picker -->

@@ -53,7 +53,7 @@ class ResultListController extends Controller
         $imp_setting=ImportantSetting::where('school_id',Auth::getSchool())->select('class_position_identify')->first();
         if(isset($imp_setting->class_position_identify)&&$imp_setting->class_position_identify&&($request->exam_type_id==1||$request->exam_type_id==4)){
            foreach (explode('|', $imp_setting->class_position_identify) as $key => $exam_type_id) {
-                $q_data=$request->except('_token');
+                $q_data=$request->except('_token','roll_serialize');
                 $q_data['status']=1;
                 $q_data['school_id']=Auth::getSchool();
                $results=Result::with('exam_type','student','student.masterClass','student.user')

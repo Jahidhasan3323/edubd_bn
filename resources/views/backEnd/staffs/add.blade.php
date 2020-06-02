@@ -29,7 +29,7 @@
                         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                             <label class="" for="name">পুরো নাম <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{old('name')}}" class="form-control" type="text" name="name" id="name" placeholder=" পুরো নাম">
+                                <input value="{{old('name')}}" class="form-control" type="text" name="name" id="name" placeholder=" Full Name">
                             </div>
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -106,7 +106,7 @@
                         <div class="form-group {{$errors->has('salary') ? 'has-error' : ''}}">
                             <label class="" for="salary">মাসিক বেতন </label>
                             <div class="">
-                                <input value="{{old('salary')}}" class="form-control" type="number" name="salary" id="salary" placeholder="মাসিক বেতন" >
+                                <input value="{{old('salary')}}" class="form-control" type="text" name="salary" id="salary" placeholder="Monthly Salary">
                             </div>
                             @if ($errors->has('salary'))
                                 <span class="help-block">
@@ -120,7 +120,7 @@
                         <div class="form-group {{$errors->has('subject') ? 'has-error' : ''}}">
                             <label class="" for="subject">যে কাজের জন্য নিয়োগ পেয়েছেন<span class="star">*</span></label>
                             <div class="">
-                                <input value="{{old('subject')}}" class="form-control" type="text" name="subject" id="subject" placeholder="যে কাজের জন্য নিয়োগ পেয়েছেন">
+                                <input value="{{old('subject')}}" class="form-control" type="text" name="subject" id="subject" placeholder="Specialist Subject">
                             </div>
                             @if ($errors->has('subject'))
                                 <span class="help-block">
@@ -135,7 +135,7 @@
                         <div class="form-group {{$errors->has('edu_qulif') ? 'has-error' : ''}}">
                             <label class="" for="edu_qulif">শিক্ষাগত যোগ্যতা <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{old('edu_qulif')}}" class="form-control" type="text" name="edu_qulif" id="edu_qulif" placeholder="শিক্ষাগত যোগ্যতা">
+                                <input value="{{old('edu_qulif')}}" class="form-control" type="text" name="edu_qulif" id="edu_qulif" placeholder="Educational Qualification">
                             </div>
                             @if ($errors->has('edu_qulif'))
                                 <span class="help-block">
@@ -149,7 +149,7 @@
                         <div class="form-group {{$errors->has('training') ? 'has-error' : ''}}">
                             <label class="" for="training">প্রশিক্ষণ </label>
                             <div class="">
-                                <input value="{{old('training')}}" class="form-control" type="text" name="training" id="training" placeholder="প্রশিক্ষণ">
+                                <input value="{{old('training')}}" class="form-control" type="text" name="training" id="training" placeholder="Special training">
                             </div>
                             @if ($errors->has('training'))
                                 <span class="help-block">
@@ -194,7 +194,7 @@
                         <div class="form-group {{$errors->has('index_no') ? 'has-error' : ''}}">
                             <label for="index_no">ইনডেক্স নং </label>
                             <div class="">
-                                <input value="{{old('index_no')}}" class="form-control" type="number" name="index_no" id="index_no" placeholder="ইনডেক্স নং" >
+                                <input value="{{old('index_no')}}" class="form-control" type="text" name="index_no" id="index_no" placeholder="Index Number">
                             </div>
                             @if ($errors->has('index_no'))
                                 <span class="help-block">
@@ -278,7 +278,7 @@
                     <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                         <label class="" for="email">ইমেইল <span class="star">*</span></label>
                         <div class="">
-                            <input value="{{old('email',$staff_id.'@gmail.com')}}" class="form-control" type="email" name="email" id="email" placeholder=" ইমেইল">
+                            <input value="{{old('email',$staff_id.'@gmail.com')}}" class="form-control" type="email" name="email" id="email" placeholder=" Email">
                         </div>
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -292,7 +292,7 @@
                     <div class="form-group {{$errors->has('password') ? 'has-error' : ''}}">
                         <label class="" for="password">পাসওয়ার্ড <span class="star">*</span></label>
                         <div class="">
-                            <input class="form-control" type="text" name="password" id="password" value="{{ rand(10, 999999999) }}" placeholder="পাসওয়ার্ড">
+                            <input class="form-control" type="text" name="password" id="password" value="{{ rand(10, 999999999) }}">
                         </div>
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -308,7 +308,7 @@
                     <div class="form-group {{$errors->has('mobile') ? 'has-error' : ''}}">
                         <label class="" for="mobile">মোবাইল নাম্বার <span class="star">*</span></label>
                         <div class="">
-                            <input value="{{old('mobile')}}" class="form-control" type="number" name="mobile" id="mobile" placeholder=" মোবাইল নাম্বার ">
+                            <input value="{{old('mobile')}}" class="form-control" type="text" name="mobile" id="mobile" placeholder=" Contact">
                         </div>
                         <div id="mobileError" class="has-error" style="display: none">
                             <span class="help-block">
@@ -392,7 +392,7 @@
                     <div class="form-group {{$errors->has('nid_card_no') ? 'has-error' : ''}}">
                         <label for="nid_card_no">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর <span class="star">*</span></label>
                         <div class="">
-                            <input value="{{old('nid_card_no')}}" class="form-control" type="text" name="nid_card_no" id="nid_card_no" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর">
+                            <input value="{{old('nid_card_no')}}" class="form-control" type="text" name="nid_card_no" id="nid_card_no" placeholder="National ID / Passport / Driving License Number">
                         </div>
                         @if ($errors->has('nid_card_no'))
                             <span class="help-block">
@@ -406,7 +406,7 @@
                     <div class="form-group {{$errors->has('last_org_name') ? 'has-error' : ''}}">
                         <label for="last_org_name">সর্বশেষ সার্ভিস প্রতিষ্ঠানের নাম  </label>
                         <div class="">
-                            <input value="{{old('last_org_name')}}" class="form-control" type="text" name="last_org_name" id="last_org_name" placeholder="সর্বশেষ সার্ভিস প্রতিষ্ঠানের নাম ">
+                            <input value="{{old('last_org_name')}}" class="form-control" type="text" name="last_org_name" id="last_org_name" placeholder="Name of Organization of Last Service ">
                         </div>
                         @if ($errors->has('last_org_name'))
                             <span class="help-block">
@@ -424,7 +424,7 @@
                     <div class="form-group {{$errors->has('reason_to_leave') ? 'has-error' : ''}}">
                         <label for="reason_to_leave">ছেড়ে আসার কারন </label>
                         <div class="">
-                            <input value="{{old('reason_to_leave')}}" class="form-control" type="text" name="reason_to_leave" id="reason_to_leave" placeholder="ছেড়ে আসার কারন">
+                            <input value="{{old('reason_to_leave')}}" class="form-control" type="text" name="reason_to_leave" id="reason_to_leave" placeholder="National ID / Passport / Driving License Number">
                         </div>
                         @if ($errors->has('reason_to_leave'))
                             <span class="help-block">
@@ -438,7 +438,7 @@
                     <div class="form-group {{$errors->has('last_org_address') ? 'has-error' : ''}}">
                         <label for="last_org_address">প্রতিষ্ঠানের ঠিকানা (ফোন নাম্বার সহ) </label>
                         <div class="">
-                            <input value="{{old('last_org_address')}}" class="form-control" type="text" name="last_org_address" id="last_org_address" placeholder="প্রতিষ্ঠানের ঠিকানা (ফোন নাম্বার সহ) ">
+                            <input value="{{old('last_org_address')}}" class="form-control" type="text" name="last_org_address" id="last_org_address" placeholder="Name of Organization of Last Service ">
                         </div>
                         @if ($errors->has('last_org_address'))
                             <span class="help-block">
@@ -467,7 +467,7 @@
                    <div class="form-group {{$errors->has('pre_address') ? 'has-error' : ''}}">
                        <label for="pre_address">বাড়ির নাম </label>
                        <div>
-                           <input value="{{old('pre_address')}}" type="text" class="form-control" name="pre_address" id="pre_address" placeholder="বাড়ির নাম">
+                           <input value="{{old('pre_address')}}" type="text" class="form-control" name="pre_address" id="pre_address" placeholder="Present address">
                        </div>
                        @if ($errors->has('pre_address'))
                            <span class="help-block">
@@ -481,7 +481,7 @@
                    <div class="form-group {{$errors->has('Pre_h_no') ? 'has-error' : ''}}">
                        <label for="Pre_h_no">বাড়ি / হোল্ডিং নাম্বার</label>
                        <div>
-                           <input value="{{old('Pre_h_no')}}" type="text" class="form-control" name="Pre_h_no" id="Pre_h_no" placeholder="বাড়ি / হোল্ডিং নাম্বার">
+                           <input value="{{old('Pre_h_no')}}" type="text" class="form-control" name="Pre_h_no" id="Pre_h_no" placeholder="House / Holding Number">
                        </div>
                        @if ($errors->has('Pre_h_no'))
                            <span class="help-block">
@@ -494,7 +494,7 @@
                    <div class="form-group {{$errors->has('pre_ro_no') ? 'has-error' : ''}}">
                        <label for="pre_ro_no">রোড নাম্বার</label>
                        <div>
-                           <input value="{{old('pre_ro_no')}}" type="text" class="form-control" name="pre_ro_no" id="pre_ro_no" placeholder="রোড নাম্বার">
+                           <input value="{{old('pre_ro_no')}}" type="text" class="form-control" name="pre_ro_no" id="pre_ro_no" placeholder="Road Number">
                        </div>
                        @if ($errors->has('pre_ro_no'))
                            <span class="help-block">
@@ -509,7 +509,7 @@
                    <div class="form-group {{$errors->has('pre_vpm') ? 'has-error' : ''}}">
                        <label for="pre_vpm">গ্রাম / পাড়া / মহল্লার নাম <span class="star">*</span></label>
                        <div>
-                           <input value="{{old('pre_vpm')}}" type="text" class="form-control" name="pre_vpm" id="pre_vpm" placeholder="গ্রাম / পাড়া / মহল্লার নাম">
+                           <input value="{{old('pre_vpm')}}" type="text" class="form-control" name="pre_vpm" id="pre_vpm" placeholder="Village / Para / Mahalla">
                        </div>
                        @if ($errors->has('pre_vpm'))
                            <span class="help-block">
@@ -523,7 +523,7 @@
                    <div class="form-group {{$errors->has('pre_poff') ? 'has-error' : ''}}">
                        <label for="pre_poff">ডাকঘর <span class="star">*</span></label>
                        <div>
-                           <input value="{{old('pre_poff')}}" type="text" class="form-control" name="pre_poff" id="pre_poff" placeholder="ডাকঘর">
+                           <input value="{{old('pre_poff')}}" type="text" class="form-control" name="pre_poff" id="pre_poff" placeholder="Post office">
                        </div>
                        @if ($errors->has('pre_poff'))
                            <span class="help-block">
@@ -536,7 +536,7 @@
                    <div class="form-group {{$errors->has('pre_unim') ? 'has-error' : ''}}">
                        <label for="pre_unim">ইউনিয়ন / পৌরসভার নাম <span class="star">*</span></label>
                        <div>
-                           <input value="{{old('pre_unim')}}" type="text" class="form-control" name="pre_unim" id="pre_unim" placeholder="ইউনিয়ন / পৌরসভার নাম">
+                           <input value="{{old('pre_unim')}}" type="text" class="form-control" name="pre_unim" id="pre_unim" placeholder="Union / Municipality">
                        </div>
                        @if ($errors->has('pre_unim'))
                            <span class="help-block">
@@ -551,7 +551,7 @@
                    <div class="form-group {{$errors->has('pre_subd') ? 'has-error' : ''}}">
                        <label for="pre_subd">উপজেলা / থানার নাম <span class="star">*</span></label>
                        <div>
-                           <input value="{{old('pre_subd')}}" type="text" class="form-control" name="pre_subd" id="pre_subd" placeholder="উপজেলা / থানার নাম">
+                           <input value="{{old('pre_subd')}}" type="text" class="form-control" name="pre_subd" id="pre_subd" placeholder="Sub District / Thana">
                        </div>
                        @if ($errors->has('pre_subd'))
                            <span class="help-block">
@@ -565,7 +565,7 @@
                    <div class="form-group {{$errors->has('pre_district') ? 'has-error' : ''}}">
                        <label for="pre_district">জেলার নাম <span class="star">*</span></label>
                        <div>
-                           <input value="{{old('pre_district')}}" type="text" class="form-control" name="pre_district" id="pre_district" placeholder="জেলার নাম ">
+                           <input value="{{old('pre_district')}}" type="text" class="form-control" name="pre_district" id="pre_district" placeholder="District">
                        </div>
                        @if ($errors->has('pre_district'))
                            <span class="help-block">
@@ -578,7 +578,7 @@
                    <div class="form-group {{$errors->has('pre_postc') ? 'has-error' : ''}}">
                        <label for="pre_postc">পোষ্ট কোড নাম্বার</label>
                        <div>
-                           <input value="{{old('pre_postc')}}" type="number" class="form-control" name="pre_postc" id="pre_postc" placeholder="পোষ্ট কোড নাম্বার">
+                           <input value="{{old('pre_postc')}}" type="text" class="form-control" name="pre_postc" id="pre_postc" placeholder="Post Code">
                        </div>
                        @if ($errors->has('pre_postc'))
                            <span class="help-block">
@@ -603,7 +603,7 @@
                     <div class="form-group {{$errors->has('per_address') ? 'has-error' : ''}}">
                         <label for="per_address">বাড়ির নাম </label>
                         <div>
-                            <input value="{{old('per_address')}}" type="text" class="form-control" name="per_address" id="per_address" placeholder="বাড়ির নাম">
+                            <input value="{{old('per_address')}}" type="text" class="form-control" name="per_address" id="per_address" placeholder="persent address">
                         </div>
                         @if ($errors->has('per_address'))
                             <span class="help-block">
@@ -617,7 +617,7 @@
                     <div class="form-group {{$errors->has('per_h_no') ? 'has-error' : ''}}">
                         <label for="per_h_no">বাড়ি / হোল্ডিং নাম্বার</label>
                         <div>
-                            <input value="{{old('per_h_no')}}" type="text" class="form-control" name="per_h_no" id="per_h_no" placeholder="বাড়ি / হোল্ডিং নাম্বার">
+                            <input value="{{old('per_h_no')}}" type="text" class="form-control" name="per_h_no" id="per_h_no" placeholder="House / Holding Number">
                         </div>
                         @if ($errors->has('per_h_no'))
                             <span class="help-block">
@@ -630,7 +630,7 @@
                     <div class="form-group {{$errors->has('per_ro_no') ? 'has-error' : ''}}">
                         <label for="per_ro_no">রোড নাম্বার</label>
                         <div>
-                            <input value="{{old('per_ro_no')}}" type="text" class="form-control" name="per_ro_no" id="per_ro_no" placeholder="রোড নাম্বার">
+                            <input value="{{old('per_ro_no')}}" type="text" class="form-control" name="per_ro_no" id="per_ro_no" placeholder="Road Number">
                         </div>
                         @if ($errors->has('per_ro_no'))
                             <span class="help-block">
@@ -645,7 +645,7 @@
                     <div class="form-group {{$errors->has('per_vpm') ? 'has-error' : ''}}">
                         <label for="per_vpm">গ্রাম / পাড়া / মহল্লার নাম </label>
                         <div>
-                            <input value="{{old('per_vpm')}}" type="text" class="form-control" name="per_vpm" id="per_vpm" placeholder="গ্রাম / পাড়া / মহল্লার নাম">
+                            <input value="{{old('per_vpm')}}" type="text" class="form-control" name="per_vpm" id="per_vpm" placeholder="Village / Para / Mahalla">
                         </div>
                         @if ($errors->has('per_vpm'))
                             <span class="help-block">
@@ -659,7 +659,7 @@
                     <div class="form-group {{$errors->has('per_poff') ? 'has-error' : ''}}">
                         <label for="per_poff">ডাকঘর </label>
                         <div>
-                            <input value="{{old('per_poff')}}" type="text" class="form-control" name="per_poff" id="per_poff" placeholder="ডাকঘর">
+                            <input value="{{old('per_poff')}}" type="text" class="form-control" name="per_poff" id="per_poff" placeholder="Post office">
                         </div>
                         @if ($errors->has('per_poff'))
                             <span class="help-block">
@@ -672,7 +672,7 @@
                     <div class="form-group {{$errors->has('per_unim') ? 'has-error' : ''}}">
                         <label for="per_unim">ইউনিয়ন / পৌরসভার নাম </label>
                         <div>
-                            <input value="{{old('per_unim')}}" type="text" class="form-control" name="per_unim" id="per_unim" placeholder="ইউনিয়ন / পৌরসভার নাম">
+                            <input value="{{old('per_unim')}}" type="text" class="form-control" name="per_unim" id="per_unim" placeholder="Union / Municipality">
                         </div>
                         @if ($errors->has('per_unim'))
                             <span class="help-block">
@@ -687,7 +687,7 @@
                     <div class="form-group {{$errors->has('per_subd') ? 'has-error' : ''}}">
                         <label for="per_subd">উপজেলা / থানার নাম </label>
                         <div>
-                            <input value="{{old('per_subd')}}" type="text" class="form-control" name="per_subd" id="per_subd" placeholder="উপজেলা / থানার নাম">
+                            <input value="{{old('per_subd')}}" type="text" class="form-control" name="per_subd" id="per_subd" placeholder="Sub District / Thana">
                         </div>
                         @if ($errors->has('per_subd'))
                             <span class="help-block">
@@ -701,7 +701,7 @@
                     <div class="form-group {{$errors->has('per_district') ? 'has-error' : ''}}">
                         <label for="per_district">জেলার নাম </label>
                         <div>
-                            <input value="{{old('per_district')}}" type="text" class="form-control" name="per_district" id="per_district" placeholder="জেলার নাম ">
+                            <input value="{{old('per_district')}}" type="text" class="form-control" name="per_district" id="per_district" placeholder="District">
                         </div>
                         @if ($errors->has('per_district'))
                             <span class="help-block">
@@ -714,7 +714,7 @@
                     <div class="form-group {{$errors->has('per_postc') ? 'has-error' : ''}}">
                         <label for="per_postc">পোষ্ট কোড নাম্বার</label>
                         <div>
-                            <input value="{{old('per_postc')}}" type="number" class="form-control" name="per_postc" id="per_postc" placeholder="পোষ্ট কোড নাম্বার">
+                            <input value="{{old('per_postc')}}" type="text" class="form-control" name="per_postc" id="per_postc" placeholder="Post Code">
                         </div>
                         @if ($errors->has('per_postc'))
                             <span class="help-block">
@@ -740,7 +740,7 @@
                            <div class="form-group {{$errors->has('father_name') ? 'has-error' : ''}}">
                                <label class="" for="father_name">পিতার নাম <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{old('father_name')}}" class="form-control" type="text" name="father_name" id="father_name" placeholder="পিতার নাম">
+                                   <input value="{{old('father_name')}}" class="form-control" type="text" name="father_name" id="father_name" placeholder="Fater name">
                                </div>
                                @if ($errors->has('father_name'))
                                    <span class="help-block">
@@ -755,7 +755,7 @@
                             <div class="form-group {{$errors->has('f_career') ? 'has-error' : ''}}">
                                 <label class="" for="f_career">পেশা <span class="star">*</span></label>
                                 <div class="">
-                                    <input value="{{old('f_career')}}" class="form-control" type="text" name="f_career" id="f_career" placeholder="পেশা">
+                                    <input value="{{old('f_career')}}" class="form-control" type="text" name="f_career" id="f_career" placeholder="Father Career">
                                 </div>
                                 @if ($errors->has('f_career'))
                                    <span class="help-block">
@@ -768,7 +768,7 @@
                             <div class="form-group {{$errors->has('f_m_income') ? 'has-error' : ''}}">
                                 <label class="" for="f_m_income">মাসিক আয়</label>
                                 <div class="">
-                                    <input value="{{old('f_m_income')}}" class="form-control" type="number" name="f_m_income" id="f_m_income" placeholder="মাসিক আয়">
+                                    <input value="{{old('f_m_income')}}" class="form-control" type="text" name="f_m_income" id="f_m_income" placeholder="Father Monthly Income">
                                 </div>
                                 @if ($errors->has('f_m_income'))
                                    <span class="help-block">
@@ -781,7 +781,7 @@
                             <div class="form-group {{$errors->has('f_edu_c') ? 'has-error' : ''}}">
                                 <label class="" for="f_edu_c">শিক্ষাগত যোগ্যতা</label>
                                 <div class="">
-                                    <input value="{{old('f_edu_c')}}" class="form-control" type="text" name="f_edu_c" id="f_edu_c" placeholder="শিক্ষাগত যোগ্যতা">
+                                    <input value="{{old('f_edu_c')}}" class="form-control" type="text" name="f_edu_c" id="f_edu_c" placeholder="Father Educational Qualification">
                                 </div>
                                  @if ($errors->has('f_edu_c'))
                                     <span class="help-block">
@@ -796,7 +796,7 @@
                             <div class="form-group">
                                 <label class="" for="f_mobile_no">ফোন নাম্বার</label>
                                 <div class="">
-                                    <input value="{{old('f_mobile_no')}}" class="form-control" type="number" name="f_mobile_no" id="f_mobile_no" placeholder=" ফোন নাম্বার.">
+                                    <input value="{{old('f_mobile_no')}}" class="form-control" type="text" name="f_mobile_no" id="f_mobile_no" placeholder=" Father Mobile No.">
                                 </div>
                             </div>
                             <div id="f_mobile_Error" class="has-error" style="display: none">
@@ -815,7 +815,7 @@
                             <div class="form-group {{$errors->has('f_email') ? 'has-error' : ''}}">
                                 <label class="" for="f_email">ইমেইল</label>
                                 <div class="">
-                                    <input value="{{old('f_email')}}" class="form-control" type="email" name="f_email" id="f_email" placeholder="ইমেইল">
+                                    <input value="{{old('f_email')}}" class="form-control" type="text" name="f_email" id="f_email" placeholder="Father Email">
                                 </div>
                                 @if ($errors->has('f_email'))
                                     <span class="help-block">
@@ -831,7 +831,7 @@
                             <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                 <label class="" for="f_nid">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর </label>
                                 <div class="">
-                                    <input value="{{old('f_nid')}}" class="form-control" type="text" name="f_nid" id="f_nid" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর">
+                                    <input value="{{old('f_nid')}}" class="form-control" type="text" name="f_nid" id="f_nid" placeholder="Fater NID/Passport/Driving Number">
                                 </div>
                                  @if ($errors->has('f_nid'))
                                     <span class="help-block">
@@ -852,7 +852,7 @@
                            <div class="form-group {{$errors->has('mother_name') ? 'has-error' : ''}}">
                                <label class="" for="mother_name">মাতার নাম <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{old('mother_name')}}" class="form-control" type="text" name="mother_name" id="mother_name" placeholder="মাতার নাম ">
+                                   <input value="{{old('mother_name')}}" class="form-control" type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
                                </div>
                                @if ($errors->has('mother_name'))
                                     <span class="help-block">
@@ -868,7 +868,7 @@
                            <div class="form-group {{$errors->has('m_career') ? 'has-error' : ''}}">
                                <label class="" for="m_career">পেশা <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{old('m_career')}}" class="form-control" type="text" name="m_career" id="m_career" placeholder="পেশা">
+                                   <input value="{{old('m_career')}}" class="form-control" type="text" name="m_career" id="m_career" placeholder="Mother Career">
                                </div>
                                @if ($errors->has('m_career'))
                                     <span class="help-block">
@@ -881,7 +881,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_m_income">মাসিক আয়</label>
                                <div class="">
-                                   <input value="{{old('m_m_income')}}" class="form-control" type="number" name="m_m_income" id="m_m_income" placeholder="মাসিক আয়">
+                                   <input value="{{old('m_m_income')}}" class="form-control" type="text" name="m_m_income" id="m_m_income" placeholder="Mother Monthly Income">
                                </div>
                                @if ($errors->has('m_m_income'))
                                     <span class="help-block">
@@ -894,7 +894,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_edu_c">শিক্ষাগত যোগ্যতা</label>
                                <div class="">
-                                   <input value="{{old('m_edu_c')}}" class="form-control" type="text" name="m_edu_c" id="m_edu_c" placeholder="শিক্ষাগত যোগ্যতা">
+                                   <input value="{{old('m_edu_c')}}" class="form-control" type="text" name="m_edu_c" id="m_edu_c" placeholder="Relation with guardian">
                                </div>
                                @if ($errors->has('m_edu_c'))
                                     <span class="help-block">
@@ -909,7 +909,7 @@
                            <div class="form-group">
                                <label class="" for="m_mobile_no">ফোন নাম্বার </label>
                                <div class="">
-                                   <input value="{{old('m_mobile_no')}}" class="form-control" type="number" name="m_mobile_no" id="m_mobile_no" placeholder=" ফোন নাম্বার">
+                                   <input value="{{old('m_mobile_no')}}" class="form-control" type="text" name="m_mobile_no" id="m_mobile_no" placeholder=" Mother Mobile No.">
                                </div>
                            </div>
                            <div id="m_mobile_Error" class="has-error" style="display: none">
@@ -928,7 +928,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_email">ইমেইল</label>
                                <div class="">
-                                   <input value="{{old('m_email')}}" class="form-control" type="email" name="m_email" id="m_email" placeholder="ইমেইল">
+                                   <input value="{{old('m_email')}}" class="form-control" type="text" name="m_email" id="m_email" placeholder="Father Email">
                                </div>
                                @if ($errors->has('m_email'))
                                    <span class="help-block">
@@ -944,7 +944,7 @@
                            <div class="form-group {{$errors->has('m_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_nid">জাতীয় পরিচয় পত্র নাম্বার / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর </label>
                                <div class="">
-                                   <input value="{{old('m_nid')}}" class="form-control" type="text" name="m_nid" id="m_nid" placeholder="জাতীয় পরিচয় পত্র নাম্বার / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর">
+                                   <input value="{{old('m_nid')}}" class="form-control" type="text" name="m_nid" id="m_nid" placeholder="Mother NID/Passport/Driving Number">
                                </div>
                                 @if ($errors->has('m_nid'))
                                    <span class="help-block">
@@ -962,7 +962,7 @@
                     <div class="form-group {{$errors->has('h_w_name') ? 'has-error' : ''}}">
                         <label class="" for="h_w_name">বিবাহিতদের ক্ষেত্রে স্বামী/স্ত্রী'র নাম </label>
                         <div class="">
-                            <input value="{{old('h_w_name')}}" class="form-control" type="text" name="h_w_name" id="h_w_name" placeholder="বিবাহিতদের ক্ষেত্রে স্বামী/স্ত্রী'র নাম">
+                            <input value="{{old('h_w_name')}}" class="form-control" type="text" name="h_w_name" id="h_w_name" placeholder="Name of Husband / Wife in case of Married">
                         </div>
                         @if ($errors->has('h_w_name'))
                              <span class="help-block">
@@ -975,7 +975,7 @@
                     <div class="form-group {{$errors->has('profession') ? 'has-error' : ''}}">
                         <label class="" for="profession">পেশা</label>
                         <div class="">
-                            <input value="{{old('profession')}}" class="form-control" type="text" name="profession" id="profession" placeholder="পেশা">
+                            <input value="{{old('profession')}}" class="form-control" type="text" name="profession" id="profession" placeholder="Profession">
                         </div>
                         @if ($errors->has('profession'))
                              <span class="help-block">
@@ -991,7 +991,7 @@
                     <div class="form-group {{$errors->has('wedding_date') ? 'has-error' : ''}}">
                         <label class="" for="wedding_date">বিবাহের তারিখ </label>
                         <div class="">
-                            <input value="{{old('wedding_date')}}" class="form-control date" type="text" name="wedding_date" id="date">
+                            <input value="{{old('wedding_date')}}" class="form-control" type="text" name="wedding_date" id="date">
                         </div>
                         @if ($errors->has('wedding_date'))
                              <span class="help-block">
@@ -1004,7 +1004,7 @@
                     <div class="form-group {{$errors->has('h_w_edu_qulif') ? 'has-error' : ''}}">
                         <label class="" for="h_w_edu_qulif">শিক্ষাগত যোগ্যতা</label>
                         <div class="">
-                            <input value="{{old('h_w_edu_qulif')}}" class="form-control" type="text" name="h_w_edu_qulif" id="h_w_edu_qulif" placeholder="শিক্ষাগত যোগ্যতা">
+                            <input value="{{old('h_w_edu_qulif')}}" class="form-control" type="text" name="h_w_edu_qulif" id="h_w_edu_qulif" placeholder="Educational Qualification">
                         </div>
                         @if ($errors->has('h_w_edu_qulif'))
                              <span class="help-block">
@@ -1020,7 +1020,7 @@
                     <div class="form-group {{$errors->has('h_w_email') ? 'has-error' : ''}}">
                         <label class="" for="h_w_email">জাতীয় পরিচয় পত্র নাম্বার / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর </label>
                         <div class="">
-                            <input value="{{old('h_w_nid_no')}}" class="form-control" type="text" name="h_w_nid_no" id="h_w_nid_no" placeholder="জাতীয় পরিচয় পত্র নাম্বার / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর">
+                            <input value="{{old('h_w_nid_no')}}" class="form-control" type="text" name="h_w_nid_no" id="h_w_nid_no" placeholder="National ID Number">
                         </div>
                         @if ($errors->has('h_w_nid_no'))
                              <span class="help-block">
@@ -1033,7 +1033,7 @@
                     <div class="form-group {{$errors->has('h_w_mobile_no') ? 'has-error' : ''}}">
                         <label class="" for="h_w_mobile_no">মোবাইল নাম্বার</label>
                         <div class="">
-                            <input value="{{old('h_w_mobile_no')}}" class="form-control" type="number" name="h_w_mobile_no" id="h_w_mobile_no" placeholder="মোবাইল নাম্বার">
+                            <input value="{{old('h_w_mobile_no')}}" class="form-control" type="text" name="h_w_mobile_no" id="h_w_mobile_no" placeholder="Mobile Number">
                         </div>
                         @if ($errors->has('h_w_mobile_no'))
                              <span class="help-block">
@@ -1048,7 +1048,7 @@
                     <div class="form-group {{$errors->has('kids') ? 'has-error' : ''}}">
                         <label class="" for="kids">ছেলে ও মেয়ে কতজন এবং কে কি করে লিখুন </label>
                         <div class="">
-                            <textarea name="kids" id="kids" placeholder="ছেলে ও মেয়ে কতজন এবং কে কি করে লিখুন" rows="5" class="form-control">{{old('kids')}}</textarea>
+                            <textarea name="kids" id="kids" placeholder="Write below, How many Kids and Who does what...?" rows="5" class="form-control">{{old('kids')}}</textarea>
                         </div>
                         @if ($errors->has('kids'))
                              <span class="help-block">

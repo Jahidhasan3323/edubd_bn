@@ -12,6 +12,8 @@ use App\GroupClass;
 use App\Holiday;
 use App\FineSetup;
 use App\Fund;
+use App\SmsLimit;
+use App\SmsReport;
 use Auth;
 
 class FineCollectionController extends Controller
@@ -29,17 +31,14 @@ class FineCollectionController extends Controller
       $groups = $this->groupClasses();
       $units = $this->getUnits();
       $funds = Fund::where('status', 1)->get();
-      $student = Student::where('master_class_id', $request->master_class_id)
-                        ->where('group', $request->group_class_id)
-                        ->where('shift', $request->shift)
-                        ->where('section', $request->section)
-                        ->where('roll', $request->roll)
+      $student = Student::where('id', $request->student_id)
                         ->first();
       $student_group_id = GroupClass::where('name', $student->group)->first()->id;
       // Fine Generate
       $last_fine_collection = FineCollection::orderBy('id', 'desc')->where('school_id', Auth::getSchool())->where('student_id', $student->id)->first();
-      $total_attend = AttenStudent::where('school_id', Auth::getSchool())->where('student_id', $student->student_id)->whereMonth('date', date('m', strtotime('-1 months')))->whereYear('date', date('Y'))->count();
-      $total_holiday = Holiday::where('school_id', Auth::getSchool())->whereMonth('date', date('m', strtotime('-1 months')))->whereYear('date', date('Y'))->count();
+      $current_month_fine_collection = FineCollection::where('school_id', Auth::getSchool())->where('student_id', $student->id)->whereMonth('payment_date', date('m'))->whereYear('payment_date', date('Y'))->sum('amount');
+      $total_attend = AttenStudent::where('school_id', Auth::getSchool())->where('student_id', $student->student_id)->whereMonth('date', date('m', strtotime('-1 months')))->whereYear('date', date('Y'))->where('status','P')->count();
+      $total_holiday = Holiday::whereIn('school_id',[ Auth::getSchool(),0])->whereMonth('date', date('m', strtotime('-1 months')))->whereYear('date', date('Y'))->count();
       $all_dates=array();
       $month = date('m', strtotime('-1 months'));
       $year = date('Y');
@@ -47,10 +46,10 @@ class FineCollectionController extends Controller
       {
           $time=mktime(12, 0, 0, $month, $d, $year);
           if (date('m', $time)==$month)
-              $all_dates[]=date('Y-m-d-D', $time);
-              if (date('D', $time)=="Fri") {
-                $fridays[]=date('Y-m-d-D', $time);
-              }
+          $all_dates[]=date('Y-m-d-D', $time);
+          if (date('D', $time)=="Fri") {
+            $fridays[]=date('Y-m-d-D', $time);
+          }
       }
       $fine = FineSetup::where('school_id', Auth::getSchool())
                         ->where('master_class_id', $student->master_class_id)
@@ -62,7 +61,7 @@ class FineCollectionController extends Controller
       if (empty($fine)) {
         return redirect()->back()->with('error_msg', 'জরিমানা কালেকশনের পূর্বে জরিমানার পরিমান নির্ধারণ করুন ।');
       }
-      return view('backEnd.accounts.fine_collection.add', compact('student', 'absense', 'fine', 'last_fine_collection', 'funds', 'classes', 'groups', 'units'));
+      return view('backEnd.accounts.fine_collection.add', compact('student', 'absense', 'fine', 'last_fine_collection','current_month_fine_collection', 'funds', 'classes', 'groups', 'units'));
     }
 
     public function fine_collection_store(Request $request, SmsSendController $shorter){
@@ -88,20 +87,63 @@ class FineCollectionController extends Controller
       // return $data;
       $fine_collection->create($data);
 
+      $student = Student::find($request->student_id);
       $account_setting = AccountSetting::where('school_id', Auth::getSchool())->first();
       $school=$this->school();
       $school_name = ($school->short_name==NULL) ? $shorter->school_name_process($school->user->name) : $school->short_name;
-      if ($account_setting->fine_collection_sms=="1") {
-        if (!empty($request->mobile)) {
-          $mobile_number = "88".$request->mobile;
-          $message = urlencode($request->payment_by.", মেমো নাম্বার-".$serial.", জমা-".$request->paid." /-, ".date('d M Y h:i a ').$school_name);
-          $send_sms = $this->sms_send_by_api($school,$mobile_number,$message);
-        }
+      $sms_limit = SmsLimit::where('school_id', $school->id)->first();
+      $sms_limit = $sms_limit?$sms_limit->fine_collection:'0';
+      $error = array();
+      $end_limit = array();
+      $msg = "";
+      if (!empty($school->api_key) && !empty($school->sender_id)) {
+          $sms_report = SmsReport::where('school_id', Auth::getSchool())->where('sms_type', 5)->where('student_id', $student->id)->whereYear('date', date('Y'))->whereMonth('date', date('m'))->count();
+          if ($school->sms_service==0) {
+              if ($account_setting->fine_collection_sms=="1") {
+                  $number = $request->mobile;
+                  if (!empty($number)) {
+                      $mobile_number = "88".$number;
+                      $message = $request->payment_by.", মেমো নাম্বার-".$serial.", জমা-".$request->paid." /-, ".date('d M Y h:i a ').$school_name;
+                      $message = urlencode($message);
+                      $send_sms = $this->sms_send_by_api($school,$mobile_number,$message);
+                      $msg = "জরিমানা সফলভাবে জমা করা হয়েছে ।";
+                  }else {
+                      $msg = "জরিমানা সফলভাবে জমা করা হয়েছে । কিন্তু বার্তা পাঠানো যায়নি ।";
+                  }
+              }else {
+                  $msg = "জরিমানা সফলভাবে জমা করা হয়েছে । কিন্তু বার্তা সেটিং সক্রিয় করুন।";
+              }
+          }else {
+              if ($sms_report < $sms_limit) {
+                  $number = $request->mobile;
+                  if (!empty($number)) {
+                      $mobile_number = "88".$number;
+                      $message = $request->payment_by.", মেমো নাম্বার-".$serial.", জমা-".$request->paid." /-, ".date('d M Y h:i a ').$school_name;
+                      $message = urlencode($message);
+                      $send_sms = $this->sms_send_by_api($school,$mobile_number,$message);
+                      $success = json_decode($send_sms,true);
+                      if ($success['error']==0) {
+                          $sms = new SmsReport;
+                          $sms->sms_type = 5;
+                          $sms->student_id = $student->id;
+                          $sms->date = now();
+                          $sms->save();
+                      }
+                      $msg = "জরিমানা সফলভাবে জমা করা হয়েছে ।";
+                  }else {
+                      $msg = "জরিমানা সফলভাবে জমা করা হয়েছে । কিন্তু বার্তা পাঠানো যায়নি ।";
+                  }
+              }else {
+                  $msg = "জরিমানা সফলভাবে জমা করা হয়েছে । কিন্তু নির্ধারিত বার্তার পরিমান শেষ ।";
+              }
+          }
+
+      }else {
+          $msg = "এস,এম,এস এ,পি,আই এবং সেন্ডার আইডি সেটাপ করুন ।";
       }
       $fine_collection_view = FineCollection::where('serial', $serial)->first();
       $student = Student::find($request->student_id);
       $funds = Fund::orderBy('id', 'asc')->get();
-      $msg = 'আয় সফলভাবে যোগ করা হয়েছে ।';
       $classes = $this->getClasses();
       $groups = $this->groupClasses();
       $units = $this->getUnits();
@@ -126,7 +168,86 @@ class FineCollectionController extends Controller
     public function fine_collection_delete(Request $request){
       $fine_collection = FineCollection::find($request->id);
       $fine_collection->delete();
-      return redirect()->back()->with('success_msg', 'আয় সফলভাবে মুছে ফেলা হয়েছে ।');
+      return redirect()->back()->with('success_msg', 'জরিমানা সফলভাবে মুছে ফেলা হয়েছে ।');
+    }
+
+    public function fine_sms(){
+      $classes = $this->getClasses();
+      $groups = $this->groupClasses();
+      $units = $this->getUnits();
+      return view('backEnd.accounts.fine_collection.fine_sms', compact('classes', 'groups', 'units'));
+    }
+
+    public function send_fine_sms(Request $request, SmsSendController $shorter){
+        $students = Student::where('school_id', Auth::getSchool())
+                            ->where('master_class_id', $request->master_class_id)
+                            ->where('group',$request->group_class_id)
+                            ->where('shift',$request->shift)
+                            ->where('section',$request->section)
+                            ->current()
+                            ->get();
+        $school = School::find(Auth::getSchool());
+        $school_name = ($school->short_name==NULL) ? $shorter->school_name_process($school->user->name) : $school->short_name;
+        $sms_limit = SmsLimit::where('school_id', $school->id)->first();
+        $sms_limit = $sms_limit?$sms_limit->fine_due_sms:'0';
+        $error = array();
+        $end_limit = array();
+        $msg = "";
+        if (!empty($school->api_key) && !empty($school->sender_id)) {
+            foreach ($students as $student) {
+                $sms_report = SmsReport::where('school_id', Auth::getSchool())->where('sms_type', 8)->where('student_id', $student->id)->whereYear('date', date('Y'))->whereMonth('date', date('m'))->count();
+                $total_fine = FineCollection::orderBy('id','desc')->where('school_id', Auth::getSchool())->where('student_id', $student->id)->first();
+                $total_fine = $total_fine?$total_fine->due:'0';
+                if ($school->sms_service==0) {
+                    if ($total_fine > 0) {
+                        $number = $student->f_mobile_no??$student->m_mobile_no;
+                        if (!empty($number)) {
+                            $mobile_number = "88".$number;
+                            $message = 'আপনার সন্তান '.$student->user->name.',শ্রেণী-'.$student->masterClass->name.', রোল-'.$student->roll.' এর '.$total_fine.' টাকা জরিমানা বকেয়া রয়েছে '.$school_name;
+                            $message = urlencode($message);
+                            $send_sms = $this->sms_send_by_api($school,$mobile_number,$message);
+                            $msg = "বকেয়া জরিমানা এস,এম,এস সফলভাবে পাঠানো হয়েছে ।";
+                        }else {
+                            $error[] = $student->user->name;
+                        }
+                    }
+                }else {
+                    if ($sms_report < $sms_limit) {
+                        if ($total_fine > 0) {
+                            $number = $student->f_mobile_no??$student->m_mobile_no;
+                            if (!empty($number)) {
+                                $mobile_number = "88".$number;
+                                // $mobile_number = "8801729890904";
+                                $message = 'আপনার সন্তান '.$student->user->name.',শ্রেণী-'.$student->masterClass->name.', রোল-'.$student->roll.' এর '.$total_fine.' টাকা জরিমানা বকেয়া রয়েছে '.$school_name;
+                                $message = urlencode($message);
+                                $send_sms = $this->sms_send_by_api($school,$mobile_number,$message);
+                                $success = json_decode($send_sms,true);
+                                if ($success['error']==0) {
+                                    $sms = new SmsReport;
+                                    $sms->sms_type = 8;
+                                    $sms->student_id = $student->id;
+                                    $sms->date = now();
+                                    $sms->save();
+                                }
+                                $msg = "বকেয়া জরিমানা এস,এম,এস সফলভাবে পাঠানো হয়েছে ।";
+                            }else {
+                                $error[] = $student->user->name;
+                            }
+                        }
+                    }else {
+                        $end_limit[] = $student->user->name;
+                    }
+                }
+
+            }
+
+        }else {
+            $msg = "এস,এম,এস এ,পি,আই এবং সেন্ডার আইডি সেটাপ করুন ।";
+        }
+        if (!isset($msg)) {
+            $msg = "বকেয়া জরিমানা খুজে পাওয়া যায়নি ।";
+        }
+        return redirect()->route('fine_sms')->with('success_msg',[$msg,$error,$end_limit]);
     }
 
 

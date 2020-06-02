@@ -31,7 +31,7 @@
                            <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                                <label class="" for="name">শিক্ষার্থীর নাম <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->user->name}}" class="form-control" type="text" name="name" id="name" placeholder="শিক্ষার্থীর নাম">
+                                   <input value="{{$studentData->user->name}}" class="form-control" type="text" name="name" id="name" placeholder="Student Full Name">
                                </div>
                                @if ($errors->has('name'))
                                    <span class="help-block">
@@ -148,7 +148,7 @@
                            <div class="form-group {{$errors->has('roll') ? 'has-error' : ''}}">
                                <label for="roll">শ্রেণী রোল নং <span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->roll}}" type="number" class="form-control" name="roll" id="roll" placeholder="শ্রেণী রোল নং">
+                                   <input value="{{$studentData->roll}}" type="text" class="form-control" name="roll" id="roll" placeholder="Student Class Roll">
                                </div>
                                @if ($errors->has('roll'))
                                    <span class="help-block">
@@ -244,7 +244,7 @@
                            <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                                <label class="" for="email">ইমেইল <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->user->email}}" class="form-control" type="email" name="email" id="email" placeholder="ইমেইল">
+                                   <input value="{{$studentData->user->email}}" class="form-control" type="email" name="email" id="email" placeholder="Student Email">
                                </div>
                                @if ($errors->has('email'))
                                    <span class="help-block">
@@ -293,7 +293,7 @@
                            <div class="form-group {{$errors->has('birth_rg_no') ? 'has-error' : ''}}">
                                <label class="" for="birth_rg_no">জন্ম নিবন্ধন নাম্বার <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->birth_rg_no}}" class="form-control" type="text" name="birth_rg_no" id="birth_rg_no" placeholder="জন্ম নিবন্ধন নাম্বার">
+                                   <input value="{{$studentData->birth_rg_no}}" class="form-control" type="text" name="birth_rg_no" id="birth_rg_no" placeholder="Student Birth Registration No">
                                </div>
                                @if($errors->has('birth_rg_no'))
                                    <span class="help-block">
@@ -309,7 +309,7 @@
                            <div class="form-group {{$errors->has('mobile') ? 'has-error' : ''}}">
                                <label class="" for="mobile">মোবাইল নম্বর </label>
                                <div class="">
-                                   <input value="{{$studentData->user->mobile}}" class="form-control" type="number" name="mobile" id="mobile" placeholder="মোবাইল নম্বর">
+                                   <input value="{{$studentData->user->mobile}}" class="form-control" type="text" name="mobile" id="mobile" placeholder="Student Contact">
                                </div>
                                <div id="mobileError" class="has-error" style="display: none">
                                    <span class="help-block">
@@ -327,7 +327,7 @@
                            <div class="form-group {{$errors->has('last_sd_org') ? 'has-error' : ''}}">
                                <label class="" for="last_sd_org"> সর্বশেষ অধ্যয়ন প্রতিষ্ঠানের নাম ও ঠিকানা </label>
                                <div class="">
-                                   <input value="{{$studentData->last_sd_org}}" class="form-control" type="text" name="last_sd_org" id="last_sd_org" placeholder="সর্বশেষ অধ্যয়ন প্রতিষ্ঠানের নাম ও ঠিকানা">
+                                   <input value="{{$studentData->last_sd_org}}" class="form-control" type="text" name="last_sd_org" id="last_sd_org" placeholder="The Latest Study Organization of Student">
                                </div>
                                @if($errors->has('last_sd_org'))
                                    <span class="help-block">
@@ -342,7 +342,7 @@
                            <div class="form-group {{$errors->has('re_to_lve') ? 'has-error' : ''}}">
                                <label class="" for="re_to_lve"> ছেড়ে আসার কারন </label>
                                <div class="">
-                                   <input value="{{$studentData->re_to_lve}}" class="form-control" type="text" name="re_to_lve" id="re_to_lve" placeholder="ছেড়ে আসার কারন ">
+                                   <input value="{{$studentData->re_to_lve}}" class="form-control" type="text" name="re_to_lve" id="re_to_lve" placeholder="Reason to leave">
                                </div>
                                @if($errors->has('re_to_lve'))
                                    <span class="help-block">
@@ -366,7 +366,7 @@
                            <div class="form-group {{$errors->has('pre_address') ? 'has-error' : ''}}">
                                <label for="pre_address">হোম নাম </label>
                                <div>
-                                   <input value="{{$studentData->pre_address}}" type="text" class="form-control" name="pre_address" id="pre_address" placeholder="হোম নাম">
+                                   <input value="{{$studentData->pre_address}}" type="text" class="form-control" name="pre_address" id="pre_address" placeholder="Student present address">
                                </div>
                                @if ($errors->has('pre_address'))
                                    <span class="help-block">
@@ -380,7 +380,7 @@
                            <div class="form-group {{$errors->has('Pre_h_no') ? 'has-error' : ''}}">
                                <label for="Pre_h_no">হাউস / হোল্ডিং নম্বর</label>
                                <div>
-                                   <input value="{{$studentData->Pre_h_no}}" type="text" class="form-control" name="Pre_h_no" id="Pre_h_no" placeholder="হাউস / হোল্ডিং নম্বর">
+                                   <input value="{{$studentData->Pre_h_no}}" type="text" class="form-control" name="Pre_h_no" id="Pre_h_no" placeholder="Student House / Holding Number">
                                </div>
                                @if ($errors->has('Pre_h_no'))
                                    <span class="help-block">
@@ -393,7 +393,7 @@
                            <div class="form-group {{$errors->has('pre_ro_no') ? 'has-error' : ''}}">
                                <label for="pre_ro_no">রাস্তা নম্বর</label>
                                <div>
-                                   <input value="{{$studentData->pre_ro_no}}" type="text" class="form-control" name="pre_ro_no" id="pre_ro_no" placeholder="রাস্তা নম্বর">
+                                   <input value="{{$studentData->pre_ro_no}}" type="text" class="form-control" name="pre_ro_no" id="pre_ro_no" placeholder="Student Road Number">
                                </div>
                                @if ($errors->has('pre_ro_no'))
                                    <span class="help-block">
@@ -408,7 +408,7 @@
                            <div class="form-group {{$errors->has('pre_vpm') ? 'has-error' : ''}}">
                                <label for="pre_vpm">গ্রাম / পারা / মহল্লা নাম<span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->pre_vpm}}" type="text" class="form-control" name="pre_vpm" id="pre_vpm" placeholder="গ্রাম / পারা / মহল্লা নাম">
+                                   <input value="{{$studentData->pre_vpm}}" type="text" class="form-control" name="pre_vpm" id="pre_vpm" placeholder="Student Village / Para / Mahalla">
                                </div>
                                @if ($errors->has('pre_vpm'))
                                    <span class="help-block">
@@ -422,7 +422,7 @@
                            <div class="form-group {{$errors->has('pre_poff') ? 'has-error' : ''}}">
                                <label for="pre_poff">ডাকঘর<span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->pre_poff}}" type="text" class="form-control" name="pre_poff" id="pre_poff" placeholder="ডাকঘর">
+                                   <input value="{{$studentData->pre_poff}}" type="text" class="form-control" name="pre_poff" id="pre_poff" placeholder="Student Post office">
                                </div>
                                @if ($errors->has('pre_poff'))
                                    <span class="help-block">
@@ -435,7 +435,7 @@
                            <div class="form-group {{$errors->has('pre_unim') ? 'has-error' : ''}}">
                                <label for="pre_unim">ইউনিয়ন / পৌরসভার নাম <span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->pre_unim}}" type="text" class="form-control" name="pre_unim" id="pre_unim" placeholder="ইউনিয়ন / পৌরসভার নাম">
+                                   <input value="{{$studentData->pre_unim}}" type="text" class="form-control" name="pre_unim" id="pre_unim" placeholder="Student Union / Municipality">
                                </div>
                                @if ($errors->has('pre_unim'))
                                    <span class="help-block">
@@ -450,7 +450,7 @@
                            <div class="form-group {{$errors->has('pre_subd') ? 'has-error' : ''}}">
                                <label for="pre_subd">উপ জেলা / থানা নাম <span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->pre_subd}}" type="text" class="form-control" name="pre_subd" id="pre_subd" placeholder="উপ জেলা / থানা নাম">
+                                   <input value="{{$studentData->pre_subd}}" type="text" class="form-control" name="pre_subd" id="pre_subd" placeholder="Student Sub District / Thana">
                                </div>
                                @if ($errors->has('pre_subd'))
                                    <span class="help-block">
@@ -464,7 +464,7 @@
                            <div class="form-group {{$errors->has('pre_district') ? 'has-error' : ''}}">
                                <label for="pre_district">জেলার নাম <span class="star">*</span></label>
                                <div>
-                                   <input value="{{$studentData->pre_district}}" type="text" class="form-control" name="pre_district" id="pre_district" placeholder="জেলার নাম">
+                                   <input value="{{$studentData->pre_district}}" type="text" class="form-control" name="pre_district" id="pre_district" placeholder="Student District">
                                </div>
                                @if ($errors->has('pre_district'))
                                    <span class="help-block">
@@ -477,7 +477,7 @@
                            <div class="form-group {{$errors->has('pre_postc') ? 'has-error' : ''}}">
                                <label for="pre_postc">পোস্ট কোড নং </label>
                                <div>
-                                   <input value="{{$studentData->pre_postc}}" type="number" class="form-control" name="pre_postc" id="pre_postc" placeholder="পোস্ট কোড নং">
+                                   <input value="{{$studentData->pre_postc}}" type="text" class="form-control" name="pre_postc" id="pre_postc" placeholder="Student Post Code">
                                </div>
                                @if ($errors->has('pre_postc'))
                                    <span class="help-block">
@@ -501,7 +501,7 @@
                            <div class="form-group {{$errors->has('per_address') ? 'has-error' : ''}}">
                                <label for="per_address">হোম নাম </label>
                                <div>
-                                   <input value="{{$studentData->per_address}}" type="text" class="form-control" name="per_address" id="per_address" placeholder="হোম নাম">
+                                   <input value="{{$studentData->per_address}}" type="text" class="form-control" name="per_address" id="per_address" placeholder="Student persent address">
                                </div>
                                @if ($errors->has('per_address'))
                                    <span class="help-block">
@@ -515,7 +515,7 @@
                            <div class="form-group {{$errors->has('per_h_no') ? 'has-error' : ''}}">
                                <label for="per_h_no">হাউস / হোল্ডিং নম্বর</label>
                                <div>
-                                   <input value="{{$studentData->per_h_no}}" type="text" class="form-control" name="per_h_no" id="per_h_no" placeholder="হাউস / হোল্ডিং নম্বর">
+                                   <input value="{{$studentData->per_h_no}}" type="text" class="form-control" name="per_h_no" id="per_h_no" placeholder="Student House / Holding Number">
                                </div>
                                @if ($errors->has('per_h_no'))
                                    <span class="help-block">
@@ -528,7 +528,7 @@
                            <div class="form-group {{$errors->has('per_ro_no') ? 'has-error' : ''}}">
                                <label for="per_ro_no">রাস্তা নম্বর</label>
                                <div>
-                                   <input value="{{$studentData->per_ro_no}}" type="text" class="form-control" name="per_ro_no" id="per_ro_no" placeholder="রাস্তা নম্বর">
+                                   <input value="{{$studentData->per_ro_no}}" type="text" class="form-control" name="per_ro_no" id="per_ro_no" placeholder="Student Road Number">
                                </div>
                                @if ($errors->has('per_ro_no'))
                                    <span class="help-block">
@@ -543,7 +543,7 @@
                            <div class="form-group {{$errors->has('per_vpm') ? 'has-error' : ''}}">
                                <label for="per_vpm">গ্রাম / পারা / মহল্লা নাম</label>
                                <div>
-                                   <input value="{{$studentData->per_vpm}}" type="text" class="form-control" name="per_vpm" id="per_vpm" placeholder="গ্রাম / পারা / মহল্লা নাম">
+                                   <input value="{{$studentData->per_vpm}}" type="text" class="form-control" name="per_vpm" id="per_vpm" placeholder="Student Village / Para / Mahalla">
                                </div>
                                @if ($errors->has('per_vpm'))
                                    <span class="help-block">
@@ -557,7 +557,7 @@
                            <div class="form-group {{$errors->has('per_poff') ? 'has-error' : ''}}">
                                <label for="per_poff">ডাকঘর</label>
                                <div>
-                                   <input value="{{$studentData->per_poff}}" type="text" class="form-control" name="per_poff" id="per_poff" placeholder="ডাকঘর">
+                                   <input value="{{$studentData->per_poff}}" type="text" class="form-control" name="per_poff" id="per_poff" placeholder="Student Post office">
                                </div>
                                @if ($errors->has('per_poff'))
                                    <span class="help-block">
@@ -570,7 +570,7 @@
                            <div class="form-group {{$errors->has('per_unim') ? 'has-error' : ''}}">
                                <label for="per_unim">ইউনিয়ন / পৌরসভার নাম </label>
                                <div>
-                                   <input value="{{$studentData->per_unim}}" type="text" class="form-control" name="per_unim" id="per_unim" placeholder="ইউনিয়ন / পৌরসভার নাম">
+                                   <input value="{{$studentData->per_unim}}" type="text" class="form-control" name="per_unim" id="per_unim" placeholder="Student Union / Municipality">
                                </div>
                                @if ($errors->has('per_unim'))
                                    <span class="help-block">
@@ -583,9 +583,9 @@
                    <div class="row">
                        <div class="col-sm-4">
                            <div class="form-group {{$errors->has('per_subd') ? 'has-error' : ''}}">
-                               <label for="per_subd">উপজেলা / থানা নাম </label>
+                               <label for="per_subd">উপ জেলা / থানা নাম </label>
                                <div>
-                                   <input value="{{$studentData->per_subd}}" type="text" class="form-control" name="per_subd" id="per_subd" placeholder="উপজেলা / থানা নাম ">
+                                   <input value="{{$studentData->per_subd}}" type="text" class="form-control" name="per_subd" id="per_subd" placeholder="Student Sub District / Thana">
                                </div>
                                @if ($errors->has('per_subd'))
                                    <span class="help-block">
@@ -599,7 +599,7 @@
                            <div class="form-group {{$errors->has('per_district') ? 'has-error' : ''}}">
                                <label for="per_district">জেলার নাম </label>
                                <div>
-                                   <input value="{{$studentData->per_district}}" type="text" class="form-control" name="per_district" id="per_district" placeholder="জেলার নাম">
+                                   <input value="{{$studentData->per_district}}" type="text" class="form-control" name="per_district" id="per_district" placeholder="Student District">
                                </div>
                                @if ($errors->has('per_district'))
                                    <span class="help-block">
@@ -612,7 +612,7 @@
                            <div class="form-group {{$errors->has('per_postc') ? 'has-error' : ''}}">
                                <label for="per_postc">পোস্ট কোড নং </label>
                                <div>
-                                   <input value="{{$studentData->per_postc}}" type="number" class="form-control" name="per_postc" id="per_postc" placeholder="পোস্ট কোড নং">
+                                   <input value="{{$studentData->per_postc}}" type="text" class="form-control" name="per_postc" id="per_postc" placeholder="Student Post Code">
                                </div>
                                @if ($errors->has('per_postc'))
                                    <span class="help-block">
@@ -638,7 +638,7 @@
                            <div class="form-group {{$errors->has('father_name') ? 'has-error' : ''}}">
                                <label class="" for="father_name">পিতার নাম <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->father_name}}" class="form-control" type="text" name="father_name" id="father_name" placeholder="পিতার নাম">
+                                   <input value="{{$studentData->father_name}}" class="form-control" type="text" name="father_name" id="father_name" placeholder="Student Fater name">
                                </div>
                                @if ($errors->has('father_name'))
                                    <span class="help-block">
@@ -653,7 +653,7 @@
                             <div class="form-group {{$errors->has('f_career') ? 'has-error' : ''}}">
                                 <label class="" for="f_career">পেশা <span class="star">*</span></label>
                                 <div class="">
-                                    <input value="{{$studentData->f_career}}" class="form-control" type="text" name="f_career" id="f_career" placeholder="পেশা">
+                                    <input value="{{$studentData->f_career}}" class="form-control" type="text" name="f_career" id="f_career" placeholder="Student Father Career">
                                 </div>
                                 @if ($errors->has('f_career'))
                                    <span class="help-block">
@@ -666,7 +666,7 @@
                             <div class="form-group {{$errors->has('f_m_income') ? 'has-error' : ''}}">
                                 <label class="" for="f_m_income">মাসিক আয়</label>
                                 <div class="">
-                                    <input value="{{$studentData->f_m_income}}" class="form-control" type="number" name="f_m_income" id="f_m_income" placeholder="মাসিক আয়">
+                                    <input value="{{$studentData->f_m_income}}" class="form-control" type="text" name="f_m_income" id="f_m_income" placeholder="Father Monthly Income">
                                 </div>
                                 @if ($errors->has('f_m_income'))
                                    <span class="help-block">
@@ -679,7 +679,7 @@
                             <div class="form-group {{$errors->has('f_edu_c') ? 'has-error' : ''}}">
                                 <label class="" for="f_edu_c">শিক্ষাগত যোগ্যতা</label>
                                 <div class="">
-                                    <input value="{{$studentData->f_edu_c}}" class="form-control" type="text" name="f_edu_c" id="f_edu_c" placeholder="শিক্ষাগত যোগ্যতা">
+                                    <input value="{{$studentData->f_edu_c}}" class="form-control" type="text" name="f_edu_c" id="f_edu_c" placeholder="Father Educational Qualification">
                                 </div>
                                  @if ($errors->has('f_edu_c'))
                                     <span class="help-block">
@@ -694,7 +694,7 @@
                             <div class="form-group">
                                 <label class="" for="f_mobile_no">ফোন নাম্বার</label>
                                 <div class="">
-                                    <input value="{{$studentData->f_mobile_no}}" class="form-control" type="number" name="f_mobile_no" id="f_mobile_no" placeholder="ফোন নাম্বার">
+                                    <input value="{{$studentData->f_mobile_no}}" class="form-control" type="text" name="f_mobile_no" id="f_mobile_no" placeholder=" Father Mobile">
                                 </div>
                             </div>
                             <div id="f_mobile_Error" class="has-error" style="display: none">
@@ -713,7 +713,7 @@
                             <div class="form-group {{$errors->has('f_email') ? 'has-error' : ''}}">
                                 <label class="" for="f_email">ইমেইল</label>
                                 <div class="">
-                                    <input value="{{$studentData->f_email}}" class="form-control" type="text" name="f_email" id="f_email" placeholder="ইমেইল">
+                                    <input value="{{$studentData->f_email}}" class="form-control" type="text" name="f_email" id="f_email" placeholder="Father Email">
                                 </div>
                                 @if ($errors->has('f_email'))
                                     <span class="help-block">
@@ -729,7 +729,7 @@
                             <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                 <label class="" for="f_nid">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার </label>
                                 <div class="">
-                                    <input value="{{$studentData->f_nid}}" class="form-control" type="text" name="f_nid" id="f_nid" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার ">
+                                    <input value="{{$studentData->f_nid}}" class="form-control" type="text" name="f_nid" id="f_nid" placeholder="Student Fater NID/Passport/Driving Number">
                                 </div>
                                  @if ($errors->has('f_nid'))
                                     <span class="help-block">
@@ -750,7 +750,7 @@
                            <div class="form-group {{$errors->has('mother_name') ? 'has-error' : ''}}">
                                <label class="" for="mother_name">Mother Name <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->mother_name}}" class="form-control" type="text" name="mother_name" id="mother_name" placeholder="Mother Name">
+                                   <input value="{{$studentData->mother_name}}" class="form-control" type="text" name="mother_name" id="mother_name" placeholder="Student Mother Name">
                                </div>
                                @if ($errors->has('mother_name'))
                                     <span class="help-block">
@@ -766,7 +766,7 @@
                            <div class="form-group {{$errors->has('m_career') ? 'has-error' : ''}}">
                                <label class="" for="m_career">পেশা <span class="star">*</span></label>
                                <div class="">
-                                   <input value="{{$studentData->m_career}}" class="form-control" type="text" name="m_career" id="m_career" placeholder="পেশা">
+                                   <input value="{{$studentData->m_career}}" class="form-control" type="text" name="m_career" id="m_career" placeholder="Mother Career">
                                </div>
                                @if ($errors->has('m_career'))
                                     <span class="help-block">
@@ -779,7 +779,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_m_income">মাসিক আয়</label>
                                <div class="">
-                                   <input value="{{$studentData->m_m_income}}" class="form-control" type="number" name="m_m_income" id="m_m_income" placeholder="মাসিক আয়">
+                                   <input value="{{$studentData->m_m_income}}" class="form-control" type="text" name="m_m_income" id="m_m_income" placeholder="Mother Monthly Income">
                                </div>
                                @if ($errors->has('m_m_income'))
                                     <span class="help-block">
@@ -792,7 +792,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_edu_quali">শিক্ষাগত যোগ্যতা</label>
                                <div class="">
-                                   <input value="{{$studentData->m_edu_quali}}" class="form-control" type="text" name="m_edu_quali" id="m_edu_quali" placeholder="শিক্ষাগত যোগ্যতা">
+                                   <input value="{{$studentData->m_edu_quali}}" class="form-control" type="text" name="m_edu_quali" id="m_edu_quali" placeholder="Educational Qualification">
                                </div>
                                @if ($errors->has('m_edu_quali'))
                                     <span class="help-block">
@@ -807,7 +807,7 @@
                            <div class="form-group">
                                <label class="" for="m_mobile_no">ফোন নাম্বার </label>
                                <div class="">
-                                   <input value="{{$studentData->m_mobile_no}}" class="form-control" type="number" name="m_mobile_no" id="m_mobile_no" placeholder=" ফোন নাম্বার">
+                                   <input value="{{$studentData->m_mobile_no}}" class="form-control" type="text" name="m_mobile_no" id="m_mobile_no" placeholder=" Father Mobile">
                                </div>
                            </div>
                            <div id="m_mobile_Error" class="has-error" style="display: none">
@@ -826,7 +826,7 @@
                            <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_email">ইমেইল</label>
                                <div class="">
-                                   <input value="{{$studentData->m_email}}" class="form-control" type="text" name="m_email" id="m_email" placeholder="ইমেইল">
+                                   <input value="{{$studentData->m_email}}" class="form-control" type="text" name="m_email" id="m_email" placeholder="Father Email">
                                </div>
                                @if ($errors->has('m_email'))
                                    <span class="help-block">
@@ -842,7 +842,7 @@
                            <div class="form-group {{$errors->has('m_nid') ? 'has-error' : ''}}">
                                <label class="" for="m_nid">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার </label>
                                <div class="">
-                                   <input value="{{$studentData->m_nid}}" class="form-control" type="text" name="m_nid" id="m_nid" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার">
+                                   <input value="{{$studentData->m_nid}}" class="form-control" type="text" name="m_nid" id="m_nid" placeholder="Student Mother NID/Passport/Driving Number">
                                </div>
                                 @if ($errors->has('m_nid'))
                                    <span class="help-block">
@@ -860,8 +860,7 @@
                           <div class="form-group {{$errors->has('local_gar') ? 'has-error' : ''}}">
                               <label class="" for="local_gar">পিতা / মাতার অবর্তমানে স্থানীয় অভিভাবকের নাম </label>
                               <div class="">
-                                  <input value="{{$studentData->local_gar}}" class="form-control" type="text" name="local_gar" id="local_gar" placeholder="পিতা / মাতার অবর্তমানে স্থানীয় অভিভাবকের নাম </label>
-                              <div class="">">
+                                  <input value="{{$studentData->local_gar}}" class="form-control" type="text" name="local_gar" id="local_gar" placeholder="Student Mother Name">
                               </div>
                                @if ($errors->has('relation'))
                                   <span class="help-block">
@@ -878,7 +877,7 @@
                           <div class="form-group">
                               <label class="" for="career">পেশা </label>
                               <div class="">
-                                  <input value="{{$studentData->career}}" class="form-control" type="text" name="career" id="career" placeholder="পেশা">
+                                  <input value="{{$studentData->career}}" class="form-control" type="text" name="career" id="career" placeholder="Guardian Career">
                               </div>
                           </div>
                           
@@ -892,7 +891,7 @@
                           <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                               <label class="" for="relation">সম্পর্ক</label>
                               <div class="">
-                                  <input value="{{$studentData->relation}}" class="form-control" type="text" name="relation" id="relation" placeholder="সম্পর্ক">
+                                  <input value="{{$studentData->relation}}" class="form-control" type="text" name="relation" id="relation" placeholder="Relation With Student">
                               </div>
                               @if ($errors->has('relation'))
                                   <span class="help-block">
@@ -907,7 +906,7 @@
                           <div class="form-group">
                               <label class="" for="guardian_edu">শিক্ষাগত যোগ্যতা </label>
                               <div class="">
-                                  <input value="{{$studentData->guardian_edu}}" class="form-control" type="text" name="guardian_edu" id="guardian_edu Educational Qualification" placeholder="শিক্ষাগত যোগ্যতা">
+                                  <input value="{{$studentData->guardian_edu}}" class="form-control" type="text" name="guardian_edu" id="guardian_edu Educational Qualification" placeholder="Guardian Educational Qualification">
                               </div>
                           </div>
                           
@@ -921,7 +920,7 @@
                           <div class="form-group {{$errors->has('f_nid') ? 'has-error' : ''}}">
                               <label class="" for="guardian_mobile">ফোন নাম্বার </label>
                               <div class="">
-                                  <input value="{{$studentData->guardian_mobile}}" class="form-control" type="number" name="guardian_mobile" id="guardian_mobile" placeholder="ফোন নাম্বার">
+                                  <input value="{{$studentData->guardian_mobile}}" class="form-control" type="text" name="guardian_mobile" id="guardian_mobile" placeholder="Guardian Mobile">
                               </div>
                               <div id="Grdn_mobileError" class="has-error" style="display: none">
                                   <span class="alert-danger">
@@ -941,7 +940,7 @@
                           <div class="form-group">
                               <label class="" for="guardian_email">ইমেইল </label>
                               <div class="">
-                                  <input value="{{$studentData->guardian_email}}" class="form-control" type="text" name="guardian_email" id="guardian_email" placeholder="ইমেইল">
+                                  <input value="{{$studentData->guardian_email}}" class="form-control" type="text" name="guardian_email" id="guardian_email" placeholder="Guardian email">
                               </div>
                           </div>
                           @if($errors->has('guardian_email'))
@@ -954,7 +953,7 @@
                           <div class="form-group {{$errors->has('guardian_nid') ? 'has-error' : ''}}">
                               <label class="" for="guardian_nid">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার </label>
                               <div class="">
-                                  <input value="{{$studentData->guardian_nid}}" class="form-control" type="text" name="guardian_nid" id="guardian_nid" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্সের নাম্বার">
+                                  <input value="{{$studentData->guardian_nid}}" class="form-control" type="text" name="guardian_nid" id="guardian_nid" placeholder="Student National ID / Passport / Driving License">
                               </div>
                               @if($errors->has('guardian_nid'))
                                   <span class="help-block">

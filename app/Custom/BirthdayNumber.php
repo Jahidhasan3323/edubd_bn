@@ -39,7 +39,8 @@ class BirthdayNumber{
                 }
             }
         }
-        return implode(',',$numbers);
+        // return ["8801729890904"];
+        return $numbers;
     }
 
     public static function school_name_process($name)

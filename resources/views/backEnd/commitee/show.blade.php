@@ -23,8 +23,8 @@
                 <table class="table table-hover table-bordered">
                    <tr><th style="width: 50%">পুরো নাম</th><td colspan="4">{{$commitee->user->name}}</td></tr>
                     <tr><th>লিঙ্গ</th><td>{{$commitee->gender}}</td></tr>
-                    <tr><th>Educational Qualification </th><td>{{$commitee->edu_quali}}</td></tr>
-                    <tr><th>কমিটি পদবী</th><td>{{$commitee->designation}}</td></tr>
+                    <tr><th>শিক্ষগত যোগ্যতা </th><td>{{$commitee->edu_quali}}</td></tr>
+                    <tr><th>কমিটি পদবী</th><td>{{$commitee->designation->name??''}}</td></tr>
                     <tr><th>যোগদানের তারিখ</th><td>{{$commitee->join_date}}</td></tr>
                     <tr><th>অবসরের তারিখ</th><td>{{$commitee->retire_date}}</td></tr>
                 </table>

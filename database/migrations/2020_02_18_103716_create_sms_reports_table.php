@@ -17,7 +17,7 @@ class CreateSmsReportsTable extends Migration
             $table->increments('id');
             $table->integer('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade')->onUpdate('cascade');
-            $table->tinyInteger('sms_type')->default(1)->comment('1 for Notice, 2 for Result');
+            $table->tinyInteger('sms_type')->default(1)->comment('1=Notice, 2=Result,3=Due,4=Fee ,5=Fine,6=Income,7=Expense,8=Due Fine');
             $table->integer('student_id')->nullable();
             $table->timestamp('date');
             $table->softDeletes();

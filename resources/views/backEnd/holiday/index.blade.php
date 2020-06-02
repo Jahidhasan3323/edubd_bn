@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'বিষয় তথ্য')
+@section('mainTitle', 'ছুটির তালিকা')
 @section('active_class1', 'active')
 
 @section('content')
@@ -23,7 +23,6 @@
                 <thead>
                     <tr>
                         <th># ক্রমিক নং</th>
-                        <th>তারিখ</th>
                         <th>মাস</th>
                         <th>বছর</th>
                         <th>মোট ছুটি</th>
@@ -35,7 +34,6 @@
                 @foreach($holidays as $holiday)
                       <tr>
                         <td>{{$x++}}</td>
-                        <td>{{str_replace($s, $r, $holiday->date->format('d-m-Y'))}}</td>
                         <td>{{str_replace($s, $r, $months[$holiday->date->format('m')-1])}}</td>
                         <td>{{str_replace($s, $r, $holiday->date->format('Y'))}}</td>
                         <td>{{str_replace($s, $r, $holiday->total)}}</td>
@@ -53,7 +51,6 @@
                         <tfoot>
                            <tr>
                                 <th># ক্রমিক নং</th>
-                                <th>তারিখ</th>
                                 <th>মাস</th>
                                 <th>বছর</th>
                                 <th>মোট ছুটি</th>

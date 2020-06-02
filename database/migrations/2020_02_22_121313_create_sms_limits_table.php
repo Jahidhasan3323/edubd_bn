@@ -24,6 +24,7 @@ class CreateSmsLimitsTable extends Migration
             $table->integer('fine_collection')->nullable()->comment('Monthly per Student');
             $table->integer('income')->nullable()->comment('Monthly');
             $table->integer('expense')->nullable()->comment('Monthly');
+            $table->integer('fine_due_sms')->nullable()->comment('Monthly per Student');
             $table->softDeletes();
             $table->timestamps();
         });

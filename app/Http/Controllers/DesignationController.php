@@ -62,6 +62,7 @@ class DesignationController extends Controller
 
         $validator =Validator::make($request->all(), [
                    'name' => 'required|string|unique:designations',
+                   'type' => 'required',
                      ]);
 
          if ($validator->fails()) {
@@ -71,6 +72,7 @@ class DesignationController extends Controller
          }
 
         $data['name'] = $request->name;
+        $data['type'] = $request->type;
         if (Designation::create($data)){
             Session::flash('sccmgs', 'পদবী সফলভাবে যোগ করা হয়েছে !');
             return redirect()->back();
@@ -123,6 +125,7 @@ class DesignationController extends Controller
         }
         $validator =Validator::make($request->all(), [
                    'name' => ['required','string', Rule::unique('designations', 'name')->ignore($designation->id)],
+                   'name' => ['required'],
                      ]);
 
          if ($validator->fails()) {
@@ -132,7 +135,7 @@ class DesignationController extends Controller
          }
 
 
-        $data = $request->only('name');
+        $data = $request->only('name','type');
         if ($designation->update($data)){
             Session::flash('sccmgs', 'পদবী সফলভাবে আপডেট করা হয়েছে !');
             return redirect()->back();

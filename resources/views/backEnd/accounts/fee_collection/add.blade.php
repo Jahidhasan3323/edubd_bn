@@ -655,6 +655,11 @@
             var fee_cat_id = $(this).find(":selected").val();
             var fee_view_id = $(this).attr("id");
             // alert(fee_view_id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url : "{{route('get_fee_cat_amount')}}",
                 type: 'POST',

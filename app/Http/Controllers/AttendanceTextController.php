@@ -10,27 +10,27 @@ use App\School;
 class AttendanceTextController extends Controller
 {
     public function add(){
-		$attend = AttendanceText::where('type',1)->select('school_id')->get();
-		$absent = AttendanceText::where('type',2)->select('school_id')->get();
-		$attend_schools = School::whereNotIn('id', $attend)->get();
-		$absent_schools = School::whereNotIn('id', $absent)->get();
-		return view('backEnd.attendance_text.add',compact('attend_schools', 'absent_schools'));
+		$schools = School::all();
+		return view('backEnd.attendance_text.add',compact('schools'));
 	}
 
     public function store(Request $request){
+        $duplicate = AttendanceText::where('school_id',$request->school_id)->where('type', $request->type)->first();
+        if($duplicate){
+            return redirect()->back()->with('errmgs', 'এই প্রতিষ্ঠানের জন্য বার্তাটি পূর্বেই যোগ করা হয়েছে ।') ;
+        }
 		$this->validate($request,[
 			"school_id" => "required",
 			"content" => "required",
 		]);
 		$data = $request->all();
 		AttendanceText::create($data);
-		return redirect()->route('attendanceText.list')->with('sccmgs', 'উপস্থিতি বার্তা সফলভাবে যোগ করা হয়েছে ।');
+		return redirect()->route('attendanceText.list')->with('sccmgs', 'বার্তা সফলভাবে যোগ করা হয়েছে ।');
 	}
 
     public function list(Request $request){
-		$attends = AttendanceText::where('type',1)->get();
-		$absents = AttendanceText::where('type',2)->get();
-		return view('backEnd.attendance_text.list',compact('attends', 'absents'));
+		$attendances = AttendanceText::all();
+		return view('backEnd.attendance_text.list',compact('attendances'));
 	}
 
     public function edit($id){
@@ -45,12 +45,12 @@ class AttendanceTextController extends Controller
 		]);
 		$data = $request->all();
 		AttendanceText::find($id)->update($data);
-		return redirect()->route('attendanceText.list')->with('sccmgs', 'উপস্থিতি বার্তা সফলভাবে আপডেট করা হয়েছে ।');
+		return redirect()->route('attendanceText.list')->with('sccmgs', 'বার্তা সফলভাবে আপডেট করা হয়েছে ।');
 	}
 
 	public function delete($id){
 		$attendance = AttendanceText::find($id)->forceDelete();
-		return redirect()->route('attendanceText.list')->with('sccmgs', 'উপস্থিতি বার্তা সফলভাবে মুছে ফেলা হয়েছে ।');
+		return redirect()->route('attendanceText.list')->with('sccmgs', 'বার্তা সফলভাবে মুছে ফেলা হয়েছে ।');
 	}
 
 }

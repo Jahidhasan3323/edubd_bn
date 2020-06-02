@@ -48,7 +48,7 @@ class everyDay extends Command
         $schools = School::pluck('id');
         foreach($schools as $key => $school_id) {
             $time = ImportantSetting::where('school_id',$school_id)->first();
-            $time = $time?date('g:i a', strtotime($time->atten_end_time)):date('g:i a',strtotime('12:40 pm'));
+            $time = $time?date('g:i a', strtotime($time->atten_end_time)):date('g:i a',strtotime('10:10 am'));
             if ($time==date('g:i a')) {
                 $day = Holiday::whereIn('school_id',[$school_id,0])->whereDate('date',date('Y-m-d'))->first();
                 $this->student_attendance($day,$school_id);
@@ -79,7 +79,7 @@ class everyDay extends Command
             if($day){
                 $data['status']='H';
             }
-            // dd($data);
+            dd($data);
             AttenStudent::create($data);
         }
     }

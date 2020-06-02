@@ -18,6 +18,7 @@ class CreateMessageLengthsTable extends Migration
             $table->integer('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('notification')->default(0);
+            $table->tinyInteger('birthday_sms')->default(0)->comment('1=Enable, 0=Disable');
             $table->softDeletes();
             $table->timestamps();
         });

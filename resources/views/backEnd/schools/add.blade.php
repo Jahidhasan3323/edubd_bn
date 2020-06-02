@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="" for="sms_service">প্রতিষ্ঠানের এস,এম,এস সার্ভিস<span class="star">*</span></label>
                             <select class="form-control" id="sms_service" name="sms_service">
@@ -181,7 +181,18 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="attendance_sms">অটোমেটিক উপস্থিতি এস,এম,এস সেন্ড<span class="star">*</span></label>
+                            <select class="form-control" id="attendance_sms" name="attendance_sms">
+                                <option value="0">এস,এম,এস বন্ধ রাখুন</option>
+                                <option value="1">শিক্ষক ও কর্মচারী এস,এম,এস</option>
+                                <option value="2">শিক্ষার্থী এস,এম,এস</option>
+                                <option value="3">শিক্ষক-কর্মচারী ও শিক্ষার্থী এস,এম,এস</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="form-group {{$errors->has('code') ? 'has-error' : ''}}">
                             <label class="" for="code">কোড <span class="star">*</span></label>
                             <div class="">
@@ -196,7 +207,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="status">অবস্থা <span class="star">*</span></label>
                             <select class="form-control" id="status" name="status">
@@ -240,7 +251,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-4">
+                        <div class="form-group {{$errors->has('attend_percentage_limit') ? 'has-error' : ''}}">
+                            <label for="attend_percentage_limit">এস,এম,এসের জন্য উপস্থিতি লিমিট (%) </label>
+                            <div class="">
+                                <input class="form-control" type="text" value="{{ old('attend_percentage_limit',10) }}" name="attend_percentage_limit" id="attend_percentage_limit">
+                            </div>
+
+                            @if($errors->has('attend_percentage_limit'))
+                                <span class="help-block">
+                                    <strong>{{$errors->first('attend_percentage_limit')}}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
                         <div class="form-group {{$errors->has('school_type_id') ? 'has-error' : ''}}">
                             <label for="school_type_id">প্রতিষ্ঠানের টাইপ নির্বাচন করুন <span class="star">*</span></label>
                             <select name="school_type_id[]" id="school_type_id" class="form-control" multiple="true">
@@ -257,7 +282,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-group {{$errors->has('service_type_id') ? 'has-error' : ''}}">
                             <label for="service_type_id">সেবার ধরণ <span class="star">*</span></label>
                             <select name="service_type_id" id="service_type_id" class="form-control">

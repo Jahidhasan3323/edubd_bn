@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'বিষয় তথ্য')
+@section('mainTitle', 'ছুটির তালিকা')
 @section('active_class1', 'active')
 
 @section('content')

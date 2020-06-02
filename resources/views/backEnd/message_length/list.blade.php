@@ -1,12 +1,12 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'বার্তার লিমিট')
+@section('mainTitle', 'বার্তা সেটিং')
 @section('message_length', 'active')
 
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">বার্তার লিমিট তালিকা</h1>
+            <h1 class="text-center text-temp">বার্তা সেটিং তালিকা</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -24,6 +24,7 @@
                             <th class="text-center">ক্রমিক</th>
                             <th class="text-center">প্রতিষ্ঠান</th>
                             <th class="text-center">নোটিফিকেশন</th>
+                            <th class="text-center">জন্মদিনের বার্তা</th>
                             <th class="text-center">অ্যাকশন</th>
                         </tr>
                     </thead>
@@ -35,7 +36,12 @@
                             <tr>
                                 <td class="text-center">{{ $i++ }}</td>
                                 <td>{{ $message_length->school->user->name }}</td>
-                                <td>{{ $message_length->notification }}</td>
+                                <td class="text-center">{{ $message_length->notification }}</td>
+                                <td class="text-center">
+                                    @if ($message_length->birthday_sms==1) <span class="text-success">সক্রিয়</span>
+                                    @else <span class="text-danger">নিষ্ক্রিয়</span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                    <a href="{{ route('messageLength.edit', $message_length->id) }}">
                                        <button type="button" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </button>

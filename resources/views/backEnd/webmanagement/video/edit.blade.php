@@ -1,6 +1,6 @@
 @extends('backEnd.master',['nav'=>'active'])
 
-@section('mainTitle', 'ভিডিও পরিবর্তন করুন')
+@section('mainTitle', 'Edit Image')
 @section('head_section')
     <style>
 
@@ -10,7 +10,7 @@
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">ভিডিও পরিবর্তন করুন</h1>
+            <h1 class="text-center text-temp">ছবি পরিবর্তন করুন</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -29,7 +29,7 @@
                 {{csrf_field()}}
                 {{method_field('PUT')}}
                 <div class="row">
-
+                  
                    <div class="col-sm-4">
                       <div class="form-group {{$errors->has('tittle') ? 'has-error' : ''}}">
                            <label for="photo">টাইটেল </label>
@@ -69,7 +69,7 @@
                                     <option value="">ধরণ নির্বাচন</option>
                                     <option value="1">ছবি</option>
                                     <option value="2">ভিডিও</option>
-
+                                    
                                 </select>
                             </div>
                         </div>
@@ -104,8 +104,8 @@
                            @endif
                        </div>
                     </div>
-
-
+                    
+                   
                </div>
                <div class="row">
                    <div class="col-sm-4">
@@ -132,7 +132,7 @@
                 </div>
                <hr>
 
-
+                
 
                 <div class="">
                     <div class="row">
@@ -146,7 +146,7 @@
             </form>
         </div>
     </div>
-
+    
     <script type="text/javascript">
        var openFile = function(event) {
        var input = event.target;
@@ -182,10 +182,10 @@
     <script src="{{asset('backEnd/js/jquery-ui.js')}}"></script>
     <script>
         $( function() {
-            $( ".date" ).datepicker({
+            $( ".date" ).datepicker({ 
                 dateFormat: 'dd-mm-yy',
                 changeMonth: true,
-                changeYear: true
+                changeYear: true 
             }).val();
         } );
     </script>

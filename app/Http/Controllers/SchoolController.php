@@ -295,7 +295,6 @@ class SchoolController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'social_post_access' => 'required',
             'email' => ['required','email','max:255', Rule::unique('users', 'email')->ignore($user_id)],
             'address' => 'required',
             'mobile' => ['required','max:255', Rule::unique('users', 'mobile')->ignore($user_id)],

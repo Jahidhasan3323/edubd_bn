@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'সমস্যার তালিকা')
+@section('mainTitle', 'ভিজিটর তালিকা')
 @section('active_visitor', 'active')
 @section('style')
     <style>
@@ -18,7 +18,7 @@
 
         <div class="panel-body col-md-12" style="border:1px solid #ddd;">
             <div class="page-header">
-                <h1 class="text-center text-temp">নতুন সমস্যার তালিকা</h1>
+                <h1 class="text-center text-temp">ভিজিটর তালিকা</h1>
             </div>
             <div class="table-responsive">
                 <table id="pending_tbl" class="table table-bordered table-hover table-striped">

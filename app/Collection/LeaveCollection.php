@@ -2,6 +2,7 @@
 namespace App\Collection;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\Student;
 use App\AttenStudent;
 use Auth;
 
@@ -13,11 +14,17 @@ class LeaveCollection extends Collection{
     	return $total;
     }
 
+    public function total_students($query){
+        $query['school_id']=Auth::getSchool();
+    	$total=Student::where($query)->get()->count();
+    	return $total;
+    }
+
     public function total_absent(){
         $query['status']="A";
         $query['school_id']=Auth::getSchool();
-    	$total=AttenStudent::where($query)->whereDate('date',date('Y-m-d'))->get()->count();
-    	return $total;
+        $total=AttenStudent::where($query)->whereDate('date',date('Y-m-d'))->get()->count();
+        return $total;
     }
     public function total_present(){
         $query['status']="P";

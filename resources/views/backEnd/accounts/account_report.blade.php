@@ -71,7 +71,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <center>
-                              <button id="save" type="submit" class="btn btn-block btn-info"> ব্যালেন্স দেখুন</button>
+                              <button id="save" type="submit" class="btn btn-info"> ব্যালেন্স দেখুন</button>
                             </center>
                         </div>
                     </div>
@@ -131,10 +131,10 @@
                   </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <center>
-                              <button id="save" type="submit" class="btn btn-block btn-info"> ফি কালেকশন রিপোর্ট দেখুন</button>
+                              <button id="save" type="submit" class="btn btn-info"> ফি কালেকশন রিপোর্ট দেখুন</button>
                             </center>
                         </div>
                     </div>
@@ -198,9 +198,9 @@
                   </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <div class="form-group">
-                            <button id="save" type="submit" class="btn btn-block btn-info">আয় রিপোর্ট দেখুন</button>
+                            <center><button id="save" type="submit" class="btn btn-info">আয় রিপোর্ট দেখুন</button></center>
                         </div>
                     </div>
                 </div>
@@ -242,9 +242,9 @@
                   </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <div class="form-group">
-                            <button id="save" type="submit" class="btn btn-block btn-info"> ব্যয় রিপোর্ট দেখুন </button>
+                            <center><button id="save" type="submit" class="btn btn-info"> ব্যয় রিপোর্ট দেখুন </button></center>
                         </div>
                     </div>
                 </div>
@@ -310,7 +310,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <center>
-                              <button id="save" type="submit" class="btn btn-block btn-info"> ব্যালেন্স দেখুন</button>
+                              <button id="save" type="submit" class="btn btn-info"> ব্যালেন্স দেখুন</button>
                             </center>
                         </div>
                     </div>
@@ -377,7 +377,7 @@
                   <div class="row">
                       <div class="col-sm-4">
                           <div class="form-group">
-                              <button id="save" type="submit" class="btn btn-block btn-info"> ব্যাংক রিপোর্ট দেখুন </button>
+                              <center><button id="save" type="submit" class="btn btn-info"> ব্যাংক রিপোর্ট দেখুন </button></center>
                           </div>
                       </div>
                   </div>

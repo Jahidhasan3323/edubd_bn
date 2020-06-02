@@ -1,7 +1,7 @@
 @extends('backEnd.master')
 
 @section('mainTitle', 'অটোমেটিক উপস্থিতি অপশন')
-@section('active_attendance_text', 'active')
+@section('message_length', 'active')
 
 @section('content')
     @if(Session::has('errmgs'))

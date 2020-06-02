@@ -1,12 +1,12 @@
 @extends('backEnd.master')
  
-@section('mainTitle', 'কর্মচারী ছুটি এন্ট্রি')
+@section('mainTitle', 'ছুটি এন্ট্রি')
 @section('active_class1', 'active')
 
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">ছুটি তৈরি করুন </h1>
+            <h1 class="text-center text-temp">ছুটি সম্পাদন করুন </h1>
         </div>
 
         @if(Session::has('errmgs'))

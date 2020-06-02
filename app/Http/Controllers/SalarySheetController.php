@@ -26,8 +26,8 @@ class SalarySheetController extends Controller
       ]);
       $month = $request->month;
       $year = $request->year;
-      $holiday = Holiday::where('school_id', Auth::getSchool())->where('month', $month)
-                                                  ->where('year', $year)
+      $holiday = Holiday::where('school_id', Auth::getSchool())->whereMonth('date', $month)
+                                                  ->whereYear('date', $year)
                                                   ->count();
       $employees = Staff::where('school_id', Auth::getSchool())->get();
       $basic_increase_rate = SalaryFund::where('school_id', Auth::getSchool())->where('status', 'Addition')->sum('amount');

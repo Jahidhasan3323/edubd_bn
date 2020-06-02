@@ -32,11 +32,12 @@ class CreateSchoolsTable extends Migration
             $table->string('logo')->nullable();
             $table->string('signature_p')->nullable();
             $table->integer('sms_service')->default(0);
+            $table->tinyInteger('attendance_sms')->default(0)->comment('0=No sms, 1=Employee sms,2=Student sms,3=Employee & Student');
+            $table->tinyInteger('attendance_option')->default(1)->comment('1=In Time sms, 2= In Time and Out Time sms');
+            $table->integer('attend_percentage_limit')->default(10)->comment('Attend Percentage limit check when send attendance sms');
             $table->boolean('status');
-            $table->integer('social_post_access')->default(0)->comment('Social site post approve access');
             $table->string('total_student');
             $table->integer('service_type_id')->default(1);
-            $table->tinyInteger('attendance_option')->default(1)->comment('1=In Time sms, 2= In Time and Out Time sms');
             $table->timestamps();
             $table->softDeletes();
         });

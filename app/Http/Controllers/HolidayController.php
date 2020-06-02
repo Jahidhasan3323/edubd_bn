@@ -18,12 +18,17 @@ class HolidayController extends Controller
     public $months = Array ('January','February','March','April','May','June','July','August','September','October','November','December');
 
     public function index()
-    {
-        $holidays =Holiday::where(['school_id'=>Auth::getSchool()])
-                           ->whereYear('date', '=', date('Y'))
-                           ->groupBy(DB::raw('MONTH(date)'))
-                           ->select('*', DB::raw('count(*) as total'))
-                           ->get();
+    {      
+        if(Auth::is('root')){
+           $school_id=[0];
+        }else{
+           $school_id=[Auth::getSchool(),0];
+        }        
+        $holidays =Holiday::whereYear('date', '=', date('Y'))
+                   ->whereIn('school_id',$school_id)
+                   ->groupBy(DB::raw('MONTH(date)'))
+                   ->select('*', DB::raw('count(*) as total'))
+                   ->get();
         $months = $this->months;
         return view('backEnd.holiday.index',compact('holidays','months'));
     }
@@ -62,12 +67,20 @@ class HolidayController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::is('root')){
+         $data['school_id']=0;
+         $school_id=[0];
+        }else{
+         $data['school_id']=Auth::getSchool();
+         $school_id=[Auth::getSchool(),0];
+        }
         try {
            foreach ($request->date as $key => $date) {
-               $data['date']=date('Y-m-d',strtotime($date));
-               $data['school_id']=Auth::getSchool();
-               $check = Holiday::where($data)->get();
+               $check = Holiday::whereDate('date',date('Y-m-d',strtotime($date)))
+               ->whereIn('school_id',$school_id)
+               ->get();
                if(count($check)<1){
+                 $data['date']=date('Y-m-d',strtotime($date));
                  Holiday::create($data);
                }
            }
@@ -89,9 +102,14 @@ class HolidayController extends Controller
      */
     public function show($month,$year)
     {
-        $holidays = Holiday::where('school_id',Auth::getSchool())
-        ->whereYear('date', '=', $year)
-        ->whereMonth('date', '=', $month)
+        if(Auth::is('root')){
+         $school_id=[0];
+        }else{
+         $school_id=[Auth::getSchool(),0];
+        }
+        $holidays = Holiday::whereIn('school_id',$school_id)
+        ->whereYear('date', $year)
+        ->whereMonth('date', $month)
         ->select('date')->get();
         $months = $this->months;
         return view('backEnd.holiday.show',compact('holidays','month','year','months'));
@@ -105,7 +123,12 @@ class HolidayController extends Controller
      */
     public function edit($month, $year)
     {
-        $holidays = Holiday::where(['school_id'=>Auth::getSchool()])
+        if(Auth::is('root')){
+         $data['school_id']=0;
+        }else{
+         $data['school_id']=Auth::getSchool();
+        }
+        $holidays = Holiday::where($data)
                   ->whereYear('date', '=', $year)
                   ->whereMonth('date', '=', $month)
                   ->select('date')->get();
@@ -132,15 +155,18 @@ class HolidayController extends Controller
      */
     public function update(Request $request, $month,$year)
     {
+        if(Auth::is('root')){
+         $data['school_id']=0;
+        }else{
+         $data['school_id']=Auth::getSchool();
+        }
         try {
-           Holiday::where('school_id',Auth::getSchool())
+           Holiday::where($data)
            ->whereYear('date', '=', $year)
            ->whereMonth('date', '=', $month)
            ->delete();
-
            foreach ($request->date as $key => $date) {
                $data['date']=date('Y-m-d',strtotime($date));
-               $data['school_id']=Auth::getSchool();
                Holiday::create($data);
            }
 
@@ -160,8 +186,13 @@ class HolidayController extends Controller
      */
     public function destroy($month,$year)
     {
+      if(Auth::is('root')){
+       $data['school_id']=0;
+      }else{
+       $data['school_id']=Auth::getSchool();
+      }
         try {
-           Holiday::where('school_id',Auth::getSchool())
+           Holiday::where($data)
             ->whereYear('date', '=', $year)
             ->whereMonth('date', '=', $month)
             ->delete();

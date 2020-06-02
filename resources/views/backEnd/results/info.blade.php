@@ -11,6 +11,7 @@
             height:  35px;
         }
     </style>
+    
 @endsection
 @section('active_result', 'active')
 

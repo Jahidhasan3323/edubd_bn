@@ -40,30 +40,30 @@
                           <label class="">মাসের নাম নির্বাচন করুন</label>
                           <div class="">
                             <select class="form-control" name="month">
-                              <option value="01">জানুয়ারি</option>
-                              <option value="02">ফেব্রুয়ারি</option>
-                              <option value="03">মার্চ</option>
-                              <option value="04">এপ্রিল</option>
-                              <option value="05">মে</option>
-                              <option value="06">জুন</option>
-                              <option value="07">জুলাই</option>
-                              <option value="08">আগস্ট</option>
-                              <option value="09">সেপ্টেম্বর</option>
-                              <option value="10">অক্টোবর</option>
-                              <option value="11">নভেম্বর</option>
-                              <option value="12">ডিসেম্বর</option>
+                              <option @if (date('m')=='02') selected @endif value="01">জানুয়ারি</option>
+                              <option @if (date('m')=='03') selected @endif value="02">ফেব্রুয়ারি</option>
+                              <option @if (date('m')=='04') selected @endif value="03">মার্চ</option>
+                              <option @if (date('m')=='05') selected @endif value="04">এপ্রিল</option>
+                              <option @if (date('m')=='06') selected @endif value="05">মে</option>
+                              <option @if (date('m')=='07') selected @endif value="06">জুন</option>
+                              <option @if (date('m')=='08') selected @endif value="07">জুলাই</option>
+                              <option @if (date('m')=='09') selected @endif value="08">আগস্ট</option>
+                              <option @if (date('m')=='10') selected @endif value="09">সেপ্টেম্বর</option>
+                              <option @if (date('m')=='11') selected @endif value="10">অক্টোবর</option>
+                              <option @if (date('m')=='12') selected @endif value="11">নভেম্বর</option>
+                              <option @if (date('m')=='01') selected @endif value="12">ডিসেম্বর</option>
                             </select>
                           </div>
                       </div>
                   </div>
                   <div class="col-sm-4">
                       <div class="form-group">
-                          <label class="">মাসের নাম নির্বাচন করুন</label>
+                          <label class="">বছর নির্বাচন করুন</label>
                           <div class="">
                             <select class="form-control" name="year">
-                              <option value="2019">২০১৯</option>
-                              <option value="2020">২০২০</option>
-                              <option value="2021">২০২১</option>
+                              <option @if (date('Y')=='2019') selected @endif value="2019">২০১৯</option>
+                              <option @if (date('Y')=='2020') selected @endif value="2020">২০২০</option>
+                              <option @if (date('Y')=='2021') selected @endif value="2021">২০২১</option>
                             </select>
                           </div>
                       </div>
@@ -131,10 +131,10 @@
                       @endforeach
                     </tbody>
                 </table>
-                <div class="col-md-12 text-left" style="position: absolute;left: 2%;bottom: 0%;">
+                <div class="col-md-6 text-left" style="float:left;margin-top:100px;">
                   Powered by: Ehsan Software Email: infoehsansoftware@gmail.com
                 </div>
-                <div class="col-md-12 text-right" style="position: absolute;right: 2%;bottom: 0%;">
+                <div class="col-md-6 text-right" style="float:right;margin-top:100px;">
                    স্বাক্ষর ও সীল
                 </div>
             </div>

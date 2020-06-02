@@ -52,10 +52,14 @@ class RootSmsController extends Controller
 		$committees = commitee::where('school_id', $school->id)->current()->get();
 		$content=$request->content.' '.$school_name;
 		$message= urlencode($content);
-		$numbers = AllNumber::get_numbers($students,$staffs,$committees);
-		// $numbers = "8801729890904";
-		// dd($numbers);
-		$send = $this->sms_send_by_api($school,$numbers,$message);
+		$all_numbers = AllNumber::get_numbers($students,$staffs,$committees);
+		$chunks = array_chunk($all_numbers,100);
+		foreach ($chunks as $chunk) {
+			$numbers = implode(',',$chunk);
+			// $numbers = "8801729890904";
+			$send = $this->sms_send_by_api($school,$numbers,$message);
+		}
+
 		return redirect()->route('rootSms.add')->with('sccmgs', $send);
 	}
 
@@ -76,15 +80,23 @@ class RootSmsController extends Controller
 			$committees = commitee::where('school_id', $school->id)->current()->get();
 			$content=$request->content.' '.$school_name;
 			$message= urlencode($content);
-			$numbers = AllNumber::get_numbers($students,$staffs,$committees);
-			// $numbers = "8801729890904";
-			// dd($numbers);
-			$send = $this->sms_send_by_api($school,$numbers,$message);
+			$all_numbers = AllNumber::get_numbers($students,$staffs,$committees);
+			$chunks = array_chunk($all_numbers,100);
+			foreach ($chunks as $chunk) {
+				$numbers = implode(',',$chunk);
+				// $numbers = "8801729890904";
+				$send = $this->sms_send_by_api($school,$numbers,$message);
+			}
 			$school_count = 0;
-			$success = json_decode($send,true);
-            if ($success['error']==0) {
-                $school_count++;
-            }
+			if (isset($send)) {
+				$success = json_decode($send,true);
+	            if ($success['error']==0) {
+	                $school_count++;
+	            }
+			}else {
+				$send = "প্রতিষ্ঠান থেকে কোন মোবাইল নাম্বার খুজে পাওয়া যায়নি ।";
+			}
+
 		}
 		return redirect()->route('rootSms.multi_school')->with('sccmgs', 'প্রতিষ্ঠানঃ '.$school_count.' '.$send);
 	}

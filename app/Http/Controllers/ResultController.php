@@ -13,6 +13,7 @@ use App\GroupClass;
 use App\SchoolType;
 use App\CaResult;
 use App\User;
+use App\ElectiveSetting;
 use function GuzzleHttp\Psr7\copy_to_stream;
 use Illuminate\CustomClasses\ResultCalculate;
 use Illuminate\Http\Request;
@@ -395,41 +396,60 @@ class ResultController extends Controller
     }
     public function getTebulationSheet(Request $request, ResultListController $resultList)
     {
-        if (!Auth::is('admin') && !Auth::is('teacher')){
-            return redirect('/home');
-        }
-        $data=$this->validate($request,[
-            'exam_year' => 'required',
-            'exam_type_id' => 'required',
-            'master_class_id' => 'required',
-            'group_class_id' => 'required',
-            'shift' => 'required',
-            'section' => 'required',
-        ]);
-        $data['school_id'] = Auth::getSchool();
+      if (!Auth::is('admin') && !Auth::is('teacher')){
+          return redirect('/home');
+      }
+      $data=$this->validate($request,[
+          'exam_year' => 'required',
+          'exam_type_id' => 'required',
+          'master_class_id' => 'required',
+          'group_class_id' => 'required',
+          'shift' => 'required',
+          'section' => 'required',
+      ]);
+      $data['school_id'] = Auth::getSchool();
+      if($request->roll_serialize == 'yes'){
+        $result = Result::where($data)->orderBy('roll','asc')->get();
+        $res = collect($result)->sortBy('roll');
+      }else{
         $result = Result::where($data)->orderBy('grand_total_mark','desc')->get();
-        $res = collect($result)->sortBy('grand_total_mark');
-        $position=[];
-        if(count($res)>0){
-          $position=$resultList->class_position_identify_number($request,$res);
-        }
-        $results = collect($res->reverse())->groupBy(['student_id']);
-        $check_subjects =Result::where($data)->select(['subject_name','subject_status','subject_type','subject_id'])->get();
-        $check_subjects =collect($check_subjects)->sortBy('subject_id');
+        $res = collect($result)->sortBy('grand_total_mark'); 
+      }
 
-        if(count($results)<1&&count($check_subjects)<1){
-          return "<div style='text-align:center;margin:20% 20%;height:200px;background:red;color:#ffffff;'> <h2 style='    line-height: 200px;'> Nothing Found ! Sorry to Say, Please check your selected value. </h2> </div>";
-        }
-        $copulsary_subject = collect($check_subjects)->where('subject_status','আবশ্যিক')->groupBy(function($element){
+      $position=[];
+      if(count($res)>0){
+        $position=$resultList->class_position_identify_number($request,$res);
+      }
+      if($request->roll_serialize == 'yes'){
+        $results = collect($res)->groupBy(['student_id']);
+      }else{
+        $results = collect($res->reverse())->groupBy(['student_id']); 
+      }
+
+      $check_subjects =Result::where($data)->select(['subject_name','subject_status','subject_type','subject_id'])->get();
+      $check_subjects =collect($check_subjects)->sortBy('subject_id');
+
+      if(count($results)<1&&count($check_subjects)<1){
+        return "<div style='text-align:center;margin:20% 20%;height:200px;background:red;color:#ffffff;'> <h2 style='    line-height: 200px;'> Nothing Found ! Sorry to Say, Please check your selected value. </h2> </div>";
+      }
+      $copulsary_subject = collect($check_subjects)->where('subject_status','আবশ্যিক')->groupBy(function($element){
          return str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়','ইসলাম','হিন্দু'], '', $element['subject_name']);
-        });
-        $subject_status=collect($check_subjects)->pluck('subject_status')->toArray();
-        $subject_type=collect($check_subjects)->pluck('subject_type')->toArray();
-        $school = School::with('user')->where('id',Auth::getSchool())->first();
-        $exam=ExamType::where('id',$request->exam_type_id)->first();
-        $class=MasterClass::where('id',$request->master_class_id)->first();
-        $group=GroupClass::where('id',$request->group_class_id)->first();
-        return view('backEnd.results.tebulationList', compact('results','school','data','exam','class','group','copulsary_subject','subject_status','subject_type','position'));
+      });
+      $subject_status=collect($check_subjects)->pluck('subject_status')->toArray();
+      $subject_type=collect($check_subjects)->pluck('subject_type')->toArray();
+      $school = School::with('user')->where('id',Auth::getSchool())->first();
+      $exam=ExamType::where('id',$request->exam_type_id)->first();
+      $class=MasterClass::where('id',$request->master_class_id)->first();
+      $group=GroupClass::where('id',$request->group_class_id)->first();
+      $elective_count=ElectiveSetting::where([
+        'master_class_id'=>$request->master_class_id,
+        'group_class_id'=>$request->group_class_id,
+        'school_id'=>Auth::getSchool(),
+      ])->value('compulsary_elective');
+      if($request->roll_serialize == 'yes'){
+        return view('backEnd.results.tebulation_list_by_roll', compact('results','school','data','exam','class','group','copulsary_subject','subject_status','subject_type','position','elective_count'));
+      }
+      return view('backEnd.results.tebulationList', compact('results','school','data','exam','class','group','copulsary_subject','subject_status','subject_type','position','elective_count'));
     }
 
 

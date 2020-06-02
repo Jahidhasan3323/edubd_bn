@@ -16,12 +16,12 @@
             @include('backEnd.includes.success')
         @endif
 
-        <div class="panel-body">
+        <div class="panel-body col-md-8 col-md-offset-2">
             <form action="{{url('/designations')}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                             <label class="" for="name">পদবী নাম <span class="star">*</span></label>
                             <div class="">
@@ -34,14 +34,28 @@
                             @endif
                         </div>
                     </div>
+                    <div class="col-sm-12 {{$errors->has('type') ? 'has-error' : ''}}">
+                        <div class="form-group">
+                            <label class="" for="type">পদবীর ধরণ<span class="star">*</span></label>
+                            <div class="">
+                                <select class="form-control" name="type" id="type">
+                                    <option value="1">শিক্ষক ও কর্মচারী </option>
+                                    <option value="2">কমিটি</option>
+                                </select>
+                            </div>
+                        </div>
+                        @if($errors->has('type'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('type')}}</strong>
+                            </span>
+                        @endif
+                    </div>
                 </div>
                 <hr>
-                <div class="">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-block btn-info">সংরক্ষণ করুন</button>
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info">সংরক্ষণ করুন</button>
                         </div>
                     </div>
                 </div>
