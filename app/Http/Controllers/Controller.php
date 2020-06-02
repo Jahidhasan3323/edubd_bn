@@ -64,7 +64,7 @@ class Controller extends BaseController
       return Student::where('school_id',Auth::getSchool())->groupBy('session')->select('session')->get();
     }
 
-    protected function school(){
+    public function school(){
       return School::with('user')->where('id', Auth::getSchool())->first();
     }
 

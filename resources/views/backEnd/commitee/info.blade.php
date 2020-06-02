@@ -42,7 +42,7 @@
                             <td>{{$commitee->user->name}}</td>
                             <td>{{$commitee->user->mobile}}</td>
                             <td>{{$commitee->user->email}}</td>
-                            <td>{{$commitee->designation}}</td>
+                            <td>{{$commitee->designation->name??''}}</td>
                             <td><img class="img-responsive img-thumbnail" src="{{Storage::url($commitee->image ? $commitee->image : '')}}" width="50px" height="60px" alt="Image"></td>
                             <td>
                                 <a style="margin-bottom: 10px;" href="{{url('/commitee/'.$commitee->id)}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>
@@ -88,7 +88,7 @@
     </div>
 @endsection
 @section('script')
- 
+
     <script src="{{asset('backEnd')}}/DataTables/jquery.dataTables.min.js"></script>
     <script src="{{asset('backEnd')}}/DataTables/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">

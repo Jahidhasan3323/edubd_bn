@@ -48,6 +48,7 @@ class everyDay extends Command
         $schools = School::pluck('id');
         foreach($schools as $key => $school_id) {
             $time = ImportantSetting::where('school_id',$school_id)->first();
+
             if ($time && $time->atten_end_time) {
                 $time = date('g:i a', strtotime($time->atten_end_time));
             }else {
@@ -84,7 +85,7 @@ class everyDay extends Command
             if($day){
                 $data['status']='H';
             }
-            // dd($data);
+            dd($data);
             AttenStudent::create($data);
         }
     }

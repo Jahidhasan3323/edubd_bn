@@ -36,6 +36,7 @@ class FeeCollectionController extends Controller
                         ->where('group', $request->group_class_id)
                         ->where('shift', $request->shift)
                         ->where('section', $request->section)
+                        ->current()
                         ->get();
       return $students;
     }
@@ -70,6 +71,7 @@ class FeeCollectionController extends Controller
                         ->where('shift', $request->shift)
                         ->where('section', $request->section)
                         ->where('roll', $request->roll)
+                        ->current()
                         ->first();
       // return $student;
       $fee_status = FeeCollection::orderBy('id', 'desc')->where('student_id', $student->id)->first();
@@ -233,7 +235,7 @@ class FeeCollectionController extends Controller
                             ->where('group',$request->group_class_id)
                             ->where('shift',$request->shift)
                             ->where('section',$request->section)
-                            ->current();
+                            ->current()
                             ->get();
         $school = School::find(Auth::getSchool());
         $sms_limit = SmsLimit::where('school_id', $school->id)->first();

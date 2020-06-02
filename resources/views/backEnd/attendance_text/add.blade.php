@@ -6,7 +6,7 @@
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">উপস্থিতি বার্তা যোগ করুন</h1>
+            <h1 class="text-center text-temp">এস,এম,এসের বার্তা যোগ করুন</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -16,8 +16,7 @@
             @include('backEnd.includes.success')
         @endif
 
-        <div class="panel-body col-md-6" style="border: 1px solid #ddd;">
-            <h2 class="text-center">উপস্থিত বার্তা </h2>
+        <div class="panel-body col-md-8 col-md-offset-2" style="border: 1px solid #ddd;">
             <form action="{{ route('attendanceText.store') }}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <input type="hidden" name="type" value="1">
@@ -26,15 +25,25 @@
                         <div class="form-group">
                             <label class="" for="school_id">প্রতিষ্ঠান নির্বাচন করুন</label>
                             <select class="form-control" name="school_id" id="school_id">
-                                @foreach($attend_schools as $attend_school)
-                                    <option value="{{$attend_school->id}}" >{{$attend_school->user->name}}</option>
+                                @foreach($schools as $school)
+                                    <option value="{{$school->id}}" >{{$school->user->name}}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="" for="type">বার্তার ধরণ</label>
+                            <select class="form-control" name="type" id="type">
+                                <option value="1">উপস্থিত বার্তা</option>
+                                <option value="2">অনুপস্থিত বার্তা</option>
+                                <option value="3">প্রতিষ্ঠান ত্যাগের বার্তা</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label class="" for="text_status">বার্তার ধরণ</label>
+                            <label class="" for="text_status">বার্তার ফন্টের ধরণ</label>
                             <div class="">
                                 <input type="radio" checked="checked">
                                 <span id="unicode" style="display:none;">
@@ -50,57 +59,6 @@
                             <div class="">
                                 <textarea onkeyup="msgCount()" id="content" name="content" rows="3" class="form-control"></textarea>
                                 <p>বর্ণ : <span id="char_show"></span>, বার্তাঃ <span id="msg_count_show"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info">সংরক্ষণ করুন</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-        <div class="panel-body col-md-6" style="border: 1px solid #ddd;">
-            <h2 class="text-center">অনুপস্থিত বার্তা</h2>
-            <form action="{{ route('attendanceText.store') }}" method="post" enctype="multipart/form-data">
-                {{csrf_field()}}
-                <input type="hidden" name="type" value="2">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="" for="school_id">প্রতিষ্ঠান নির্বাচন করুন</label>
-                            <select class="form-control" name="school_id" id="a_school_id">
-                                @foreach($absent_schools as $absent_school)
-                                    <option value="{{$absent_school->id}}" >{{$absent_school->user->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label class="" for="text_status">বার্তার ধরণ</label>
-                            <div class="">
-                                <input type="radio" checked="checked">
-                                <span id="a_unicode" style="display:none;">
-                                     ইউনিকোড (বাংলা)
-                                </span>
-                                <span id="a_regular" style="display:none;"> রিগুলার টেক্সট</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label class="" for="content">অনুপস্থিত বার্তা </label>
-                            <div class="">
-                                <textarea onkeyup="aMsgCount()" id="a_content" name="content" rows="3" class="form-control"></textarea>
-                                <p>বর্ণ : <span id="a_char_show"></span>, বার্তাঃ <span id="a_msg_count_show"></span></p>
                             </div>
                         </div>
                     </div>
@@ -155,45 +113,6 @@
                       }
                       $('#msg_count_show').html(obj['msg_count']);
                       $('#school_name_char').html(obj['school_name']);
-
-                  }
-              }
-            });
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#a_char_show').text(0);
-            $('#a_msg_count_show').text(0);
-        });
-        function aMsgCount(){
-            var message = $('#a_content').val();
-            var school_id = $("#a_school_id option:selected").val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-              url : "{{route('rootSms.msg_count')}}",
-              type: 'post',
-              data: {'message' : message,'school_id':school_id},
-              success: function (data) {
-                  obj = JSON.parse(data);
-                  if (data.length){
-                      if (obj['char_count'] < 17) {
-                          $('#a_char_show').html(0);
-                      }else {
-                          $('#a_char_show').html(obj['char_count']);
-                      }
-                      if (obj['text_status']=='unicode') {
-                          $('#a_unicode').show();
-                          $('#a_regular').hide();
-                      }else {
-                          $('#a_regular').show();
-                          $('#a_unicode').hide();
-                      }
-                      $('#a_msg_count_show').html(obj['msg_count']);
 
                   }
               }

@@ -162,6 +162,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group {{$errors->has('roll_serialize') ? 'has-error' : ''}}">
+                            <div class="">
+                                <label class="checkbox-inline" for="roll_serialize"><input type="checkbox" name="roll_serialize" id="roll_serialize" value="yes">ক্লাস রোল সিরিয়ালের জন্য এটি চেক করুন।</label>
+                            </div>
+                            @if ($errors->has('roll_serialize'))
+                                <span class="help-block">
+                                    <strong>{{$errors->first('roll_serialize')}}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
                 <hr>
                 <div class="">
                     <div class="row">

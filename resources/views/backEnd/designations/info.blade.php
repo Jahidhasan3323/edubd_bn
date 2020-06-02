@@ -17,42 +17,61 @@
         @endif
 
         <div class="panel-body">
-            <table class="table table-bordered table-responsive table-hover table-striped">
-                <tr>
-                    <th>ক্রমিক নং</th>
-                    <th>নাম</th>
-                    @if (Auth::is('root'))
-                    <th>অ্যাকশন</th>
-                    @endif
-                </tr>
-                @php($serial = Get::serial($designations))
-                @foreach($designations as $designation)
+            <table id="commitee_tbl" class="table table-bordered table-responsive table-hover table-striped">
+                <thead>
                     <tr>
-                        <td>{{$serial}}</td>
-                        <td>{{$designation->name}}</td>
+                        <th>ক্রমিক নং</th>
+                        <th>নাম</th>
+                        <th>পদবীর ধরণ</th>
                         @if (Auth::is('root'))
-                        <td>
-                            <a style="margin-bottom: 10px;" href="{{url('/designations/'.$designation->id.'/edit')}}" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a>
-                                <a style="margin-bottom: 10px" href="#"  onclick="clickFunction{{$designation->id}}()"
-                                   class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            <form style="display: none;" id="delete-form{{$designation->id}}" method="post" action="{{url('/designations/'.$designation->id)}}" style="padding: 0; margin: 0; outline: 0;">
-                                {{method_field('delete')}}
-                                {{csrf_field()}}
-                            </form>
-                        </td>
+                        <th>অ্যাকশন</th>
                         @endif
                     </tr>
-                    <script>
-                        function clickFunction{{$designation->id}}() {
-                            if (confirm("Are you sure to delete this?")){
-                                document.getElementById("delete-form{{$designation->id}}").submit();
+                </thead>
+                <tbody>
+                    @php($serial = Get::serial($designations))
+                    @foreach($designations as $designation)
+                        <tr>
+                            <td>{{$serial}}</td>
+                            <td>{{$designation->name}}</td>
+                            <td>{{$designation->type==1?'শিক্ষক ও কর্মচারী':'কমিটি'}}</td>
+                            @if (Auth::is('root'))
+                            <td>
+                                <a style="margin-bottom: 10px;" href="{{url('/designations/'.$designation->id.'/edit')}}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a style="margin-bottom: 10px" href="#"  onclick="clickFunction{{$designation->id}}()"
+                                       class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                <form style="display: none;" id="delete-form{{$designation->id}}" method="post" action="{{url('/designations/'.$designation->id)}}" style="padding: 0; margin: 0; outline: 0;">
+                                    {{method_field('delete')}}
+                                    {{csrf_field()}}
+                                </form>
+                            </td>
+                            @endif
+                        </tr>
+                        <script>
+                            function clickFunction{{$designation->id}}() {
+                                if (confirm("Are you sure to delete this?")){
+                                    document.getElementById("delete-form{{$designation->id}}").submit();
+                                }
                             }
-                        }
-                    </script>
-                    @php($serial++)
-                @endforeach
+                        </script>
+                        @php($serial++)
+                    @endforeach
+                </tbody>
+
             </table>
         </div>
     </div>
+@endsection
+@section('script')
+
+    <script src="{{asset('backEnd')}}/DataTables/jquery.dataTables.min.js"></script>
+    <script src="{{asset('backEnd')}}/DataTables/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $('#commitee_tbl').DataTable();
+    } );
+    </script>
+
+
 @endsection

@@ -30,12 +30,12 @@
           </div>
         @endisset
         <div class="col-md-12">
-          @if(session('success_msg'))
-            <div class="alert alert-success alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              {{session('success_msg')}}
-            </div>
-          @endif
+            @isset($msg)
+                <div class="alert alert-success alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  {{ $msg }}
+                </div>
+            @endisset
           @if(session('error_msg'))
             <div class="alert alert-danger alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -112,8 +112,8 @@
 
                   <div class="col-sm-6">
                       <div class="form-group">
-                          <label class="" for="roll">শ্রেণী রোল <span class="star">*</span></label>
-                          <select name="roll" id="roll" class="form-control" required="">
+                          <label class="" for="student_id">শিক্ষার্থী আইডি বা রোল <span class="star">*</span></label>
+                          <select name="student_id" id="student_id" class="form-control" required="">
                               <option value="">...শিক্ষার্থী নির্বাচন করুন...</option>
                           </select>
                       </div>
@@ -148,6 +148,10 @@
             <td>{{ number_format($absense*$fine, 2) }} টাকা</td>
           </tr>
           <tr>
+            <th width="120" style="border-right: 1px solid #ddd;">জরিমানা পরিশোধ</th>
+            <td>{{ number_format($current_month_fine_collection, 2) }} টাকা</td>
+          </tr>
+          <tr>
             <th width="120" style="border-right: 1px solid #ddd;">পূর্বের জরিমান</th>
             <td>
               @if ($last_fine_collection)
@@ -162,7 +166,7 @@
             <td>
               @if ($last_fine_collection)
                 @php
-                  $total_amount = ($absense*$fine)+$last_fine_collection->due;
+                  $total_amount = ($absense*$fine)+$last_fine_collection->due-$current_month_fine_collection;
                 @endphp
                 <b>{{ number_format($total_amount, 2) }}</b>
               @else
@@ -506,6 +510,11 @@
               var section = $(this).val();
               // alert(master_class_id);
               var option = '<option>আইডি বা রোল নির্বাচন করুন</option>';
+              $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
               $.ajax({
                   url : "{{route('get_st_id')}}",
                   type: 'POST',
@@ -514,12 +523,12 @@
                       // alert(data);
                       if (data.length){
                           for (var i = 0; i < data.length; i++){
-                              option = option + '<option value="'+ data[i].roll +'">' + data[i].student_id + '(' + data[i].roll + ')' +'</option>';
+                              option = option + '<option value="'+ data[i].id +'">' + data[i].student_id + '(' + data[i].roll + ')' +'</option>';
                           }
-                          $('#roll').html(option);
+                          $('#student_id').html(option);
                       }else {
                           var option1 = '<option>Student Not Found !</option>';
-                          $('#roll').html(option1);
+                          $('#student_id').html(option1);
                       }
                   }
               });

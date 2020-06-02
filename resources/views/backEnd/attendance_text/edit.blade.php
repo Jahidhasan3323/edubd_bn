@@ -29,9 +29,25 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="" for="type">বার্তার ধরণ</label>
+                            <select class="form-control" name="type" id="type">
+                                <option selected value="{{ $attendance->type }}">
+                                    @if ($attendance->type==1) উপস্থিত বার্তা
+                                    @elseif ($attendance->type==2) অনুপস্থিত বার্তা
+                                    @elseif ($attendance->type==3) প্রতিষ্ঠান ত্যাগের বার্তা
+                                    @endif
+                                </option>
+                                <option value="1">উপস্থিত বার্তা</option>
+                                <option value="2">অনুপস্থিত বার্তা</option>
+                                <option value="3">প্রতিষ্ঠান ত্যাগের বার্তা</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label class="" for="text_status">বার্তার ধরণ</label>
+                            <label class="" for="text_status">বার্তার ফন্টের ধরণ</label>
                             <div class="">
                                 <input type="radio" checked="checked">
                                 <span id="unicode" style="display:none;">

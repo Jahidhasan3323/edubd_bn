@@ -97,38 +97,39 @@
                     </ul>
                 </li>
 
-                <li class="@yield('message_length')">
-                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>বার্তার লিমিট<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{ route('messageLength.add')}}">বার্তার লিমিট নির্ধারণ করুন</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('messageLength.list')}}">বার্তার লিমিট তালিকা দেখুন</a>
-                        </li>
-                    </ul>
-                </li>
-
                 <li class="@yield('active_attendance_text')">
-                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>উপস্থিতি বার্তা সেটিংস<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>বার্তা সেটাপ<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{ route('attendanceText.add')}}">উপস্থিতি বার্তা যোগ করুন</a>
+                            <a href="{{ route('attendanceText.add')}}">বার্তা যোগ করুন</a>
                         </li>
                         <li>
-                            <a href="{{ route('attendanceText.list')}}">উপস্থিতি বার্তার তালিকা</a>
+                            <a href="{{ route('attendanceText.list')}}">বার্তার তালিকা</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('attendanceTime.add')}}">উপস্থিতি সময় যোগ করুন</a>
                         </li>
                         <li>
                             <a href="{{ route('attendanceTime.list')}}">উপস্থিতি সময় তালিকা</a>
+                        </li> --}}
+                    </ul>
+                </li>
+
+                <li class="@yield('message_length')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>বার্তা সেটিং<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ route('messageLength.add')}}">বার্তা সেটিং করুন</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('messageLength.list')}}">বার্তা সেটিং তালিকা দেখুন</a>
                         </li>
                         <li>
                             <a href="{{ route('attendanceOption.list')}}">অটোমেটিক উপস্থিতি অপশন</a>
                         </li>
                     </ul>
                 </li>
+
             @endif
 
 
@@ -437,6 +438,11 @@
                         <li>
                             <a href="{{url('/result')}}">ফলাফল দেখুন</a>
                         </li>
+                        @if(Auth::is('admin'))
+                            <li>
+                                <a href="{{url('/elective/setting')}}">ইলেক্টিভ সেটিংস</a>
+                            </li>
+                        @endif
                         @if(Auth::is('student'))
                             <li>
                                 <a href="{{url('/online-exam/result')}}">অনলাইন পরীক্ষার ফলাফল দেখুন</a>
@@ -601,6 +607,9 @@
                             <a href="{{ route('fine_collection_manage') }}"> জরিমানা পরিচালনা করুন</a>
                         </li>
                         <li>
+                            <a href="{{ route('fine_sms') }}">সেন্ড জরিমানা এস,এম,এস</a>
+                        </li>
+                        <li>
                             <a href="{{ route('salary_setup_add') }}"> বেসিক বেতন ব্যবস্থাপনা </a>
                         </li>
                         <li>
@@ -680,7 +689,10 @@
                          <a href="{{url('/result-list/index')}}">ফলাফলের তালিকা তৈরি করুন </a>
                         </li>
                         <li>
-                         <a href="{{url('/attendance-list/create')}}">উপস্থিতির তালিকাপত্র তৈরি করুন </a>
+                         <a href="{{url('/attendance-list/create')}}">উপস্থিতির দৈনিক তালিকাপত্র (ব্ল্যান্ক) </a>
+                        </li>
+                        <li>
+                         <a href="{{url('/attendance-list/create-monthly')}}">উপস্থিতির মাসিক তালিকাপত্র (ব্ল্যান্ক) </a>
                         </li>
                         <li>
                          <a href="{{url('/admit-card/create')}}">প্রবেশপত্র তৈরি করুন </a>
@@ -735,14 +747,20 @@
                         <li>
                             <a href="{{url('/unit')}}">শাখার তালিকা</a>
                         </li>
-
+                        @endif
                         <li>
                             <a href="{{url('/holiday/create')}}">ছুটি তৈরি করুন</a>
                         </li>
                         <li>
                             <a href="{{url('/holiday')}}">ছুটির তালিকা</a>
                         </li>
-
+                        @if(Auth::is('admin'))
+                        <li>
+                            <a href="{{url('/holiday-cancel/create')}}">ছুটি বাতিল করুন</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/holiday-cancel')}}">বাতিল ছুটির তালিকা</a>
+                        </li>
                         <li>
                             <a href="{{url('/important-settings')}}">গুরুত্বপূর্ণ সেটিংস</a>
                         </li>
@@ -802,7 +820,46 @@
                 </li>
 
             @endif
-            
+                @if(Auth::is('root') || Auth::is('teacher') || Auth::is('staff') || Auth::is('student'))
+            <li>
+                <a href="{{url('chat')}}" ><i class="fa fa-comment fa-2x"></i>ইহসান চ্যাটিং অ্যাপ্লিকেশন</a>
+
+            </li>
+            @endif
+            <li class="@yield('post')">
+                    <a href="#">
+                        <i class="fa fa-sitemap fa-2x"></i>ইহ্‌সান এডুকেশন সোশাল সাইট  <span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{url('/post/')}}">টাইম লাইন</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/post/profile',1)}}">প্রফাইল</a>
+                        </li>
+                        @if(Auth::is('root') || Auth::is('admin'))
+                        <li>
+                            <a href="{{url('/post/pending_list')}}">পেন্ডিং তালিকা</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/post/accept_list')}}">একসেপ্ট তালিকা</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/post/cancel_list')}}">বাতিল তালিকা</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/post/delete_list')}}">ডিলেটেড তালিকা</a>
+                        </li>
+                        @endif
+                         
+                    </ul>
+                </li>
+            @if(Auth::is('admin'))
+                <li>
+                    <a href="{{url('school_settings')}}"><i class="fa fa-angle-double-down fa-2x"></i>ওয়েব ম্যানেজমেন্ট</a>
+
+                </li>
+            @endif
 
             <!-- @if(Auth::is('admin'))
              <li>
@@ -847,46 +904,6 @@
                             <a href="{{url('/important_link_root')}}">গুরুত্বপূর্ণ লিঙ্কের তালিকা</a>
                         </li>
                     </ul>
-                </li>
-            @endif
-            @if(Auth::is('root') || Auth::is('teacher') || Auth::is('staff') || Auth::is('student'))
-            <li>
-                <a href="{{url('chat')}}" ><i class="fa fa-comment fa-2x"></i>ইহসান চ্যাটিং অ্যাপ্লিকেশন</a>
-
-            </li>
-            @endif
-            <li class="@yield('post')">
-                    <a href="#">
-                        <i class="fa fa-sitemap fa-2x"></i>ইহ্‌সান এডুকেশন সোশাল সাইট  <span
-                                class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{url('/post/')}}">টাইম লাইন</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/post/profile',1)}}">প্রফাইল</a>
-                        </li>
-                        @if(Auth::is('root') || Auth::is('admin'))
-                        <li>
-                            <a href="{{url('/post/pending_list')}}">পেন্ডিং তালিকা</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/post/accept_list')}}">একসেপ্ট তালিকা</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/post/cancel_list')}}">বাতিল তালিকা</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/post/delete_list')}}">ডিলেটেড তালিকা</a>
-                        </li>
-                        @endif
-                         
-                    </ul>
-                </li>
-                @if(Auth::is('admin'))
-                <li>
-                    <a href="{{url('school_settings')}}"><i class="fa fa-angle-double-down fa-2x"></i>ওয়েব ম্যানেজমেন্ট</a>
-
                 </li>
             @endif
 

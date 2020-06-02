@@ -20,13 +20,14 @@ class School extends Model
          'expiry_date',
          'logo',
          'status',
-         'social_post_access',
          'total_student',
          'country_code',
          'serial_no',
          'signature_p',
          'service_type_id',
          'sms_service',
+         'attendance_sms',
+         'attend_percentage_limit',
     ];
 
 
@@ -62,6 +63,8 @@ class School extends Model
     {
         return $this->hasMany(ExamRoutine::class);
     }
+
+
 
     public function holidays()
     {

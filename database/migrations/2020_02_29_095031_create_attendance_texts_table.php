@@ -17,7 +17,8 @@ class CreateAttendanceTextsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade')->onUpdate('cascade');
-            $table->tinyInteger('type')->default(1)->comment('1=attend,2=absent');
+            $table->tinyInteger('type')->default(1)->comment('1=attend,2=absent,3=Out Time Message');
+            $table->tinyInteger('person_type')->default(1)->comment('1=Employee,2=Student');
             $table->text('content')->nullable();
             $table->softDeletes();
             $table->timestamps();

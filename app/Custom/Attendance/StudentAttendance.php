@@ -12,15 +12,19 @@
  {
  		public function entry($data)
  		{  
- 		   $student = Student::where(['student_id'=>$data['id_card_no'],'school_id'=>Auth::getSchool()])->first();
+     		   $student = Student::where([
+            'student_id'=>substr($data['id_card_no'], 0,15),
+            'school_id'=>Auth::getSchool()
+           ])->first();
            $r_data=$this->data_process($data,$student);
-           $attendance = AttenStudent::where($r_data)->first();
+           $attendance = AttenStudent::where($r_data)->whereDate('date',Carbon::now()->format('Y-m-d'))->first();
            if($attendance){
                 $attendance->update(['out_time'=>Carbon::now()->format('h:i:s A')]);
                 $message='out';
            }else{
                $r_data['status']='P';
                $r_data['in_time']=Carbon::now()->format('h:i:s A');
+               $r_data['date']=Carbon::now()->format('Y-m-d');
                AttenStudent::create($r_data);
                $message='in';
            }
@@ -38,7 +42,7 @@
  	       	$r_data['roll']=$student->roll;
  	       	$r_data['session']=$student->session;
  	       	$r_data['regularity']=$student->regularity;
- 	       	$r_data['date']=Carbon::now()->format('Y-m-d');
  	       	return $r_data;
- 	   }
+ 	  }
+
  }

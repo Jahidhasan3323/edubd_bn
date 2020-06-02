@@ -28,7 +28,9 @@ class AttenEmployeeController extends Controller
                     ->whereDate('date',date('Y-m-d'))
                     ->selectRaw('*,count(atten_employees.id) as total')
                     ->get();
-        return view('backEnd.attendence.staff.index',compact('employees'));
+
+        $total_employees = Staff::where('school_id',Auth::getSchool())->count();
+        return view('backEnd.attendence.staff.index',compact('employees','total_employees'));
     }
 
     public function view($group_id)

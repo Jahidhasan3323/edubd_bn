@@ -30,7 +30,7 @@ class MenualAttendenceController extends Controller
                 'section'=>$request->section,
                 'shift'=>$request->shift,
                 'school_id'=>Auth::getSchool()
-            ])->get()->sortBy('roll');
+            ])->current()->get()->sortBy('roll');
          }
         $search= $request->all();
         return view('backEnd.attendence.student.student_entry',compact('classes','group_classes','units','search','students'));
@@ -41,18 +41,24 @@ class MenualAttendenceController extends Controller
         foreach($request->student_id as $key => $id_no) {
             $entry_check = AttenStudent::where([
                             'school_id'=>Auth::getSchool(),
-                            'student_id'=>$id_no,
-                            'date'=>Carbon::now()->format('d-m-Y'),
-                            'month'=>Carbon::now()->format('m'),
-                            'year'=>Carbon::now()->format('Y'),
-                            ])->first();
+                            'student_id'=>$id_no
+                          ])
+                          ->whereDate('date',Carbon::now()->format('Y-m-d'))
+                          ->first();
                 if(!$entry_check){
+                    $student=Student::where(['student_id'=>$id_no,'school_id'=>Auth::getSchool()])->current()->first();
+                    $data['status']='P';
+                    $data['in_time']=Carbon::now()->format('h:i:s A');
                     $data['school_id']=Auth::getSchool();
                     $data['student_id']=$id_no;
-                    $data['date']=Carbon::now()->format('d-m-Y');
-                    $data['month']=Carbon::now()->format('m');
-                    $data['year']=Carbon::now()->format('Y');
-                    $data['in_time']=Carbon::now()->format('h:i:s A');
+                    $data['master_class_id']=$student->master_class_id;
+                    $data['shift']=$student->shift;
+                    $data['section']=$student->section;
+                    $data['group']=$student->group;
+                    $data['roll']=$student->roll;
+                    $data['session']=$student->session;
+                    $data['regularity']=$student->regularity;
+                    $data['date']=Carbon::now()->format('Y-m-d');
                     AttenStudent::create($data);
 
                 }
@@ -73,19 +79,17 @@ class MenualAttendenceController extends Controller
       foreach($request->staff_id as $key => $id_no) {
               $entry_check = AttenEmployee::where([
                               'school_id'=>Auth::getSchool(),
-                              'staff_id'=>$id_no,
-                              'date'=>Carbon::now()->format('d-m-Y'),
-                              'month'=>Carbon::now()->format('m'),
-                              'year'=>Carbon::now()->format('Y'),
-                              ])->first();
+                              'staff_id'=>$id_no
+                              ])
+                              ->whereDate('date',Carbon::now()->format('Y-m-d'))
+                              ->first();
               if(!$entry_check){
-                 $data['school_id']=Auth::getSchool();
-                 $data['staff_id']=$id_no;
-                 $data['date']=Carbon::now()->format('d-m-Y');
-                 $data['month']=Carbon::now()->format('m');
-                 $data['year']=Carbon::now()->format('Y');
-                 $data['in_time']=Carbon::now()->format('h:i:s A');
-                 AttenEmployee::create($data);
+                $data['status']='P';
+                $data['in_time']=Carbon::now()->format('h:i:s A');
+                $data['school_id']=Auth::getSchool();
+                $data['staff_id']=$id_no;
+                $data['date']=Carbon::now()->format('Y-m-d');
+                AttenEmployee::create($data);
               }
               Session::flash('sccmgs', 'শিক্ষক/কর্মাচারী,  প্রবেশের সময় সফলভাবে যোগ করা হয়েছ !');
           }

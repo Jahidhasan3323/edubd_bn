@@ -27,7 +27,7 @@ class AllNumber{
                 $numbers[] = '88'.$committee->user->mobile;
             }
         }
-        return implode(',',$numbers);
+        return $numbers;
     }
 
 

@@ -63,7 +63,7 @@
                   <hr>
                      <p><img src="{{Storage::url('images')}}/figure.jpg" width="100px" height="40px"></p>
                   <hr>
-                  <p>প্রদানের তারিখ : {{date('d-m-Y')}}, মেয়াদ শেষ : {{'31-12-'.(date('Y')+1)}}<p>
+                  <p>প্রদানের তারিখ : {{date('d-m-Y')}}, মেয়াদ শেষ : {{'31-12-'.(date('Y'))}}<p>
                   <hr>
                   <p>Powered By @Ehsan Software</p>
                   <p>www.worldehsan.org | infoehsansoftware@gmail.com</p>
@@ -123,7 +123,7 @@
               <hr>
                  <p><img src="{{Storage::url('images')}}/figure.jpg" width="100px" height="40px"></p>
               <hr>
-              <p>প্রদানের তারিখ : {{date('d-m-Y')}}, মেয়াদ শেষ : {{'31-12-'.(date('Y')+1)}}<p>
+              <p>প্রদানের তারিখ : {{date('d-m-Y')}}, মেয়াদ শেষ : {{'31-12-'.(date('Y'))}}<p>
               <hr>
               <p>Powered By @Ehsan Software</p>
               <p>www.worldehsan.org | infoehsansoftware@gmail.com</p>

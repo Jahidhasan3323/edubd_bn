@@ -19,8 +19,8 @@ class CreateAttenEmployeesTable extends Migration
             $table->string('school_id');
             $table->string('staff_id');
             $table->date('date');
-            $table->string('in_time')->nullable();
-            $table->string('out_time')->nullable();
+            $table->time('in_time')->nullable();
+            $table->time('out_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

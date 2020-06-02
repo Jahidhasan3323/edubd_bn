@@ -2,10 +2,19 @@
 namespace App\Collection;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\Staff;
 use App\AttenEmployee;
 use Auth;
 
 class EmployeeLeaveCollection extends Collection{
+
+    public function total_employees($query){
+        $query['school_id']=Auth::getSchool();
+        $total=Staff::join('users', 'staff.user_id', '=', 'users.id')
+        ->where($query)->get()->count();
+        return $total;
+    }
+
     public function total($query,$status){
         $query['atten_employees.status']=$status;
         $query['atten_employees.school_id']=Auth::getSchool();
@@ -56,5 +65,12 @@ class EmployeeLeaveCollection extends Collection{
     		'school_id'=>Auth::getSchool()
     	])->whereMonth('date', '=', $month)->orderBy('id','desc')->get();
     	return $atten_employees;
+    }
+
+    public function total_holiday(){
+        $query['status']="H";
+        $query['school_id']=Auth::getSchool();
+        $total=AttenEmployee::where($query)->whereDate('date',date('Y-m-d'))->get()->count();
+        return $total;
     }
 }

@@ -25,7 +25,7 @@
                         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                             <label class="" for="name">পুরো নাম <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$commiteeData->user->name}}" class="form-control" type="text" name="name" id="name" placeholder="পুরো নাম">
+                                <input value="{{$commiteeData->user->name}}" class="form-control" type="text" name="name" id="name">
                             </div>
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -59,8 +59,8 @@
                     |.. Authentication Group. 3 for teacher Authentication
                     |.. School id for identify which school for this teacher.
                     --}}
-                    
-                
+
+
                 </div>
 
                 <div class="row">
@@ -68,7 +68,7 @@
                         <div class="form-group {{$errors->has('edu_quali') ? 'has-error' : ''}}">
                             <label class="" for="edu_quali"> শিক্ষাগত যোগ্যতা <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$commiteeData->edu_quali}}" class="form-control" type="text" name="edu_quali" id="edu_quali" placeholder="শিক্ষাগত যোগ্যতা">
+                                <input value="{{$commiteeData->edu_quali}}" class="form-control" type="text" name="edu_quali" id="edu_quali">
                             </div>
                             @if ($errors->has('edu_quali'))
                                 <span class="help-block">
@@ -78,29 +78,21 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6 {{$errors->has('designation') ? 'has-error' : ''}}">
+                    <div class="col-sm-6 {{$errors->has('designation_id') ? 'has-error' : ''}}">
                         <div class="form-group">
-                            <label class="" for="designation">কমিটি পদবী<span class="star">*</span></label>
+                            <label class="" for="designation_id">কমিটি পদবী<span class="star">*</span></label>
                             <div class="">
-                                <select value="{{$commiteeData->designation}}" class="form-control"  name="designation" id="designation">
-                                    <option value="">- কমিটি নির্বাচন করুন -</option>
-                                    <option value="সভাপতি">সভাপতি </option>
-                                    <option value="সহকারী সভাপতি">সহকারী সভাপতি</option>
-                                    <option value="সম্পাদক">সম্পাদক  </option>
-                                    <option value="বিদ্যুৎসাহী">বিদ্যুৎসাহী</option>
-                                    <option value="হিতৌষী">হিতৌষী</option>
-                                    <option value="দাতা সদস্য">দাতা সদস্য</option>
-                                    <option value="অভিভাবক সদস্য">অভিভাবক সদস্য</option>
-                                    <option value="শিক্ষক প্রতিনিধি">শিক্ষক প্রতিনিধি</option>
-                                    <option value="অধ্যক্ষ/সচিব">অধ্যক্ষ/সচিব</option>
-                                    <option value="সদস্য">সদস্য</option>
-                                    <option value="অন্যান্য">অন্যান্য</option>
+                                <select class="form-control"  name="designation_id" id="designation_id">
+                                    <option selected value="{{ $commiteeData->designation->id }}">{{ $commiteeData->designation->name }}</option>
+                                    @foreach ($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        @if($errors->has('designation'))
+                        @if($errors->has('designation_id'))
                             <span class="help-block">
-                                <strong>{{$errors->first('designation')}}</strong>
+                                <strong>{{$errors->first('designation_id')}}</strong>
                             </span>
                         @endif
                     </div>
@@ -175,7 +167,7 @@
                         <div class="form-group {{$errors->has('mobile') ? 'has-error' : ''}}">
                             <label class="" for="mobile">মোবাইল নম্বর <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$commiteeData->user->mobile}}" class="form-control" type="number" name="mobile" id="mobile" placeholder="মোবাইল নম্বর">
+                                <input value="{{$commiteeData->user->mobile}}" class="form-control" type="text" name="mobile" id="mobile" placeholder="Teacher Contact">
                             </div>
                             <div id="mobileError" class="has-error" style="display: none">
                                 <span class="help-block">
@@ -218,7 +210,7 @@
                         <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                             <label class="" for="email">ইমেইল <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$commiteeData->user->email}}" class="form-control" type="email" name="email" id="email" placeholder="ইমেইল">
+                                <input value="{{$commiteeData->user->email}}" class="form-control" type="email" name="email" id="email" placeholder="Commitee Email">
                             </div>
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -232,7 +224,7 @@
                             <div class="form-group {{$errors->has('password') ? 'has-error' : ''}}">
                                 <label class="" for="nid">পাসওয়ার্ড <span class="star">*</span></label>
                                 <div class="">
-                                    <input class="form-control" type="password" name="password" id="password" placeholder="পাসওয়ার্ড">
+                                    <input class="form-control" type="password" name="password" id="password" placeholder="Password">
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -248,7 +240,7 @@
                             <div class="form-group {{$errors->has('nid') ? 'has-error' : ''}}">
                                 <label class="" for="nid">জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর <span class="star">*</span></label>
                                 <div class="">
-                                    <input value="{{$commiteeData->nid}}" class="form-control" type="text" name="nid" id="nid" placeholder="জাতীয় পরিচয় পত্র / পাসপোর্ট / ড্রাইভিং লাইসেন্স নম্বর">
+                                    <input value="{{$commiteeData->nid}}" class="form-control" type="text" name="nid" id="nid" placeholder="Commitee National ID Number">
                                 </div>
                                 @if ($errors->has('nid'))
                                     <span class="help-block">
@@ -265,13 +257,13 @@
                     </div>
                 </div>
                 <hr>
-                
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group {{$errors->has('home_name') ? 'has-error' : ''}}">
                             <label for="">বাড়ির নাম</label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->home_name}}" name="home_name" class="form-control" placeholder="বাড়ির নাম" id="home_name">
+                                <input type="text" value="{{$commiteeData->home_name}}" name="home_name" class="form-control" placeholder="Home name..." id="home_name">
                             </div>
                             @if($errors->has('home_name'))
                                 <span class="help-block">
@@ -285,7 +277,7 @@
                         <div class="form-group {{$errors->has('holding_name') ? 'has-error' : ''}}">
                             <label for="">বাড়ি / হোল্ডিং নাম্বার</label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->holding_name}}" name="holding_name" class="form-control" placeholder="বাড়ি / হোল্ডিং নাম্বার" id="holding_name">
+                                <input type="text" value="{{$commiteeData->holding_name}}" name="holding_name" class="form-control" placeholder="Home name..." id="holding_name">
                             </div>
                             @if($errors->has('holding_name'))
                                 <span class="help-block">
@@ -299,7 +291,7 @@
                         <div class="form-group {{$errors->has('road_name') ? 'has-error' : ''}}">
                             <label for="">রোড নাম্বার</label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->road_name}}" name="road_name" class="form-control" placeholder="রোড নাম্বার" id="road_name">
+                                <input type="text" value="{{$commiteeData->road_name}}" name="road_name" class="form-control" placeholder="Home name..." id="road_name">
                             </div>
                             @if($errors->has('road_name'))
                                 <span class="help-block">
@@ -315,7 +307,7 @@
                         <div class="form-group {{$errors->has('village') ? 'has-error' : ''}}">
                             <label for="">গ্রাম / পাড়া / মহল্লার নাম <font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->village}}" name="village" class="form-control" placeholder="গ্রাম / পাড়া / মহল্লার নাম" id="village">
+                                <input type="text" value="{{$commiteeData->village}}" name="village" class="form-control" placeholder="Village name..." id="village">
                             </div>
                             @if($errors->has('village'))
                                 <span class="help-block">
@@ -329,7 +321,7 @@
                         <div class="form-group {{$errors->has('post_office') ? 'has-error' : ''}}">
                             <label for="">ডাকঘর <font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->post_office}}" name="post_office" class="form-control" placeholder="ডাকঘর" id="post_office">
+                                <input type="text" value="{{$commiteeData->post_office}}" name="post_office" class="form-control" placeholder="Postoffice name..." id="post_office">
                             </div>
                             @if($errors->has('post_office'))
                                 <span class="help-block">
@@ -343,7 +335,7 @@
                         <div class="form-group {{$errors->has('unione') ? 'has-error' : ''}}">
                             <label for="">ইউনিয়ন / পৌরসভার নাম <font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->unione}}" name="unione" class="form-control" placeholder="ইউনিয়ন / পৌরসভার নাম" id="unione">
+                                <input type="text" value="{{$commiteeData->unione}}" name="unione" class="form-control" placeholder="Unione name..." id="unione">
                             </div>
                             @if($errors->has('unione'))
                                 <span class="help-block">
@@ -360,7 +352,7 @@
                         <div class="form-group {{$errors->has('thana') ? 'has-error' : ''}}">
                             <label for="">উপজেলা / থানার নাম <font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->thana}}" name="thana" class="form-control" placeholder="উপজেলা / থানার নাম" id="thana">
+                                <input type="text" value="{{$commiteeData->thana}}" name="thana" class="form-control" placeholder="Thana name..." id="thana">
                             </div>
                             @if($errors->has('thana'))
                                 <span class="help-block">
@@ -374,7 +366,7 @@
                         <div class="form-group {{$errors->has('district') ? 'has-error' : ''}}">
                             <label for="">জেলার নাম  <font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="text" value="{{$commiteeData->district}}" name="district" class="form-control" placeholder="জেলার নাম" id="district">
+                                <input type="text" value="{{$commiteeData->district}}" name="district" class="form-control" placeholder="Postoffice name..." id="district">
                             </div>
                             @if($errors->has('district'))
                                 <span class="help-block">
@@ -388,7 +380,7 @@
                         <div class="form-group {{$errors->has('post_code') ? 'has-error' : ''}}">
                             <label for="">পোষ্ট কোড নাম্বার<font color="red" size="4">*</font></label>
                             <div class="">
-                                <input type="number" value="{{$commiteeData->post_code}}" name="post_code" class="form-control" placeholder="পোষ্ট কোড নাম্বার" id="post_code">
+                                <input type="text" value="{{$commiteeData->post_code}}" name="post_code" class="form-control" placeholder="Unione name..." id="post_code">
                             </div>
                             @if($errors->has('post_code'))
                                 <span class="help-block">
@@ -426,11 +418,11 @@
                         </div>
                     </div>
                 </div>
-            </form> 
+            </form>
         </div>
     </div>
 <script type="text/javascript">
-	document.getElementById("designation").value="{{$commiteeData->designation}}";
+	document.getElementById("designation_id").value="{{$commiteeData->designation_id}}";
 	document.getElementById("religion").value="{{$commiteeData->religion}}";
 	document.getElementById("gender").value="{{$commiteeData->gender}}";
 	document.getElementById("blood").value="{{$commiteeData->blood}}";
@@ -454,10 +446,10 @@
     <script src="{{asset('backEnd/js/jquery-ui.js')}}"></script>
     <script>
         $( function() {
-            $( ".date" ).datepicker({ 
+            $( ".date" ).datepicker({
                 dateFormat: 'dd-mm-yy',
                 changeMonth: true,
-                changeYear: true 
+                changeYear: true
             }).val();
         } );
     </script>

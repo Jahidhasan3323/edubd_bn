@@ -236,6 +236,36 @@
 
                 <div class="row">
                     <div class="col-sm-6">
+                        <div class="form-group {{$errors->has('attend_percentage_limit') ? 'has-error' : ''}}">
+                            <label for="attend_percentage_limit">এস,এম,এসের জন্য উপস্থিতি লিমিট (%) </label>
+                            <div class="">
+                                <input class="form-control" type="text" value="{{$showData->attend_percentage_limit}}" name="attend_percentage_limit" id="attend_percentage_limit">
+                            </div>
+
+                            @if($errors->has('attend_percentage_limit'))
+                                <span class="help-block">
+                                    <strong>{{$errors->first('attend_percentage_limit')}}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group {{$errors->has('school_type_id') ? 'has-error' : ''}}">
+                            <label for="school_type_id">প্রতিষ্ঠানের টাইপ নির্বাচন করুন<span class="star">*</span></label>
+                            <select name="school_type_id[]" id="school_type_id" class="form-control" multiple="true">
+                                @foreach($school_types as $school_type)
+                                    <option value="{{$school_type->id}}">{{$school_type->type}}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('school_type_id'))
+                                <span class="help-block">
+                                    <strong>{{$errors->first('school_type_id')}}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="" for="sms_service">প্রতিষ্ঠানের এস,এম,এস সার্ভিস<span class="star">*</span></label>
                             <select class="form-control" id="sms_service" name="sms_service">
@@ -246,19 +276,21 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group {{$errors->has('school_type_id') ? 'has-error' : ''}}">
-                            <label for="school_type_id">প্রতিষ্ঠানের টাইপ নির্বাচন করুন<span class="star">*</span></label>
-                            <select name="school_type_id[]" id="school_type_id" class="form-control" multiple="true">
-                                @foreach($school_types as $school_type)
-                                <option value="{{$school_type->id}}">{{$school_type->type}}</option>
-                                @endforeach
+                        <div class="form-group">
+                            <label class="" for="attendance_sms">অটোমেটিক উপস্থিতি এস,এম,এস সেন্ড<span class="star">*</span></label>
+                            <select class="form-control" id="attendance_sms" name="attendance_sms">
+                                <option selected value="{{ $showData->attendance_sms }}">
+                                    @if ($showData->attendance_sms==0) এস,এম,এস বন্ধ
+                                    @elseif ($showData->attendance_sms==1) শিক্ষক ও কর্মচারী এস,এম,এস
+                                    @elseif ($showData->attendance_sms==2)  শিক্ষার্থী এস,এম,এস
+                                    @elseif ($showData->attendance_sms==3)  শিক্ষক-কর্মচারী ও শিক্ষার্থী এস,এম,এস
+                                    @endif
+                                </option>
+                                <option value="0">এস,এম,এস বন্ধ </option>
+                                <option value="1">শিক্ষক ও কর্মচারী এস,এম,এস</option>
+                                <option value="2">শিক্ষার্থী এস,এম,এস</option>
+                                <option value="3">শিক্ষক-কর্মচারী ও শিক্ষার্থী এস,এম,এস</option>
                             </select>
-
-                            @if ($errors->has('school_type_id'))
-                                <span class="help-block">
-                                    <strong>{{$errors->first('school_type_id')}}</strong>
-                                </span>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -273,7 +305,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="col-sm-6">
                         <div class="form-group {{$errors->has('service_type_id') ? 'has-error' : ''}}">
                             <label for="service_type_id">সেবার ধরণ <span class="star">*</span></label>
@@ -289,15 +320,6 @@
                                     <strong>{{$errors->first('service_type_id')}}</strong>
                                 </span>
                             @endif
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="status">ইহ্‌সান এডুকেশন সোশাল সাইট পোস্ট এপুরভ করার ক্ষমতা <span class="star">*</span></label>
-                            <select class="form-control" id="social_post_access" name="social_post_access">
-                                <option value="1">হ্যাঁ</option>
-                                <option value="0">না</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -413,7 +435,5 @@
         document.forms['validate'].elements['status'].value="{{old('service_type_id',$showData->status)}}";
         var multipleValues = $( "#school_type_id" ).val(schoolType);
         document.forms['validate'].elements['service_type_id'].value="{{old('service_type_id',$showData->service_type_id)}}";
-
-        document.forms['validate'].elements['social_post_access'].value="{{old('social_post_access',$showData->social_post_access)}}";
     </script>
 @endsection

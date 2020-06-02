@@ -202,7 +202,7 @@
                                             @if($subject->subject_type=='ধর্ম শিক্ষা')
                                             <option value="আবশ্যিক" {{isset($sub_result->subject_status)?($sub_result->subject_status=='আবশ্যিক'?'selected':''):''}}>আবশ্যিক</option>
                                             @endif
-                                            @if($subject->status=='Common')
+                                            @if($subject->status=='কমন')
                                             <option value="আবশ্যিক" {{isset($sub_result->subject_status)?($sub_result->subject_status=='আবশ্যিক'?'selected':''):''}}>আবশ্যিক</option>
                                             <option value="ঐচ্ছিক" {{isset($sub_result->subject_status)?($sub_result->subject_status=='ঐচ্ছিক'?'selected':''):''}}>ঐচ্ছিক</option>
                                             @endif

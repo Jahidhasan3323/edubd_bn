@@ -1,12 +1,12 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'বার্তার লিমিট')
+@section('mainTitle', 'বার্তার সেটিং')
 @section('message_length', 'active')
 
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">বার্তার লিমিট যোগ করুন</h1>
+            <h1 class="text-center text-temp">বার্তা সেটিং করুন</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -28,6 +28,15 @@
                                 @foreach($schools as $school)
                                     <option value="{{$school->id}}" >{{$school->user->name}}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="" for="content">জন্মদিনের বার্তা (অটোমেটিক)</label>
+                            <select class="form-control" name="birthday_sms" id="birthday_sms" required>
+                                <option selected value="0">নিষ্ক্রিয়</option>
+                                <option value="1">সক্রিয়</option>
                             </select>
                         </div>
                     </div>

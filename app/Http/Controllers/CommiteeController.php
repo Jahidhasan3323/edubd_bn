@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\School;
 use App\Commitee;
+use App\Designation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -65,8 +66,8 @@ class CommiteeController extends Controller
         $school = School::where('user_id', Auth::user()->id)
                 ->select('schools.id as id')
                 ->first();
-
-        return view('backEnd.commitee.add', compact('school'));
+        $designations = Designation::where('type',2)->get();
+        return view('backEnd.commitee.add', compact('school','designations'));
     }
 
     /**
@@ -140,11 +141,11 @@ class CommiteeController extends Controller
             return redirect('/home');
         }
         //dd($id);
-
+        $designations = Designation::where('type',2)->get();
         $commiteeData = Commitee::find($commitee->id);
         //echo $commiteeData;
 
-        return view('backEnd.commitee.edit', compact('commiteeData'));
+        return view('backEnd.commitee.edit', compact('commiteeData','designations'));
 
     }
 
@@ -228,21 +229,21 @@ class CommiteeController extends Controller
         $this->validate($data, [
             'name'        => 'required|max:255',
             'gender'      => 'required',
-            'designation' => 'required',
+            'designation_id' => 'required',
             'edu_quali' => 'required',
             'join_date' => 'required',
             'birth_date' => 'required',
             'religion' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
-            'mobile'  => 'required|unique:users | numeric',
+            'mobile'  => 'required|unique:users',
             'nid' => 'required',
             'village' => 'required',
             'post_office' => 'required',
             'unione' => 'required',
             'thana' => 'required',
             'district' => 'required',
-            'post_code' => 'required | numeric',
+            'post_code' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             ]);
@@ -253,7 +254,7 @@ class CommiteeController extends Controller
         $this->validate($data, [
             'name'        => 'required|max:255',
             'gender'      => 'required',
-            'designation' => 'required',
+            'designation_id' => 'required',
             'edu_quali' => 'required',
             'join_date' => 'required',
             'birth_date' => 'required',
@@ -267,7 +268,7 @@ class CommiteeController extends Controller
             'unione' => 'required',
             'thana' => 'required',
             'district' => 'required',
-            'post_code' => 'required | numeric',
+            'post_code' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             ]);

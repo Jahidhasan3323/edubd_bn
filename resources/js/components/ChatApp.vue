@@ -51,7 +51,7 @@
         methods:{
             
             startConvertationWith(contact){
-                this.updateUnreadCount(contact, true);
+                this.updateUnreadCount(contact, 1);
                 axios.get(`/convertation/${contact.id}`)
                 .then((response)=>{
                     this.messages=response.data;
@@ -67,11 +67,12 @@
                    this.saveNewMessage(chatting);
                    return;
                 }
-                this.updateUnreadCount(chatting.from_contact, false);
+                this.updateUnreadCount(chatting.from_contact, 0);
             },
             updateUnreadCount(contact, reset){
                 this.contacts = this.contacts.map((single) => {
                     if(single.id != contact.id){
+                console.log(single);
                         return single;
                     }
 
@@ -80,6 +81,7 @@
                     else 
                         single.unread+=1;
 
+                        console.log('single');
                     return single;
                 })
             }

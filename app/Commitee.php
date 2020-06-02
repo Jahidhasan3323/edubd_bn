@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Commitee extends Model
 {
     protected $fillable = [
-    	'user_id', 'gender', 'designation', 'edu_quali', 'join_date', 'retire_date', 'birth_date', 'blood', 'religion', 'nid', 'home_name', 'holding_name', 'road_name', 'village', 'post_office', 'unione', 'thana', 'district', 'post_code', 'regine', 'school_id', 'image','deleted_at',
+    	'user_id', 'gender', 'designation_id', 'edu_quali', 'join_date', 'retire_date', 'birth_date', 'blood', 'religion', 'nid', 'home_name', 'holding_name', 'road_name', 'village', 'post_office', 'unione', 'thana', 'district', 'post_code', 'regine', 'school_id', 'image','deleted_at',
     ];
 
 
@@ -26,9 +26,9 @@ class Commitee extends Model
         return $query->whereNotNull('deleted_at');
     }
 
-    public function designation($query)
+    public function designation()
     {
-        return $this->belongsTo(Designation::class,'designation');
+        return $this->belongsTo(Designation::class);
     }
 
 

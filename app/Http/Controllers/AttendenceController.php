@@ -50,7 +50,6 @@ class AttendenceController extends Controller
         $this->validate($request,[
             'id_card_no'=>['required','numeric',new IdCardNumberCheck()]
         ]);
-
         $imp_setting=\App\ImportantSetting::where('school_id',Auth::getSchool())->first();
         if($imp_setting->atten_start_time==NULL||$imp_setting->atten_end_time==NULL||$imp_setting->leave_start_time==NULL||$imp_setting->leave_end_time==NULL){
            Session::flash('errmgs', 'Wrong, Please setting attendance time schedule full-fill, Important settings !');
@@ -65,7 +64,7 @@ class AttendenceController extends Controller
         if(($check_time >= $atten_start_time && $check_time <= $atten_end_time)||($check_time >= $leave_start_time && $check_time <= $leave_end_time)){
               $data=$leave_controller->request_data_process($request);
               try{
-                  if($data['lenth']==15){
+                  if($data['lenth']==15 || $data['lenth']==30){
                      return $student_attendance->entry($data);
                   }else{
                      return $employee_attendance->entry($data);
@@ -86,8 +85,10 @@ class AttendenceController extends Controller
                          ->groupBy(['master_class_id','group','shift','section'])
                          ->selectRaw('*,count(student_id) as total')
                          ->get();
-          
-        return view('backEnd.attendence.student.index',compact('students'));
+        $current_students=Student::where('school_id',Auth::getSchool())
+                         ->current()
+                         ->count();
+        return view('backEnd.attendence.student.index',compact('students','current_students'));
     }
 
     public function view($class_id,$group,$shift,$section)

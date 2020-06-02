@@ -28,12 +28,17 @@ class SalarySheetInfo{
       $data['school_id'] = Auth::getSchool();
       $data['employee_id'] = $employee->id;
       $data['basic'] = $basic_salary->amount;
-      $attend = AttenEmployee::where('school_id', Auth::getSchool())->where('staff_id', $employee->id)->where('month', $month)->where('year', $year)->count();
+      $attend = AttenEmployee::where('school_id', Auth::getSchool())
+                            ->where('staff_id', $employee->id)
+                            ->whereMonth('date', $month)
+                            ->whereYear('date', $year)
+                            ->where('status', 'P')
+                            ->count();
       $total_leave = AttenEmployee::where('school_id', Auth::getSchool())
                                   ->where('staff_id', $employee->staff_id)
-                                  ->whereNull('in_time')
-                                  ->where('month', $month)
-                                  ->where('year', $year)
+                                  ->whereMonth('date', $month)
+                                  ->whereYear('date', $year)
+                                  ->where('status', 'L')
                                   ->count();
       // return $total_leave;
       $total_absent = count($this->month_dates($month, $year))-($holiday+$attend+$total_leave);

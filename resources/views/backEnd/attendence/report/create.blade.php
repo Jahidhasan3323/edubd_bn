@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    @if(isset($atten_students)&&$atten_students!=''&&count($atten_students)>0)
+    @if(isset($atten_students)&&$atten_students!=''&&$atten_students!=NULL)
       <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
           <div class="panel-body">
             <div class="row">
@@ -40,7 +40,6 @@
                   <thead>
                       <tr>
                           <th>#</th>
-                          <th>ছবি</th>
                           <th>শিক্ষার্থী</th>
                           @foreach($days as $date)
                            <th>{{date('d',strtotime($date))}}</th>
@@ -50,13 +49,9 @@
                   <tbody>
                   <?php $x = 1; ?>
                       @foreach($atten_students as $student)
-                        @if(isset($student->student->user->name))
                           <tr>
                               <td>{{$x}}</td>
-                              <td>
-                                <img src="{{Storage::url(isset($student->student->photo)?$student->student->photo:'')}}" width="20px">
-                              </td>
-                              <td>{{isset($student->student->user->name)?$student->student->user->name:''}}</td>
+                              <td>{{$student->student->user->name}}</td>
                               @foreach($days as $date)
                                <td>
                                 {{
@@ -69,7 +64,6 @@
                               @endforeach
                           </tr>
                           <?php $x++; ?>
-                        @endif
                       @endforeach
                   </itbody>
                   </table>
@@ -94,7 +88,6 @@
                   <thead>
                       <tr>
                           <th>#</th>
-                          <th>ছবি</th>
                           <th>কর্মকর্তা</th>
                           @foreach($days as $date)
                            <th>{{date('d',strtotime($date))}}</th>
@@ -104,13 +97,9 @@
                   <tbody>
                   <?php $x = 1; ?>
                       @foreach($atten_employees as $employee)
-                        @if(isset($employee->staff->user->name))
                           <tr>
                               <td>{{$x}}</td>
-                              <td>
-                                <img src="{{Storage::url(isset($employee->staff->photo)?$employee->staff->photo:'')}}" width="20px">
-                              </td>
-                              <td>{{isset($employee->staff->user->name)?$employee->staff->user->name:''}}</td>
+                              <td>{{$employee->staff->user->name}}</td>
                               @foreach($days as $date)
                                <td>
                                 {{
@@ -123,9 +112,8 @@
                               @endforeach
                           </tr>
                           <?php $x++; ?>
-                        @endif
                       @endforeach
-                  </tbody>
+                  </itbody>
                   </table>
              </div>
           </div>

@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label class="" for="text_status">বার্তার ধরণ</label>
                             <div class="">
-                                <input type="radio" checked="checked" name="text_status" value="Unicode (Bangla)">
+                                <input type="radio" checked="checked" value="Unicode (Bangla)">
                                 <span id="unicode" style="display:none;">
                                      ইউনিকোড (বাংলা)
                                 </span>
