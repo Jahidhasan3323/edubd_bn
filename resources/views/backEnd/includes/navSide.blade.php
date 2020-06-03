@@ -851,7 +851,7 @@
                             <a href="{{url('/post/delete_list')}}">ডিলেটেড তালিকা</a>
                         </li>
                         @endif
-                         
+
                     </ul>
                 </li>
             @if(Auth::is('admin'))
