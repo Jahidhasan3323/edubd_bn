@@ -66,6 +66,9 @@
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>এস,এম,এস<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
+                            <a href="{{ route('rootSms.daily_sms_report')}}">প্রতিষ্ঠান ভিত্তিক দৈনিক এস,এম,এস রিপোর্ট</a>
+                        </li>
+                        <li>
                             <a href="{{ route('smsLimit.sms_setup')}}">অটোমেটিক এস,এম,এস নির্ধারণ করুন</a>
                         </li>
                         <li>
@@ -801,23 +804,24 @@
                         @endif
                     </ul>
                 </li>
-                <li class="@yield('active_visitor')">
-                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>ভিজিটর ব্যবস্থাপনা<span
-                                class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        @if(Auth::is('admin'))
-                        <li>
-                            <a href="{{ route('visitorType.add') }}">ভিজিটরের ধরণ</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('visitor.add') }}">ভিজিটর যোগ করুন</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('visitor.list') }}">ভিজিটর পরিচালনা করুন</a>
-                        </li>
-                        @endif
-                    </ul>
-                </li>
+                @if (Auth::is('admin'))
+                    <li class="@yield('active_visitor')">
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>ভিজিটর ব্যবস্থাপনা<span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ route('visitorType.add') }}">ভিজিটরের ধরণ</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('visitor.add') }}">ভিজিটর যোগ করুন</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('visitor.list') }}">ভিজিটর পরিচালনা করুন</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
 
             @endif
                 @if(Auth::is('root') || Auth::is('teacher') || Auth::is('staff') || Auth::is('student'))

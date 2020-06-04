@@ -606,6 +606,7 @@ Route::group(['middleware' => 'auth','prefix' => 'SalarySheet'], function(){
       Route::post('/send','RootSmsController@send')->name('send');
       Route::get('/multi_school','RootSmsController@multi_school')->name('multi_school');
       Route::post('/multi_school_send','RootSmsController@multi_school_send')->name('multi_school_send');
+      Route::get('/daily_sms_report','RootSmsController@daily_sms_report')->name('daily_sms_report');
   });
 
 // SMS Login Info Routes
@@ -1046,7 +1047,7 @@ Route::group(['middleware' => 'auth','prefix' => 'online-exam', 'as'=>'online-ex
 });
 
 
-//chat app 
+//chat app
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/chat', function () {
         return view('backEnd/chatApp/index');
@@ -1059,7 +1060,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('all/convertation/','ChattingController@allConvertation');
 });
 
-//social app 
+//social app
 Route::group(['middleware' => 'auth','prefix' => 'post', 'as'=>'post'], function(){
     Route::get('/','PostController@index');
     Route::get('/profile/{db}','PostController@profile')->name('.profile');
