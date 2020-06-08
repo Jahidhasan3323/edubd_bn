@@ -35,7 +35,7 @@
                       <tr>
                         <td>{{$x++}}</td>
                         <td>{{str_replace($s, $r, $months[$holiday->date->format('m')-1])}}</td>
-                        <td>{{str_replace($s, $r, $holiday->date->format('Y'))}}</td>
+                        <td>{{str_replace($s, $r, $holiday->date->format('Y')) }}</td>
                         <td>{{str_replace($s, $r, $holiday->total)}}</td>
                         <td>
                             <a style="" href="{{url('/holiday/edit',[$holiday->date->format('m'),$holiday->date->format('Y')])}}" class="btn btn-default">

@@ -317,6 +317,18 @@
                 </li>
             @endif
 
+            @if(Auth::is('admin'))
+                <li class="@yield('online_admission')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>অনলাইন ভর্তি<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{url('/online_admission/create')}}">অনলাইন ভর্তি ফর্ম তৈরি</a>
+                            <a href="{{url('/online_admission')}}">অনলাইন ভর্তি ফর্ম তালিকা</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
             @if(Auth::is('root')||Auth::is('admin'))
                 <li class="@yield('active_exam')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>পরীক্ষা ব্যাবস্থাপনা<span

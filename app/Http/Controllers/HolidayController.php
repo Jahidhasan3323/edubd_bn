@@ -29,6 +29,7 @@ class HolidayController extends Controller
                    ->groupBy(DB::raw('MONTH(date)'))
                    ->select('*', DB::raw('count(*) as total'))
                    ->get();
+
         $months = $this->months;
         return view('backEnd.holiday.index',compact('holidays','months'));
     }
