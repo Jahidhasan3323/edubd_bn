@@ -13,6 +13,9 @@ class FundController extends Controller
     }
 
     public function fund_store(Request $request){
+        $this->validate($request,[
+            "name" => "required",
+        ]);
       $fund = new Fund;
       $data = $request->all();
       $fund->create($data);
@@ -25,6 +28,9 @@ class FundController extends Controller
     }
 
     public function fund_update(Request $request){
+        $this->validate($request,[
+            "name" => "required",
+        ]);
       $fund = Fund::find($request->id);
       $data = $request->all();
       $fund->update($data);

@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('attendence:sms')->everyMinute();
-        $schedule->command('everyday:attendance')->dailyAt('00:01');
+        $schedule->command('everyday:attendance')->everyMinute();
         $schedule->command('birthday:wish')->dailyAt('00:01');
     }
 

@@ -102,4 +102,17 @@ class RootSmsController extends Controller
 	}
 
 
+	public function daily_sms_report()
+	{
+		$data = file_get_contents('http://sms.worldehsan.org/api/report?role=root&api_key=798ROmf0ACbtDiva2dUYyqwo6PSp53');
+		$data = json_decode($data,true);
+		if ($data['status']==true) {
+			$daily_sms_reports =  $data['daily_sms_reports'];
+		}else {
+			$daily_sms_reports = [];
+		}
+		return view('backEnd.sms.daily_sms_reports',compact('daily_sms_reports'));
+	}
+
+
 }
