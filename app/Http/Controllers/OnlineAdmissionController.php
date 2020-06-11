@@ -147,7 +147,7 @@ class OnlineAdmissionController extends Controller
             return redirect('/home');
         }
 
-         $student=OnlineAdmissionApplication::where(['id'=>$id,'school_id'=>Auth::getSchool()])->first();
+         $student=OnlineAdmissionApplication::with('masterClass')->where(['id'=>$id,'school_id'=>Auth::getSchool()])->first();
          $subject=OnlineAdmissionApplicationSubject::where(['o_a_application_id'=>$id,'school_id'=>Auth::getSchool(),'status'=>1])->get();
         $accademic_info=OnlineAdmissionAccademicInfo::where(['o_a_application_id'=>$id,'school_id'=>Auth::getSchool(),'status'=>1])->get();
         return view('backEnd.online_admission.view',compact('student','subject','accademic_info'));

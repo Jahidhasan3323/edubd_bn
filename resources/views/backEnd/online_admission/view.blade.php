@@ -84,7 +84,7 @@
                         </tr>
                         <tr>
                             <th style="width:50%">শ্রেণী</th>
-                            <td>{{$student->class}}</td>
+                            <td>{{$student->masterClass->name}}</td>
                         </tr>
                         <tr>
                             <th style="width:50%">ইমেল </th>
