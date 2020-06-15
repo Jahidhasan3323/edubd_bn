@@ -1,9 +1,14 @@
-# dependencies
 /node_modules
-
-
+/public/hot
+/public/storage
+/storage/*.key
 /storage
-
-# misc
+/vendor
+/backup
 .env
-.env.local
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
