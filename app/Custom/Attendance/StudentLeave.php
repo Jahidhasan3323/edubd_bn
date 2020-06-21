@@ -12,17 +12,17 @@
  {
  	public function entry($data)
  	{  
-               foreach ($data['date'] as $date){
-                $r_data=$this->data_process($data,$date);
-                $attendance = AttenStudent::where($r_data)->first();
-                if($attendance){
-                        $attendance->update(['status'=>'L','in_time'=>NULL, 'out_time'=>NULL]);
-                }else{
-                        $r_data['status']='L';
-                        AttenStudent::create($r_data);
-                }
-               }
-               return $this->returnWithSuccess("Student, Leave entry success !!");        
+       foreach ($data['date'] as $date){
+        $r_data=$this->data_process($data,$date);
+        $attendance = AttenStudent::where($r_data)->first();
+        if($attendance){
+            $attendance->update(['status'=>'L','in_time'=>NULL, 'out_time'=>NULL]);
+        }else{
+            $r_data['status']='L';
+            AttenStudent::create($r_data);
+        }
+       }
+       return $this->returnWithSuccess("Student, Leave entry success !!");        
  	}
 
  	protected function data_process($data,$date){
