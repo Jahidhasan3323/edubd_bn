@@ -1139,9 +1139,23 @@ Route::group(['prefix' => 'online_admission_application', 'as'=>'online_admissio
     Route::get('/delete/{id}','OnlineAdmissionApplicationController@destroy')->name('.delete');
 });
 
+
 // Student add by Root user
 Route::group(['prefix' => 'student', 'as'=>'student.'], function(){
     Route::get('/add','StudentController@student_add_root')->name('add');
     Route::get('/add_info','StudentController@student_add_info')->name('add_info');
     Route::post('/store','StudentController@student_store_root')->name('store');
+
+
+//online admission
+Route::group(['prefix' => 'online_class', 'as'=>'online_class'], function(){
+    Route::get('/','OnlineClassController@index')->name('');
+    Route::get('/create','OnlineClassController@create')->name('.create');
+    Route::post('/create','OnlineClassController@store')->name('.create');
+    Route::get('/edit/{id}','OnlineClassController@edit')->name('.edit');
+    Route::post('/edit/{id}','OnlineClassController@update')->name('.edit');
+    Route::get('/delete/{id}','OnlineClassController@destroy')->name('.delete');
+
+     Route::get('/student','OnlineClassController@student_class')->name('.student');
+
 });

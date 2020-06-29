@@ -865,11 +865,34 @@
             @endif
                 @if(Auth::is('root') || Auth::is('teacher') || Auth::is('staff') || Auth::is('student'))
             <li>
-                <a href="{{url('chat')}}" ><i class="fa fa-comment fa-2x"></i>ইহসান চ্যাটিং অ্যাপ্লিকেশন</a>
+                {{-- <a href="{{url('chat')}}" ><i class="fa fa-comment fa-2x"></i>ইহসান চ্যাটিং অ্যাপ্লিকেশন</a> --}}
 
             </li>
             @endif
-            <li class="@yield('post')">
+
+            @if(Auth::is('teacher') || Auth::is('student'))
+            <li>
+                <li class="@yield('online_class')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>অনলাইন ক্লাস<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        @if(Auth::is('teacher'))
+                        <li>
+                            <a href="{{ route('online_class.create') }}">অনলাইন ক্লাস যোগ করুন</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('online_class') }}">অনলাইন ক্লাসের তথ্য</a>
+                        </li>
+                        @endif
+                        @if(Auth::is('student'))
+                        <li>
+                            <a href="{{ route('online_class.student') }}">অনলাইন ক্লাসের তথ্য</a>
+                        </li>
+                        @endif
+                    </ul>
+                </li>
+            </li>
+            @endif
+            {{-- <li class="@yield('post')">
                     <a href="#">
                         <i class="fa fa-sitemap fa-2x"></i>ইহ্‌সান এডুকেশন সোশাল সাইট  <span
                                 class="fa arrow"></span></a>
@@ -896,7 +919,7 @@
                         @endif
 
                     </ul>
-                </li>
+                </li> --}}
             @if(Auth::is('admin'))
                 <li>
                     <a href="{{url('school_settings')}}"><i class="fa fa-angle-double-down fa-2x"></i>ওয়েব ম্যানেজমেন্ট</a>
