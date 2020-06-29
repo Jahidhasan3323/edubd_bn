@@ -10,6 +10,7 @@ use App\MasterClass;
 use App\Student;
 use App\Staff;
 use App\Commitee;
+use App\User;
 
 class LoginInfoController extends Controller
 {
@@ -142,6 +143,75 @@ class LoginInfoController extends Controller
 		}
         return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন কমিটিকেে লগইন তথ্য পাঠানো হয়েছে ।');
 	}
+
+    public function student_login_info()
+    {
+        $schools = School::all();
+        $class_groups=$this->groupClasses();
+        $units=$this->getUnits();
+        $sessions = Student::distinct('session')->pluck('session');
+		return view('backEnd.login_info.print.student_login_info',compact('schools','class_groups','units','sessions'));
+    }
+
+    public function student_login_info_print(Request $request)
+    {
+        $school = School::find($request->school_id);
+        $user_id = Student::where([
+            'school_id'=>$request->school_id,
+            'master_class_id'=>$request->master_class_id,
+            'session'=>$request->session,
+            'group'=>$request->group,
+            'shift'=>$request->shift,
+            'section'=>$request->section,
+        ])->pluck('user_id');
+        $student = Student::whereIn('user_id',$user_id)->first();
+        $all_id = $this->password_generate($user_id);
+        $students = Student::whereIn('user_id',$all_id)->get();
+		return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
+    }
+
+    public function employee_login_info()
+    {
+        $schools = School::all();
+        return view('backEnd.login_info.print.employee_login_info',compact('schools'));
+    }
+
+    public function employee_login_info_print(Request $request)
+    {
+        $school = School::find($request->school_id);
+        $user_id = Staff::where('school_id',$school->id)->pluck('user_id');
+        $all_id = $this->password_generate($user_id);
+        $employees = Staff::whereIn('user_id',$all_id)->get();
+		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
+    }
+
+    public function committee_login_info()
+    {
+        $schools = School::all();
+        return view('backEnd.login_info.print.committee_login_info',compact('schools'));
+    }
+
+    public function committee_login_info_print(Request $request)
+    {
+        $school = School::find($request->school_id);
+        $user_id = Commitee::where('school_id',$school->id)->pluck('user_id');
+        $all_id = $this->password_generate($user_id);
+        $committees = Commitee::whereIn('user_id',$all_id)->get();
+		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
+    }
+
+    public function password_generate($user_id)
+    {
+        $users = User::where('real_password','=',null)->whereIn('id',$user_id)->get();
+        foreach ($users as $user) {
+            $password = rand(10000000,99999999);
+            $user->real_password = $password;
+            $user->password = bcrypt($password);
+            // $user->real_password = null;
+            $user->save();
+        }
+        return $user_id;
+    }
 
 
 

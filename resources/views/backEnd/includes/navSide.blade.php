@@ -62,6 +62,30 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@yield('active_login_info')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>লগিনের তথ্যাবলী<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ route('student_login_info') }}">শিক্ষার্থী লগিনের তথ্যাবলী</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('student_password') }}">শিক্ষার্থীদের পাসওয়ার্ড রিসেট</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('employee_login_info') }}">শিক্ষক ও কর্মচারীদের লগিনের তথ্যাবলী</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('employee_password') }}">শিক্ষক ও কর্মচারীদের পাসওয়ার্ড রিসেট</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('committee_login_info') }}">কমিটিদের লগিনের তথ্যাবলী</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('committee_password') }}">কমিটিদের পাসওয়ার্ড রিসেট</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="@yield('active_sms_login_info')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>এস,এম,এস<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
