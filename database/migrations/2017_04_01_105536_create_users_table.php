@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 191)->unique();
             $table->string('mobile', 100)->nullable();
             $table->string('password');
+            $table->string('real_password');
             $table->rememberToken();
             $table->integer('group_id')->unsigned();
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade')->onUpdate('cascade');
