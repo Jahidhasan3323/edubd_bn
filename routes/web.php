@@ -609,6 +609,30 @@ Route::group(['middleware' => 'auth','prefix' => 'SalarySheet'], function(){
       Route::get('/daily_sms_report','RootSmsController@daily_sms_report')->name('daily_sms_report');
   });
 
+// Login Info Routes
+ Route::group(['middleware' => 'auth','prefix' => 'loginInfo'], function(){
+     Route::get('/student_login_info','LoginInfoController@student_login_info')->name('student_login_info');
+     Route::post('/student_login_info_print','LoginInfoController@student_login_info_print')->name('student_login_info_print');
+     Route::get('/employee_login_info','LoginInfoController@employee_login_info')->name('employee_login_info');
+     Route::post('/employee_login_info_print','LoginInfoController@employee_login_info_print')->name('employee_login_info_print');
+     Route::get('/committee_login_info','LoginInfoController@committee_login_info')->name('committee_login_info');
+     Route::post('/committee_login_info_print','LoginInfoController@committee_login_info_print')->name('committee_login_info_print');
+
+ });
+
+ // Password Reset
+ Route::group(['middleware' => 'auth','prefix' => 'password'], function(){
+     Route::get('/student_password','PasswordGenerateController@student_password')->name('student_password');
+     Route::post('/student_password_reset','PasswordGenerateController@student_password_reset')->name('student_password_reset');
+     Route::post('/student_password_generate','PasswordGenerateController@student_password_generate')->name('student_password_generate');
+     Route::get('/employee_password','PasswordGenerateController@employee_password')->name('employee_password');
+     Route::post('/employee_password_reset','PasswordGenerateController@employee_password_reset')->name('employee_password_reset');
+     Route::post('/employee_password_generate','PasswordGenerateController@employee_password_generate')->name('employee_password_generate');
+     Route::get('/committee_password','PasswordGenerateController@committee_password')->name('committee_password');
+     Route::post('/committee_password_reset','PasswordGenerateController@committee_password_reset')->name('committee_password_reset');
+     Route::post('/committee_password_generate','PasswordGenerateController@committee_password_generate')->name('committee_password_generate');
+ });
+
 // SMS Login Info Routes
  Route::group(['middleware' => 'auth','prefix' => 'loginInfo', 'as' => 'loginInfo.'], function(){
      Route::get('/student','LoginInfoController@student')->name('student');
