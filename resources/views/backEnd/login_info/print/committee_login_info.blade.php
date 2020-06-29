@@ -19,11 +19,12 @@
         <div class="col-md-12" style="border: 1px solid #ddd;">
             <h4 style="margin-bottom: 20px;" class="text-center">প্রতিষ্ঠান নির্বাচন করুন</h4>
             <div class="row col-md-8 col-md-offset-2">
-                <form action="{{route('committee_password_reset')}}" method="post" target="_blank">
+                <form action="{{route('committee_login_info_print')}}" method="post" target="_blank">
                     {{csrf_field()}}
                     <div class="col-md-12 {{$errors->has('school_id') ? 'has-error' : ''}}">
                         <div class="form-group">
-                            <select class="form-control" name="school_id" id="school_id">
+                            <select class="form-control" name="school_id" id="school_id" required>
+                                <option value="">প্রতিষ্ঠান নির্বাচন করুন</option>
                                 @foreach($schools as $school)
                                     <option value="{{$school->id}}" >{{$school->user->name}}</option>
                                 @endforeach

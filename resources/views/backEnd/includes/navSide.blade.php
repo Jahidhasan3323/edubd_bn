@@ -21,6 +21,9 @@
             <li>
                 <a class="active-menu" href="{{url('/home')}}"><i class="fa fa-dashboard fa-3x"></i> ড্যাশবোর্ড</a>
             </li>
+            <li>
+                <a class="menu" href="{{ route('student.add') }}"><i class="fa fa-user fa-2x"></i> শিক্ষার্থী যোগ করুন</a>
+            </li>
             @if(Auth::is('admin'))
                 <li class="@yield('active_sms')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>এসএমএস সার্ভিস ব্যাবস্থাপনা<span

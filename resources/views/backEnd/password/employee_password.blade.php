@@ -24,6 +24,10 @@
                 <div class="col-md-12 {{$errors->has('school_id') ? 'has-error' : ''}}">
                     <div class="form-group">
                         <select class="form-control" name="school_id" id="school_id">
+                            @isset($school)
+                                <option value="{{$school->id}}" >{{$school->user->name}}</option>
+                            @endisset
+                            <option value="">...প্রতিষ্ঠান নির্বাচন করুন...</option>
                             @foreach($schools as $school)
                             <option value="{{$school->id}}">{{$school->user->name}}</option>
                             @endforeach
@@ -53,7 +57,7 @@
         <h5 style="margin-bottom: 10px;" class="text-center">মোট শিক্ষক ও কর্মচারী : {{count($employees)}}</h5>
         <div class="row">
             <div class="panel-body" style="margin-top: 10px;">
-                <form action="{{route('employee_password_generate')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('employee_password_generate')}}" method="post" enctype="multipart/form-data" target="_blank">
                     {{csrf_field()}}
                     @php($i=1)
                     <div class="row">
@@ -69,7 +73,7 @@
                                     @foreach($employees as $employee)
                                     <tr>
                                         <td>
-                                            <input class="form-check-input number" name="id[]" type="checkbox" value="{{$employee->id}}" id="defaultCheck{{$i}}">
+                                            <input class="form-check-input number" name="id[]" type="checkbox" value="{{$employee->user_id}}" id="defaultCheck{{$i}}">
                                             <input type="hidden" name="school_id" value="{{ $employee->school_id }}">
                                             <label class="form-check-label" for="defaultCheck{{$i++}}">
                                                 {{$employee->user->name}}

@@ -608,8 +608,8 @@ Route::group(['middleware' => 'auth','prefix' => 'SalarySheet'], function(){
       Route::post('/multi_school_send','RootSmsController@multi_school_send')->name('multi_school_send');
       Route::get('/daily_sms_report','RootSmsController@daily_sms_report')->name('daily_sms_report');
   });
-
-// Login Info Routes
+ Route::get('/get_data','LoginInfoController@get_data')->name('get_data');
+ // Login Info Routes
  Route::group(['middleware' => 'auth','prefix' => 'loginInfo'], function(){
      Route::get('/student_login_info','LoginInfoController@student_login_info')->name('student_login_info');
      Route::post('/student_login_info_print','LoginInfoController@student_login_info_print')->name('student_login_info_print');
@@ -1137,4 +1137,11 @@ Route::group(['prefix' => 'online_admission_application', 'as'=>'online_admissio
     Route::get('/edit/{id}','OnlineAdmissionApplicationController@edit')->name('.edit');
     Route::post('/edit/{id}','OnlineAdmissionApplicationController@update')->name('.edit');
     Route::get('/delete/{id}','OnlineAdmissionApplicationController@destroy')->name('.delete');
+});
+
+// Student add by Root user
+Route::group(['prefix' => 'student', 'as'=>'student.'], function(){
+    Route::get('/add','StudentController@student_add_root')->name('add');
+    Route::get('/add_info','StudentController@student_add_info')->name('add_info');
+    Route::post('/store','StudentController@student_store_root')->name('store');
 });
