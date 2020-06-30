@@ -38,11 +38,15 @@ class PasswordGenerateController extends Controller
 			"section" => $request->section,
 			"session" => $request->session,
 		])->first();
+        if (empty($student)) {
+            return redirect()->route('student_password')->with('errmgs','শিক্ষার্থী খুজে পাওয়া যায়নি !');
+        }
+        $school = School::find($request->school_id);
 		$schools = School::all();
         $class_groups=$this->groupClasses();
         $units=$this->getUnits();
         $sessions = Student::distinct('session')->pluck('session');
-		return view('backEnd.password.student_password',compact('schools','class_groups','units','sessions','students','student','request'));
+		return view('backEnd.password.student_password',compact('schools','class_groups','units','sessions','students','student','request','school'));
 	}
 
 	public function student_password_generate(Request $request){
@@ -60,8 +64,12 @@ class PasswordGenerateController extends Controller
 	public function employee_password_reset(Request $request){
 		// dd($request->all());
 		$schools = School::all();
+        $school = School::find($request->school_id);
         $employees = Staff::where('school_id',$request->school_id)->get();
-		return view('backEnd.password.employee_password',compact('schools','employees'));
+        if (count($employees) < 1) {
+            return redirect()->route('employee_password')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি !');
+        }
+		return view('backEnd.password.employee_password',compact('schools','employees','school'));
 	}
 
 	public function employee_password_generate(Request $request){
@@ -69,7 +77,29 @@ class PasswordGenerateController extends Controller
 		$school = School::find($request->school_id);
 		$user_id = $this->password_reset($request->id);
 		$employees = Staff::whereIn('user_id',$user_id)->get();
-		return view('backEnd.password.employee_password',compact('school','employees'));
+		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
+	}
+
+    public function committee_password(){
+		$schools = School::all();
+		return view('backEnd.password.committee_password',compact('schools'));
+	}
+	public function committee_password_reset(Request $request){
+		$schools = School::all();
+        $school = School::find($request->school_id);
+        $committees = Commitee::where('school_id',$request->school_id)->get();
+        if (count($committees) < 1) {
+           return redirect()->route('committee_password')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
+        }
+		return view('backEnd.password.committee_password',compact('schools','committees','school'));
+	}
+
+	public function committee_password_generate(Request $request){
+		// dd($request->all());
+		$school = School::find($request->school_id);
+		$user_id = $this->password_reset($request->id);
+		$committees = Commitee::whereIn('user_id',$user_id)->get();
+		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
 	}
 
     public function password_reset($user_id)

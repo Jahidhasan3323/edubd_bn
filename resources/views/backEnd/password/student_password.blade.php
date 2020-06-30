@@ -7,7 +7,7 @@
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">লগিনের তথ্যাবলী</h1>
+            <h1 class="text-center text-temp">শিক্ষার্থীদের পাসওয়ার্ড রিসেট</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -24,6 +24,9 @@
                     <div class="col-md-4 {{$errors->has('school_id') ? 'has-error' : ''}}">
                         <div class="form-group">
                             <select class="form-control" name="school_id" id="school_id">
+                                @isset($school)
+                                    <option value="{{$school->id}}" >{{$school->user->name}}</option>
+                                @endisset
                                 <option value="">...প্রতিষ্ঠান নির্বাচন করুন...</option>
                                 @foreach($schools as $school)
                                     <option value="{{$school->id}}" >{{$school->user->name}}</option>
@@ -148,7 +151,7 @@
                            @foreach($students as $student)
                             <tr>
                                <td>
-                                    <input class="form-check-input number" name="id[]" type="checkbox" value="{{$student->id}}" id="defaultCheck{{$i}}">
+                                    <input class="form-check-input number" name="id[]" type="checkbox" value="{{$student->user_id}}" id="defaultCheck{{$i}}">
 									<input type="hidden" name="school_id" value="{{ $student->school_id }}">
                                     <label class="form-check-label" for="defaultCheck{{$i++}}">
                                       {{$student->user->name}}

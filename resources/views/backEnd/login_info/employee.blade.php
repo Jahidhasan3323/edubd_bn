@@ -7,7 +7,7 @@
 @section('content')
     <div class="panel col-md-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">লগিনের তথ্য সেবা</h1>
+            <h1 class="text-center text-temp">লগিনের তথ্য সেবা (এস,এম,এস)</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -38,7 +38,10 @@
 
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">অনুসন্ধান</button>
+                            <br>
+                            <center>
+                                <button type="submit" class="btn btn-primary">অনুসন্ধান</button>
+                            </center>
                         </div>
                     </div>
                 </form>
@@ -50,7 +53,7 @@
         <h5 style="margin-bottom: 10px;" class="text-center">মোট শিক্ষক ও কর্মচারী : {{count($employees)}}</h5>
         <div class="row">
             <div class="panel-body" style="margin-top: 10px;">
-                <form action="{{route('loginInfo.em_sms')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('loginInfo.em_sms')}}" method="post" enctype="multipart/form-data" target="_blank">
                     {{csrf_field()}}
                     @php($i=1)
             <div class="row">

