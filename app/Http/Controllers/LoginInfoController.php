@@ -199,6 +199,9 @@ class LoginInfoController extends Controller
             'shift'=>$request->shift,
             'section'=>$request->section,
         ])->pluck('user_id');
+        if (count($user_id) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','শিক্ষার্থী খুজে পাওয়া যায়নি ।');
+        }
         $student = Student::whereIn('user_id',$user_id)->first();
         $all_id = $this->password_generate($user_id);
         $students = Student::whereIn('user_id',$all_id)->get();
@@ -217,6 +220,9 @@ class LoginInfoController extends Controller
         $user_id = Staff::where('school_id',$school->id)->pluck('user_id');
         $all_id = $this->password_generate($user_id);
         $employees = Staff::whereIn('user_id',$all_id)->get();
+        if (count($employees) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
+        }
 		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
     }
 
@@ -232,6 +238,9 @@ class LoginInfoController extends Controller
         $user_id = Commitee::where('school_id',$school->id)->pluck('user_id');
         $all_id = $this->password_generate($user_id);
         $committees = Commitee::whereIn('user_id',$all_id)->get();
+        if (count($committees) < 1) {
+            return redirect()->route('student_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
+        }
 		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
     }
 
