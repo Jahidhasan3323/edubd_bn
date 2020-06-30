@@ -151,7 +151,7 @@
                            @foreach($students as $student)
                             <tr>
                                <td>
-                                    <input class="form-check-input number" name="id[]" type="checkbox" value="{{$student->id}}" id="defaultCheck{{$i}}">
+                                    <input class="form-check-input number" name="id[]" type="checkbox" value="{{$student->user_id}}" id="defaultCheck{{$i}}">
 									<input type="hidden" name="school_id" value="{{ $student->school_id }}">
                                     <label class="form-check-label" for="defaultCheck{{$i++}}">
                                       {{$student->user->name}}

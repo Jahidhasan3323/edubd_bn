@@ -1145,7 +1145,7 @@ Route::group(['prefix' => 'student', 'as'=>'student.'], function(){
     Route::get('/add','StudentController@student_add_root')->name('add');
     Route::get('/add_info','StudentController@student_add_info')->name('add_info');
     Route::post('/store','StudentController@student_store_root')->name('store');
-
+});
 
 //online admission
 Route::group(['prefix' => 'online_class', 'as'=>'online_class'], function(){
@@ -1156,6 +1156,6 @@ Route::group(['prefix' => 'online_class', 'as'=>'online_class'], function(){
     Route::post('/edit/{id}','OnlineClassController@update')->name('.edit');
     Route::get('/delete/{id}','OnlineClassController@destroy')->name('.delete');
 
-     Route::get('/student','OnlineClassController@student_class')->name('.student');
+    Route::get('/student','OnlineClassController@student_class')->name('.student');
 
 });
