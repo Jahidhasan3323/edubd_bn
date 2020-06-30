@@ -61,8 +61,8 @@ class LoginInfoController extends Controller
 			$content='প্রিয় '.$user->name.' তোমার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
             // dd(urldecode($message));
-			// $a = $this->sms_send_by_api($school,$user->mobile,$message);
-			$a = 'Test';
+			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
@@ -102,8 +102,8 @@ class LoginInfoController extends Controller
 			$school_name = $school->short_name??$sms_send->school_name_process($school->user->name);
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
-			// $a = $this->sms_send_by_api($school,$user->mobile,$message);
-			$a = 'Test';
+			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
@@ -144,8 +144,8 @@ class LoginInfoController extends Controller
 			$school_name = $school->short_name??$sms_send->school_name_process($school->user->name);
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
-			// $a = $this->sms_send_by_api($school,$user->mobile,$message);
-			$a = 'Test';
+			$a = $this->sms_send_by_api($school,$user->mobile,$message);
+			// $a = 'Test';
             $success = json_decode($a,true);
             if ($success['error']==0) {
                 $count++;
