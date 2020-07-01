@@ -124,9 +124,20 @@
                     </div>
                     <div>
                         <p>: {{App\MasterClass::where(['id'=>$request->master_class_id])->value('name')}}</p>
-                        <p>: {{$result[1]['roll']}}</p>
+                        <?php //dd($result[1]['roll']);?>
+                       <!-- //previous value are $result[1]['roll'] (result array index 1)-->
+                        <p>: 
+                          <?php if(isset($result[1]['roll'])){
+                              echo $result[1]['roll'];
+                          }
+                          ?> 
+                        </p>
                         <p>: {{App\GroupClass::where(['id'=>$request->group_class_id])->value('name')}}, ({{'শাখা - '.$request->section.', শিফট - '.$request->shift}})</p> 
-                        <p>: {{$result[1]['regularity']}}</p>
+                        <!--//previous value are $result[1]['roll'] (result array index 1)-->
+                        <p>: <?php if(isset($result[1]['regularity'])){
+                              echo $result[1]['regularity'];
+                          }
+                          ?> </p>
                     </div>
                   </div>
                 </div>
