@@ -21,9 +21,11 @@
             <li>
                 <a class="active-menu" href="{{url('/home')}}"><i class="fa fa-dashboard fa-3x"></i> ড্যাশবোর্ড</a>
             </li>
-            <li>
-                <a class="menu" href="{{ route('student.add') }}"><i class="fa fa-user fa-2x"></i> শিক্ষার্থী যোগ করুন</a>
-            </li>
+            @if (Auth::is('root'))
+                <li>
+                    <a class="menu" href="{{ route('student.add') }}"><i class="fa fa-user fa-2x"></i> শিক্ষার্থী যোগ করুন</a>
+                </li>
+            @endif
             @if(Auth::is('admin'))
                 <li class="@yield('active_sms')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>এসএমএস সার্ভিস ব্যাবস্থাপনা<span
@@ -76,16 +78,25 @@
                             <a href="{{ route('student_password') }}">শিক্ষার্থীদের পাসওয়ার্ড রিসেট</a>
                         </li>
                         <li>
+                            <a href="{{ route('student_email') }}">শিক্ষার্থীদের ইমেইল রিসেট</a>
+                        </li>
+                        <li>
                             <a href="{{ route('employee_login_info') }}">শিক্ষক ও কর্মচারীদের লগিনের তথ্যাবলী</a>
                         </li>
                         <li>
                             <a href="{{ route('employee_password') }}">শিক্ষক ও কর্মচারীদের পাসওয়ার্ড রিসেট</a>
                         </li>
                         <li>
+                            <a href="{{ route('employee_email') }}">শিক্ষক ও কর্মচারীদের ইমেইল রিসেট</a>
+                        </li>
+                        <li>
                             <a href="{{ route('committee_login_info') }}">কমিটিদের লগিনের তথ্যাবলী</a>
                         </li>
                         <li>
                             <a href="{{ route('committee_password') }}">কমিটিদের পাসওয়ার্ড রিসেট</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('committee_email') }}">কমিটিদের ইমেইল রিসেট</a>
                         </li>
                     </ul>
                 </li>
