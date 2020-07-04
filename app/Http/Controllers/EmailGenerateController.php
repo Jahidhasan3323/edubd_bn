@@ -116,7 +116,7 @@ class EmailGenerateController extends Controller
         return $user_id;
     }
 
-    public function reset_employee_email_($user_id)
+    public function reset_employee_email($user_id)
     {
         $users = User::whereIn('id',$user_id)->get();
         foreach ($users as $user) {
