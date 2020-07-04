@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exam;
 use Illuminate\Http\Request;
 use App\ExamType;
 use App\MasterClass;
@@ -221,6 +222,10 @@ class SingleResultController extends Controller
         if(!$result_check){
           return $this->returnWithError('No result found');
         }
+        $class_name=MasterClass::where('id',$request->master_class_id)->value('name');
+        $group_classes_name=GroupClass::where('id',$request->group_class_id)->value('name');
+        $subject_name=Subject::where('id',$request->subject_id)->value('subject_name');
+        $exam_name=ExamType::where('id',$request->exam_type_id)->value('name');
         $classes =$this->getClasses();
         $group_classes =GroupClass::all();
         $units =$this->getUnits();
@@ -246,7 +251,7 @@ class SingleResultController extends Controller
 
         $exam_types = ExamType::all();
         $search= $request->all();
-        return view('backEnd.singleResults.edit', compact('classes','group_classes','units','students','subjects','exam_types','search'));
+        return view('backEnd.singleResults.edit', compact('classes','group_classes','units','students','subjects','exam_types','search','class_name','group_classes_name','subject_name','exam_name'));
     }
 
 
