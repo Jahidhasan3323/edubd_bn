@@ -903,6 +903,28 @@
                 </li>
             </li>
             @endif
+            @if(Auth::is('teacher') || Auth::is('student'))
+            <li>
+                <li class="@yield('online_class_youtube')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইউটিউব অনলাইন ক্লাস<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        @if(Auth::is('teacher'))
+                        <li>
+                            <a href="{{ route('online_class_youtube.create') }}">অনলাইন ক্লাস যোগ করুন</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('online_class_youtube') }}">অনলাইন ক্লাসের তথ্য</a>
+                        </li>
+                        @endif
+                        @if(Auth::is('student'))
+                        <li>
+                            <a href="{{ route('online_class_youtube.student') }}">অনলাইন ক্লাসের তথ্য</a>
+                        </li>
+                        @endif
+                    </ul>
+                </li>
+            </li>
+            @endif
             {{-- <li class="@yield('post')">
                     <a href="#">
                         <i class="fa fa-sitemap fa-2x"></i>ইহ্‌সান এডুকেশন সোশাল সাইট  <span
