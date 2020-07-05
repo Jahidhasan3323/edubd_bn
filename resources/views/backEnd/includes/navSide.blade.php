@@ -47,9 +47,6 @@
                         <li>
                             <a href="{{url('/sms/result')}}">ফলাফল প্রেরণ</a>
                         </li>
-                        <li>
-                            <a href="{{url('/sms/number-collection')}}">ফোন নম্বর সংগ্রহ</a>
-                        </li>
                     </ul>
                 </li>
             @endif
@@ -103,6 +100,9 @@
                 <li class="@yield('active_sms_login_info')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>এস,এম,এস<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{url('/sms/number-collection')}}">ফোন নম্বর সংগ্রহ</a>
+                        </li>
                         <li>
                             <a href="{{ route('rootSms.daily_sms_report')}}">প্রতিষ্ঠান ভিত্তিক দৈনিক এস,এম,এস রিপোর্ট</a>
                         </li>
