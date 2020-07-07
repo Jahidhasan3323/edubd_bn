@@ -515,7 +515,7 @@ class SmsController extends Controller
         $url = 'http://sms.worldehsan.org/api/client?sender_id='.$school->sender_id.'&api_key='.$school->api_key;
         $report = $this->curl_get_file_contents($url);
         $report = json_decode($report,true);
-        return view('backend.sms.report',compact('report'));
+        return view('backEnd.sms.report',compact('report'));
     }
 
 
