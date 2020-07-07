@@ -122,10 +122,15 @@
                         </li>
                     </ul>
                 </li>
-                 <li class="@yield('school_settings') ">
+                 <li class="@yield('social_link') ">
+                    <a href="{{url('social_link')}}" ><i class="fa fa-share-square-o fa-2x"></i>সোশ্যাল মিডিয়া</span></a>
+                    
+                </li>
+                <li class="@yield('school_settings') ">
                     <a href="{{url('school_settings')}}" style="background:<?=$bg== 'active' ? '#4D4D4D' : ''?>"><i class="fa fa-gears fa-2x"></i>সেটিং</span></a>
                     
                 </li>
+               
             @endif
 
         

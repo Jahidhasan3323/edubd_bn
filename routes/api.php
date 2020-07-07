@@ -56,6 +56,7 @@ Route::group(['namespace'=>'Api\V1','prefix'=>'v1/school'], function(){
     Route::get('slider','SchoolController@slider');
     Route::get('home_data','SchoolController@home_data');
     Route::get('wm_schools','SchoolController@wm_schools');
+    Route::get('social_link','SchoolController@social_link');
     Route::get('information_details','SchoolController@information_details');
     Route::get('notice_details','SchoolController@notice_details');
     Route::get('accademic_information','SchoolController@accademic_information');

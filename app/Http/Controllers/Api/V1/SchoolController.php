@@ -30,6 +30,7 @@ use App\OnlineAdmissionAccademicInfo;
 use App\OnlineAdmissionApplicationSubject;
 use App\OnlineAdmission;
 use App\MasterClass;
+use App\WmSocial;
 use Validator;
 use DB;
 
@@ -37,7 +38,7 @@ class SchoolController extends Controller
 {
 
     public function get_serial(Request $request){
-       $url1='https://'.$request->website;
+        $url1='https://'.$request->website;
         $url2='https://www.'.$request->website;
         $url3='http://'.$request->website;
         $url4='http://www.'.$request->website;
@@ -45,7 +46,7 @@ class SchoolController extends Controller
         $url6='http://'.$request->website.'/';
         $url7='https://www.'.$request->website.'/';
         $url8='https://'.$request->website.'/';
-
+        
         $serial=School::where('website',$url1)
         ->orWhere('website',$url2)
         ->orWhere('website',$url3)
@@ -73,6 +74,13 @@ class SchoolController extends Controller
         $school=School::where('serial_no',$request->serial_no)->first();
        $wm_schools=WmSchool::where('school_id',$school->id)->first();
        return $this->sendResponse($wm_schools, 'School website data retrieved successfully.');  
+    }
+
+    public function social_link(Request $request)
+    {
+        $school=School::where('serial_no',$request->serial_no)->first();
+       $wm_social=WmSocial::where('school_id',$school->id)->first();
+       return $this->sendResponse($wm_social, 'Social Link data retrieved successfully.');  
     }
     public function date_laguage()
     {

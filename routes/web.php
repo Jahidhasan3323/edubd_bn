@@ -997,6 +997,12 @@ Route::group(['middleware' => 'auth','prefix' => 'important_file', 'as'=>'import
     Route::delete('/delete/{id}','ImportantFileController@destroy')->name('.delete');
 });
 
+//Social link
+Route::group(['middleware' => 'auth','prefix' => 'social_link', 'as'=>'social_link'], function(){
+    Route::get('/','WmSocialController@index')->name('');
+    Route::post('/','WmSocialController@update')->name('');
+});
+
 //important form admin
 Route::group(['middleware' => 'auth','prefix' => 'important_form', 'as'=>'important_form'], function(){
     Route::get('/','ImportantFileController@important_form')->name('');
