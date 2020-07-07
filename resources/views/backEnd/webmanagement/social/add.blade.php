@@ -1,6 +1,6 @@
 @extends('backEnd.master',['nav'=>'active'])
 
-@section('mainTitle', 'সোশ্যাল মিডিয়ার লিঙ্ক')
+@section('mainTitle', 'সোশ্যাল মিডিয়া লিঙ্ক')
 @section('head_section')
     <style>
 
@@ -10,7 +10,7 @@
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">সোশ্যাল মিডিয়ার লিঙ্ক</h1>
+            <h1 class="text-center text-temp">সোশ্যাল মিডিয়া লিঙ্ক</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -38,7 +38,7 @@
                        <div class="col-sm-8">
                            <div class="form-group {{$errors->has('facebook') ? 'has-error' : ''}}">
                             
-                              <input type="text" name="facebook" class="form-control" placeholder="ফেসবুক" data-validation=" length " data-validation-length="max100" value="{{old('facebook',$link->facebook)}}">
+                              <input type="text" name="facebook" class="form-control" placeholder="ফেসবুক" data-validation=" length " data-validation-length="max100" value="@if (isset($link->facebook)){{$link->facebook}}@endif">
                               @if ($errors->has('facebook'))
                                   <span class="help-block">
                                       <strong>{{$errors->first('facebook')}}</strong>
@@ -56,7 +56,7 @@
                        <div class="col-sm-8">
                            <div class="form-group {{$errors->has('youtube') ? 'has-error' : ''}}">
                             
-                              <input type="text" name="youtube" class="form-control" placeholder="ইউটিউব" data-validation=" length " data-validation-length="max100" value="{{old('youtube',$link->youtube)}}">
+                              <input type="text" name="youtube" class="form-control" placeholder="ইউটিউব" data-validation=" length " data-validation-length="max100" value="@if (isset($link->youtube)){{$link->youtube}}@endif">
                               @if ($errors->has('youtube'))
                                   <span class="help-block">
                                       <strong>{{$errors->first('youtube')}}</strong>
@@ -74,7 +74,7 @@
                        <div class="col-sm-8">
                            <div class="form-group {{$errors->has('twitter') ? 'has-error' : ''}}">
                             
-                              <input type="text" name="twitter" class="form-control" placeholder="টুইটার" data-validation=" length " data-validation-length="max100" value="{{old('twitter',$link->twitter)}}">
+                              <input type="text" name="twitter" class="form-control" placeholder="টুইটার" data-validation=" length " data-validation-length="max100" value="@if (isset($link->twitter)){{$link->twitter}}@endif">
                               @if ($errors->has('twitter'))
                                   <span class="help-block">
                                       <strong>{{$errors->first('twitter')}}</strong>
@@ -92,7 +92,7 @@
                        <div class="col-sm-8">
                            <div class="form-group {{$errors->has('linkedin') ? 'has-error' : ''}}">
                             
-                              <input type="text" name="linkedin" class="form-control" placeholder="লিঙ্কডইন" data-validation=" length " data-validation-length="max100" value="{{old('linkedin',$link->linkedin)}}">
+                              <input type="text" name="linkedin" class="form-control" placeholder="লিঙ্কডইন" data-validation=" length " data-validation-length="max100" value="@if (isset($link->linkedin)){{$link->linkedin}}@endif">
                               @if ($errors->has('linkedin'))
                                   <span class="help-block">
                                       <strong>{{$errors->first('linkedin')}}</strong>
@@ -110,7 +110,7 @@
                        <div class="col-sm-8">
                            <div class="form-group {{$errors->has('pinterest') ? 'has-error' : ''}}">
                             
-                              <input type="text" name="pinterest" class="form-control" placeholder="পিন্টারেস্ট" data-validation=" length " data-validation-length="max100" value="{{old('pinterest',$link->pinterest)}}">
+                              <input type="text" name="pinterest" class="form-control" placeholder="পিন্টারেস্ট" data-validation=" length " data-validation-length="max100" value="@if (isset($link->pinterest)){{$link->pinterest}}@endif">
                               @if ($errors->has('pinterest'))
                                   <span class="help-block">
                                       <strong>{{$errors->first('pinterest')}}</strong>
@@ -127,7 +127,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <button id="save" type="submit" class="btn btn-block btn-info">সংরক্ষণ করুন</button>
+                                <button id="save" type="submit" class="btn btn-block btn-info">Submit</button>
                             </div>
                         </div>
                     </div>
