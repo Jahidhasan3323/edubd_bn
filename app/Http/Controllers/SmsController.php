@@ -384,7 +384,6 @@ class SmsController extends Controller
         if($request->all()){
             $this->validation_input($request);
             $school = School::find($request->school_id);
-            // dd($school);
             if($school->service_type_id==1){
                $data['id_card_exits']=1;
             }
@@ -508,6 +507,15 @@ class SmsController extends Controller
           }
         }
         return $this->returnWithSuccess('SMS : '.$a.'!');
+    }
+
+    public function report()
+    {
+        $school = $this->school();
+        $url = 'http://sms.worldehsan.org/api/client?sender_id='.$school->sender_id.'&api_key='.$school->api_key;
+        $report = $this->curl_get_file_contents($url);
+        $report = json_decode($report,true);
+        return view('backEnd.sms.report',compact('report'));
     }
 
 
