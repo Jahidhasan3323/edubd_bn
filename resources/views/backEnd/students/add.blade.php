@@ -66,7 +66,7 @@
                         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                             <label class="" for="name">শিক্ষার্থীর নাম <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{old('name')}}" class="form-control" type="text" name="name" id="name" placeholder="Student Full Name">
+                                <input value="{{old('name')}}" class="form-control" type="text" name="name" id="name" placeholder="Student Full Name" required>
                             </div>
                             @if ($errors->has('name'))
                             <span class="help-block">
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label class="" for="gender">লিঙ্গ <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="gender" id="gender">
+                                <select class="form-control" name="gender" id="gender" required>
                                     <option value="">লিঙ্গ নির্বাচন করুন</option>
                                     <option selected value="ছেলে">ছেলে</option>
                                     <option value="মেয়ে">মেয়ে</option>
@@ -99,7 +99,7 @@
                         <div class="form-group {{$errors->has('master_class_id') ? 'has-error' : ''}}">
                             <label class="" for="master_class_id">শ্রেণী <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="master_class_id" id="master_class_id">
+                                <select class="form-control" name="master_class_id" id="master_class_id" required>
                                     <option value="">শ্রেণী নির্বাচন করুন</option>
                                     @foreach($classes as $class)
                                     <option value="{{$class->id}}">{{$class->name}}</option>
@@ -119,7 +119,7 @@
                         <div class="form-group {{$errors->has('shift') ? 'has-error' : ''}}">
                             <label class="" for="shift">শিফট <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="shift" id="shift">
+                                <select class="form-control" name="shift" id="shift" required>
                                     <option value="">শিফট নির্বাচন করুন</option>
                                     <option value="সকাল">সকাল</option>
                                     <option selected value="দিন">দিন</option>
@@ -140,7 +140,7 @@
                         <div class="form-group {{$errors->has('section') ? 'has-error' : ''}}">
                             <label class="" for="section">শাখা <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="section" id="section">
+                                <select class="form-control" name="section" id="section" required>
                                     <option value="">...শাখা নির্বাচন করুন...</option>
                                     <option selected value="ক">ক</option>
                                     <option value="খ">খ</option>
@@ -163,7 +163,7 @@
                         <div class="form-group {{$errors->has('group') ? 'has-error' : ''}}">
                             <label class="" for="group">গ্রুপ / বিভাগ <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="group" id="group">
+                                <select class="form-control" name="group" id="group" required>
                                     <option value="">গ্রুপ / বিভাগ নির্বাচন করুন</option>
                                     @foreach($group_classes as $group_class)
                                     <option value="{{$group_class->name}}">{{$group_class->name}}</option>
@@ -197,7 +197,7 @@
                         <div class="form-group {{$errors->has('session') ? 'has-error' : ''}}">
                             <label for="session">শিক্ষাবর্ষ</label>
                             <div>
-                                <input value="{{date('Y')}}" type="text" class="form-control" name="session" id="session">
+                                <input value="{{date('Y')}}" type="text" class="form-control" name="session" id="session" required>
                             </div>
                             @if ($errors->has('session'))
                             <span class="help-block">
@@ -213,7 +213,7 @@
                             <label class="" for="student_id">শিক্ষার্থীর আইডি নাম্বার <span class="star">* Don't try to change this</span></label>
                             <div class="form-control">
                                 <span>{{$student_id}}</span>
-                                <input value="{{$student_id}}" class="" type="hidden" name="student_id" id="student_id">
+                                <input value="{{$student_id}}" class="" type="hidden" name="student_id" id="student_id" required>
                             </div>
                             @if ($errors->has('student_id'))
                             <span class="help-block">
@@ -226,7 +226,7 @@
                         <div class="form-group {{$errors->has('regularity') ? 'has-error' : ''}}">
                             <label class="" for="regularity">শিক্ষার্থীর ধরণ <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="regularity" id="regularity">
+                                <select class="form-control" name="regularity" id="regularity" required>
                                     <option value="">শিক্ষার্থীর ধরণ নির্বাচন করুন</option>
                                     <option selected value="নিয়মিত">নিয়মিত</option>
                                     <option value="অনিয়মিত">অনিয়মিত</option>
