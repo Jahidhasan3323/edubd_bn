@@ -178,6 +178,7 @@
                             <select class="form-control" id="sms_service" name="sms_service">
                                 <option value="1">অটোমেটিক</option>
                                 <option value="0">ম্যানুয়ালি</option>
+                                <option value="2">এস,এম,এস বন্ধ রাখুন</option>
                             </select>
                         </div>
                     </div>

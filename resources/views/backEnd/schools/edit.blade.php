@@ -269,9 +269,15 @@
                         <div class="form-group">
                             <label class="" for="sms_service">প্রতিষ্ঠানের এস,এম,এস সার্ভিস<span class="star">*</span></label>
                             <select class="form-control" id="sms_service" name="sms_service">
-                                <option selected value="{{ $showData->sms_service }}">{{ $showData->sms_service==1?'অটোমেটিক':'ম্যানুয়ালি' }}</option>
+                                <option selected value="{{ $showData->sms_service }}">
+                                    @if ($showData->sms_service==1) অটোমেটিক
+                                    @elseif($showData->sms_service==0) ম্যানুয়ালি
+                                    @elseif($showData->sms_service==2) এস,এম,এস বন্ধ
+                                    @endif
+                                </option>
                                 <option value="1">অটোমেটিক</option>
                                 <option value="0">ম্যানুয়ালি</option>
+                                <option value="2">এস,এম,এস বন্ধ</option>
                             </select>
                         </div>
                     </div>
