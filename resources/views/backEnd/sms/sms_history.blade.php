@@ -32,7 +32,7 @@
                         $i =1;
                     // dd($sms_history['half_yearly']);
                     @endphp
-                    @foreach($sms_history['half_yearly'] as $sms)
+                    @foreach($sms_history['half_yearly']??[] as $sms)
                         <tr>
                             <td class="text-center">{{ $i++ }}</td>
                             <td class="auto_width">{{ $sms['phone_number']??'' }}</td>
@@ -62,7 +62,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
         $('#sms_history').DataTable();
-    } );
+    });
     </script>
 
 
