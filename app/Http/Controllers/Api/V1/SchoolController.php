@@ -95,6 +95,13 @@ class SchoolController extends Controller
         $notice=Notice::where(['school_id'=>$school->id,'status'=>1])->orderby('id','DESC')->limit(20)->get();
        return $this->sendResponse($notice, 'Notice retrieved successfully.');  
     }
+   
+    public function notice_all(Request $request)
+    {
+        $school=School::where('serial_no',$request->serial_no)->first();
+        $notice_all=Notice::where(['school_id'=>$school->id,'status'=>1])->orderby('id','DESC')->get();
+       return $this->sendResponse($notice_all, 'Notice retrieved successfully.');  
+    }
     
 
     public function image_home(Request $request)
