@@ -418,7 +418,7 @@ class SmsController extends Controller
             }
 
             if($request->to_teacher){
-                 $teachers=Staff::with('user')->where('school_id',Auth::getSchool())->current()->get();
+                 $teachers=Staff::with('user')->where('school_id',$request->school_id)->current()->get();
                  $mobile_number=$sms_send->send_for_teacher($teachers);
             }
 
@@ -427,7 +427,7 @@ class SmsController extends Controller
          }
          $classes = MasterClass::all();
          $schools = School::all();
-         return view('backEnd.sms.number_collection',compact('classes','phone_number','schools'));
+         return view('backEnd.sms.number_collection',compact('classes','phone_number','schools','school'));
     }
 
     public function result(Request $request){
@@ -516,6 +516,15 @@ class SmsController extends Controller
         $report = $this->curl_get_file_contents($url);
         $report = json_decode($report,true);
         return view('backEnd.sms.report',compact('report'));
+    }
+
+    public function sms_history()
+    {
+        $school = $this->school();
+        $url = 'http://sms.worldehsan.org/api/sms_history?sender_id='.$school->sender_id.'&api_key='.$school->api_key;
+        $sms_history = $this->curl_get_file_contents($url);
+        $sms_history = json_decode($sms_history,true);
+        return view('backEnd.sms.sms_history',compact('sms_history'));
     }
 
 

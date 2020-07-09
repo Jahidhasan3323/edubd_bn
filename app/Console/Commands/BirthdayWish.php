@@ -57,6 +57,7 @@ class BirthdayWish extends Command
             $message = BirthdayText::where('school_id', $school->id)->first();
 			$message = urlencode($message?$message->content.' '.$school_name:'শুভ জন্মদিন '.$school_name);
             $all_numbers = BirthdayNumber::get_numbers($students,$staffs,$committees);
+            // dd($all_numbers);
             $chunks = array_chunk($all_numbers,100);
             foreach ($chunks as $chunk) {
                 $numbers = implode(',',$chunk);

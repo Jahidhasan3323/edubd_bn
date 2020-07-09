@@ -35,6 +35,9 @@
                             <a href="{{url('/sms/report')}}">এস,এম,এস রিপোর্ট</a>
                         </li>
                         <li>
+                            <a href="{{url('/sms/sms_history')}}">এস,এম,এসের তালিকা</a>
+                        </li>
+                        <li>
                             <a href="{{url('/sms')}}">অনুপস্থিত ছাত্র বিজ্ঞপ্তি</a>
                         </li>
                         <li>
