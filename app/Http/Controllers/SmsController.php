@@ -427,7 +427,10 @@ class SmsController extends Controller
          }
          $classes = MasterClass::all();
          $schools = School::all();
-         return view('backEnd.sms.number_collection',compact('classes','phone_number','schools','school'));
+         if (isset($school)) {
+            return view('backEnd.sms.number_collection',compact('classes','phone_number','schools','school'));
+         }
+         return view('backEnd.sms.number_collection',compact('classes','phone_number','schools'));
     }
 
     public function result(Request $request){
