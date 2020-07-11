@@ -887,7 +887,7 @@
             </li>
             @endif
 
-            @if(Auth::is('teacher') || Auth::is('student'))
+            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
             <li>
                 <li class="@yield('online_class')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>অনলাইন ক্লাস<span class="fa arrow"></span></a>
@@ -899,6 +899,12 @@
                         <li>
                             <a href="{{ route('online_class') }}">অনলাইন ক্লাসের তথ্য</a>
                         </li>
+                        
+                        @endif
+                        @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
+                        <li>
+                            <a href="{{ route('online_class.staff') }}">অনুরোধক্রিত অনলাইন ক্লাস</a>
+                        </li>
                         @endif
                         @if(Auth::is('student'))
                         <li>
@@ -909,7 +915,7 @@
                 </li>
             </li>
             @endif
-            @if(Auth::is('teacher') || Auth::is('student'))
+            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
             <li>
                 <li class="@yield('online_class_youtube')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইউটিউব অনলাইন ক্লাস<span class="fa arrow"></span></a>
@@ -920,6 +926,11 @@
                         </li>
                         <li>
                             <a href="{{ route('online_class_youtube') }}">অনলাইন ক্লাসের তথ্য</a>
+                        </li>
+                        @endif
+                        @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
+                        <li>
+                            <a href="{{ route('online_class_youtube.staff') }}">অনুরোধক্রিত অনলাইন ক্লাস</a>
                         </li>
                         @endif
                         @if(Auth::is('student'))

@@ -22,6 +22,7 @@ class CreateOnlineClassesTable extends Migration
             $table->string('shift');
             $table->string('section')->nullable();
             $table->string('group');
+            $table->integer('type')->default(1);
             $table->integer('school_id');
             $table->integer('created_by');
             $table->softDeletes();

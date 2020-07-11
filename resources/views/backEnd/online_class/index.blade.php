@@ -30,6 +30,7 @@
                             <th>শ্রেণী</th>
                             <th>বিভাগ </th>
                             <th>শাখা </th>
+                            <th>ব্যবহারকারী </th>
                             <th>অ্যাকশন</th>
                         </tr>
                     </thead>
@@ -42,10 +43,11 @@
                             <td>{{$row->title}}</td>                            
                             <td>{{$row->link}} <a href="{{$row->link}}" target="_blank"><i class="fa fa-external-link"></i></a></td>
                             <td>{{$row->password}}</td>                            
-                            <td>{{$row->shift}}</td>                            
-                            <td>{{$row->masterClass->name}}</td>
-                            <td>{{$row->group}}</td>                            
-                            <td>{{$row->section}}</td>                            
+                            <td>{{$row->shift ?? ''}}</td>
+                            <td>{{$row->masterClass->name ?? ''}}</td>
+                            <td>{{$row->group ?? ''}}</td>
+                            <td>{{$row->section ?? ''}}</td>
+                            <td>{{$row->type==1 ? 'Student' : 'Staff'}}</td>
                             <td>
                                 <a  class="btn btn-success"  href="{{url('/online_class/edit/'.$row->id)}}">
                                     <span class="glyphicon glyphicon-edit"></span>
