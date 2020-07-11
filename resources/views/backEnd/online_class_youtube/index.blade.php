@@ -29,6 +29,7 @@
                             <th>শ্রেণী</th>
                             <th>বিভাগ </th>
                             <th>শাখা </th>
+                            <th>ব্যবহারকারী </th>
                             <th>অ্যাকশন</th>
                         </tr>
                     </thead>
@@ -40,10 +41,11 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->title}}</td>                            
                             <td>{{$row->link}}<a target="_blank" href="https://www.youtube.com/watch?v=<?=$row->link?>"> <i class="fa fa-external-link"></i></a> </td>
-                            <td>{{$row->shift}}</td>                            
-                            <td>{{$row->masterClass->name}}</td>
-                            <td>{{$row->group}}</td>                            
-                            <td>{{$row->section ?? ''}}</td>                            
+                            <td>{{$row->shift ?? ''}}</td>                            
+                            <td>{{$row->masterClass->name ?? ''}}</td>
+                            <td>{{$row->group ?? ''}}</td>                            
+                            <td>{{$row->section ?? ''}}</td>
+                            <td>{{$row->type==1 ? 'Student' : 'Staff'}}</td>                            
                             <td>
                                 <a  class="btn btn-info"  href="{{url('/online_class_youtube/view/'.$row->id)}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>

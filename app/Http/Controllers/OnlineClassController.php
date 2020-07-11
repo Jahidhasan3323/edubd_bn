@@ -52,15 +52,27 @@ class OnlineClassController extends Controller
     public function store(Request $request)
     {
        $data=$request->all();
-        $this->validate($request, [
+       $this->validate($request, [
             'title' => 'required',
             'link' => 'required',
             'password' => 'required',
-            'master_class_id' => 'required',
-            'group' => 'required',
-            'section' => 'required',
-            'shift' => 'required',
+            'type' => 'required',
         ]);
+       if ($request->type==1) {
+        
+            $this->validate($request, [
+                'master_class_id' => 'required',
+                'group' => 'required',
+                'section' => 'required',
+                'shift' => 'required',
+            ]);
+        }
+        if ($request->type==2  ) {
+            $data['master_class_id']=0;
+            $data['group']=0;
+            $data['section']=0;
+            $data['shift']=0;
+        }
         $data['created_by']=Auth::id();
         $data['school_id']=Auth::getSchool();
         OnlineCLass::create($data);
@@ -109,11 +121,23 @@ class OnlineClassController extends Controller
             'title' => 'required',
             'link' => 'required',
             'password' => 'required',
-            'master_class_id' => 'required',
-            'group' => 'required',
-            'section' => 'required',
-            'shift' => 'required',
+            'type' => 'required',
         ]);
+       if ($request->type==1) {
+        
+            $this->validate($request, [
+                'master_class_id' => 'required',
+                'group' => 'required',
+                'section' => 'required',
+                'shift' => 'required',
+            ]);
+        }
+        if ($request->type==2  ) {
+            $data['master_class_id']=0;
+            $data['group']=0;
+            $data['section']=0;
+            $data['shift']=0;
+        }
         
         OnlineClass::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->update($data);
         return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class');
@@ -137,7 +161,18 @@ class OnlineClassController extends Controller
             return redirect('/home');
         }
         $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-        $online_class=OnlineClass::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group])->get();
+        $online_class=OnlineClass::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
+        //dd($online_class);
+        return view('backEnd.online_class.student_class',compact('online_class'));
+    }
+    public function staff_class()
+    {
+        if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff')){
+            
+        }else{
+            return redirect('/home');
+        }
+        $online_class=OnlineClass::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
         //dd($online_class);
         return view('backEnd.online_class.student_class',compact('online_class'));
     }
