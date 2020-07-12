@@ -53,6 +53,9 @@
                         <li>
                             <a href="{{url('/sms/result')}}">ফলাফল প্রেরণ</a>
                         </li>
+                        <li>
+                            <a href="{{url('/sms/custom')}}">কাস্টম নাম্বার এস,এম,এস</a>
+                        </li>
                     </ul>
                 </li>
             @endif
