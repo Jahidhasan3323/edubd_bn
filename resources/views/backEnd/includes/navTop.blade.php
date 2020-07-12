@@ -68,7 +68,7 @@ font-size: 16px;">
     padding: 10px 50px 5px 50px;
     float: right;
     font-size: 16px;">
-    <a href="" class="pull-left" style="margin-right:5px"><i class="fa fa-spinner fa-spin"></i></a>  
-        <a href="" class="btn btn-danger square-btn-adjust pull-left">ইহসান অনলাইন কনফারেন্স</a> 
+    <a href="#" class="pull-left" style="margin-right:5px"><i class="fa fa-spinner fa-spin"></i></a>  
+<a target="_blank" href="{{url('online_class_us/link')}}" class="btn btn-danger square-btn-adjust pull-left">ইহসান অনলাইন কনফারেন্স</a> 
     </div>
 </nav>

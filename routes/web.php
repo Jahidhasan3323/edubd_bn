@@ -1199,3 +1199,21 @@ Route::group(['prefix' => 'online_class_youtube', 'as'=>'online_class_youtube'],
     Route::get('/staff','OnlineClassYoutubeController@staff_class')->name('.staff');
 
 });
+
+
+//online class us
+Route::group(['prefix' => 'online_class_us', 'as'=>'online_class_us'], function(){
+    Route::get('/','OnlineClassUsController@index')->name('');
+    Route::get('/view/{id}','OnlineClassUsController@view')->name('.view');
+    Route::get('/create','OnlineClassUsController@create')->name('.create');
+    Route::post('/create','OnlineClassUsController@store')->name('.create');
+    Route::get('/edit/{id}','OnlineClassUsController@edit')->name('.edit');
+    Route::post('/edit/{id}','OnlineClassUsController@update')->name('.edit');
+    Route::get('/delete/{id}','OnlineClassUsController@destroy')->name('.delete');
+    
+    Route::get('/student','OnlineClassUsController@student_class')->name('.student');
+    Route::get('/staff','OnlineClassUsController@staff_class')->name('.staff');
+    
+    Route::get('/link','OnlineClassUsController@link')->name('.link');
+
+});

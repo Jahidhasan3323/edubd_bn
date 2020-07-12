@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\OnlineClassYoutube;
+use App\OnlineClassUs;
 use App\MasterClass;
 use App\GroupClass;
 use App\Unit;
 use App\Student;
 use App\Http\Controllers\Controller;
+use App\School;
 use Illuminate\Http\Request;
 use Auth;
-class OnlineClassYoutubeController extends Controller
+
+class OnlineClassUsController extends Controller
 {
     public function index()
     {
@@ -18,9 +20,9 @@ class OnlineClassYoutubeController extends Controller
         }else{
             return redirect('/home');
         }
-        $online_class=OnlineClassYoutube::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->get();
+        $online_class=OnlineClassUs::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->get();
         //dd($online_class);
-        return view('backEnd.online_class_youtube.index',compact('online_class'));
+        return view('backEnd.online_class_us.index',compact('online_class'));
     }
 
 
@@ -40,7 +42,7 @@ class OnlineClassYoutubeController extends Controller
         $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
         $group_classes=GroupClass::all();
         $units=Unit::where('school_id',Auth::getSchool())->get();
-        return view('backEnd.online_class_youtube.create',compact('classes','group_classes','units'));
+        return view('backEnd.online_class_us.create',compact('classes','group_classes','units'));
     }
 
     /**
@@ -52,7 +54,7 @@ class OnlineClassYoutubeController extends Controller
     public function store(Request $request)
     {
        $data=$request->all();
-        $this->validate($request, [
+       $this->validate($request, [
             'title' => 'required',
             'link' => 'required',
             'type' => 'required',
@@ -74,17 +76,17 @@ class OnlineClassYoutubeController extends Controller
         }
         $data['created_by']=Auth::id();
         $data['school_id']=Auth::getSchool();
-        OnlineClassYoutube::create($data);
-        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_youtube');
+        OnlineClassUs::create($data);
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\OnlineClassYoutube  $onlineClass
+     * @param  \App\OnlineClassUs  $onlineClass
      * @return \Illuminate\Http\Response
      */
-    public function show(OnlineClassYoutube $onlineClass)
+    public function show(OnlineClassUs $onlineClass)
     {
         //
     }
@@ -92,7 +94,7 @@ class OnlineClassYoutubeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\OnlineClassYoutube  $onlineClass
+     * @param  \App\OnlineClassUs  $onlineClass
      * @return \Illuminate\Http\Response
      */
     public function edit($oc_id)
@@ -106,21 +108,15 @@ class OnlineClassYoutubeController extends Controller
         $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
         $group_classes=GroupClass::all();
         $units=Unit::where('school_id',Auth::getSchool())->get();
-        $online_class=OnlineClassYoutube::where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool(),'id'=>$oc_id])->first();
-        return view('backEnd.online_class_youtube.edit',compact('online_class','classes','group_classes','units'));
-    }
-    public function view($oc_id)
-    {
-        
-        $online_class=OnlineClassYoutube::where(['school_id'=>Auth::getSchool(),'id'=>$oc_id])->first();
-        return view('backEnd.online_class_youtube.view',compact('online_class'));
+        $online_class=OnlineClassUs::where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool(),'id'=>$oc_id])->first();
+        return view('backEnd.online_class_us.edit',compact('online_class','classes','group_classes','units'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OnlineClassYoutube  $onlineClass
+     * @param  \App\OnlineClassUs  $onlineClass
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -129,6 +125,7 @@ class OnlineClassYoutubeController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'link' => 'required',
+            'password' => 'required',
             'type' => 'required',
         ]);
        if ($request->type==1) {
@@ -147,14 +144,14 @@ class OnlineClassYoutubeController extends Controller
             $data['shift']=0;
         }
         
-        OnlineClassYoutube::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->update($data);
-        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে ! !','online_class_youtube');
+        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->update($data);
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\OnlineClassYoutube  $onlineClass
+     * @param  \App\OnlineClassUs  $onlineClass
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -163,8 +160,8 @@ class OnlineClassYoutubeController extends Controller
         }else{
             return redirect('/home');
         }
-        OnlineClassYoutube::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->delete();
-        return $this->returnWithSuccessRedirect('আপনার তথ্য মুছেফেলা হয়েছে  !','online_class_youtube');
+        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->delete();
+        return $this->returnWithSuccessRedirect('আপনার তথ্য মুছেফেলা হয়েছে !','online_class_us');
     }
 
     public function student_class()
@@ -172,10 +169,10 @@ class OnlineClassYoutubeController extends Controller
         if(!Auth::is('student')){
             return redirect('/home');
         }
-        $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-        $online_class=OnlineClassYoutube::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
+         $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
+         $online_class=OnlineClassUs::where(['group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
         //dd($online_class);
-        return view('backEnd.online_class_youtube.student_class',compact('online_class'));
+        return view('backEnd.online_class_us.student_class',compact('online_class'));
     }
     public function staff_class()
     {
@@ -184,9 +181,18 @@ class OnlineClassYoutubeController extends Controller
         }else{
             return redirect('/home');
         }
-        $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-        $online_class=OnlineClassYoutube::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
+        $online_class=OnlineClassUs::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
         //dd($online_class);
-        return view('backEnd.online_class_youtube.student_class',compact('online_class'));
+        return view('backEnd.online_class_us.student_class',compact('online_class'));
+    }
+    
+    public function link()
+    {
+        $school=School::where(['id'=>Auth::getSchool(),'online_class_access'=>1])->first();
+        if ($school) {
+            return redirect('https://us.worldehsan.org/');
+        }else{
+            return $this->returnWithError(' ইহসান অনলাইন কনফারেন্সে আপনার অনুমতি নেই !');
+        }
     }
 }
