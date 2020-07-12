@@ -29,7 +29,7 @@
                                         <label class="control-label"> মোবাইল নাম্বারের জন্য প্রতিষ্ঠান নির্বাচন করুন  <strong class="text-danger">*</strong></label>
                                         <select class="form-control" name="school_id" id="school_id">
                                             @isset($school)
-                                                <option value="{{ $school->id }}">{{ $school->user->name??'' }}<option>
+                                                <option value="{{ $school->id }}"> {{ $school->user->name??'' }} <option>
                                             @endisset
                                             @foreach($schools as $school)
                                                 <option value="{{$school->id}}" >{{$school->user->name}}</option>
@@ -50,12 +50,11 @@
                                                 <div class="col-md-12 col-sm-12" id="student_part">
                                                     <label class="control-label">To  ( শিক্ষার্থীদের  জন্য শ্রেণী নির্বাচন করুন ) <strong class="text-danger">*</strong></label>
                                                     <div class="form-group">
-                                                        <select class="form-control" multiple="" name="to_class[]" id="class" onchange="rmoveTeacher()">
+                                                        <select class="form-control" multiple="" name="to_class[]" id="class" onchange="show_student()">
                                                             <option value="all">সকল শ্রেণী</option>
                                                             @foreach($classes as $class)
                                                              <option value="{{$class->id}}">{{$class->name}}</option>
                                                             @endforeach
-
                                                         </select>
                                                     <strong class="text-danger"> {{ $errors->has('to_class')?$errors->first('to_class'):''}}</strong>    
                                                     </div>
@@ -80,7 +79,7 @@
                                             <label for="notice_subject">To  ( স্টাফদের জন্য চেক করুন ) <strong class="text-danger">*</strong></label>
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12">
-                                                    <input class="form-check-input number" {{old('to_teacher')?'checked':''}} onclick="removeStudent()" name="to_teacher[]" type="checkbox" value="Teacher" id="teacher_mobile">
+                                                    <input class="form-check-input number" {{old('to_teacher')?'checked':''}} onclick="show_teacher()" name="to_teacher[]" type="checkbox" value="Teacher" id="teacher_mobile">
                                                     <label class="form-check-label" for="teacher_mobile">
                                                       স্টাফ
                                                     </label>
@@ -89,6 +88,21 @@
                                             <strong class="text-danger"> {{ $errors->has('to_teacher')?$errors->first('to_teacher'):''}}</strong> 
                                         </div>
                                         @endif
+
+                                        <div class="card-body" id="committee_part">
+                                            <hr>
+                                            <label for="committee_mobile">To  ( কমিটিদের জন্য চেক করুন ) <strong class="text-danger">*</strong></label>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <input class="form-check-input number" {{old('to_committee')?'checked':''}} onclick="show_committee()" name="to_committee" type="checkbox" value="committee" id="committee_mobile">
+                                                    <label class="form-check-label" for="committee_mobile">
+                                                      কমিটি
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <strong class="text-danger"> {{ $errors->has('to_committee')?$errors->first('to_committee'):''}}</strong> 
+                                        </div>
+
                                       </div>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
@@ -129,21 +143,33 @@
            } 
         }
 
-        function rmoveTeacher(){
-           if(($('#class').val().length)==0){
-                $("#teacher_part").show();
-           }else{
+        function show_committee(){
+           if ($("#committee_mobile").prop('checked') == true) {
+                $("#committee_part").show();
                 $("#teacher_part").hide();
+                $("#student_part").hide();
+           }else{
+                $("#committee_part").show();
+                $("#teacher_part").show();
+                $("#student_part").show();
            }
         }
-        function removeStudent(){
-            if($("#teacher_mobile").prop('checked') == true){
-               $("#student_part").hide();
-            }else{
+        function show_teacher(){
+           if ($("#teacher_mobile").prop('checked') == true) {
+                $("#teacher_part").show();
+                $("#committee_part").hide();
+                $("#student_part").hide();
+           }else{
+                $("#teacher_part").show();
+                $("#committee_part").show();
                 $("#student_part").show();
-            }
+           }
         }
-        
+        function show_student(){
+            $("#student_part").show();
+            $("#committee_part").hide();
+            $("#teacher_part").hide();
+        }
         
     </script>
   

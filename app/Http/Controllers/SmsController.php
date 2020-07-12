@@ -12,6 +12,7 @@ use App\School;
 use App\Staff;
 use App\AbsentContent;
 use App\AttenStudent;
+use App\Commitee;
 use App\ExamType;
 use App\Result;
 use App\SmsReport;
@@ -336,18 +337,18 @@ class SmsController extends Controller
           if($request->to_teacher){
                $teachers=Staff::with('user')->where('school_id',Auth::getSchool())->current()->get();
                $mobile_number=$sms_send->send_for_teacher($teachers);
-             if(count($mobile_number)>50){
-                  $mobile_numbers=array_chunk($mobile_number,50);
-                  foreach ($mobile_numbers as $key=>$mobile_number) {
+            if(count($mobile_number)>50){
+                $mobile_numbers=array_chunk($mobile_number,50);
+                foreach ($mobile_numbers as $key=>$mobile_number) {
                     $mobile_number=implode(',',$mobile_number);
                     $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
                     $a = $this->send_sms_by_curl($url_AllNumber);
-                  }
-             }else {
-                   $mobile_number=implode(',',$mobile_number);
-                   $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
-                   $a = $this->send_sms_by_curl($url_AllNumber);
-             }
+                }
+            }else {
+                $mobile_number=implode(',',$mobile_number);
+                $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
+                $a = $this->send_sms_by_curl($url_AllNumber);
+            }
              Session::flash('sccmgs', 'SMS : '.$a.'!');
              return redirect()->back();
 
@@ -355,24 +356,32 @@ class SmsController extends Controller
     }
 
     protected function validation_input($request){
-      if($request->to_teacher){
-         $this->Validate($request, [
-                  'to_teacher' => 'required',
-         ]);
-      }
+        if($request->to_committee){
+            $this->Validate($request, [
+                'to_committee' => 'required',
+            ]);
+        }
 
-      if($request->to_class){
-         $this->Validate($request, [
-                  'to_class' => 'required',
-                  'sub_to' => 'required',
-         ]);
-      }
-      if(!$request->to_class && !$request->to_teacher){
-         $this->Validate($request, [
-                  'to_class' => 'required',
-                  'to_teacher' => 'required',
-         ]);
-      }
+        if($request->to_teacher){
+            $this->Validate($request, [
+                    'to_teacher' => 'required',
+            ]);
+        }
+
+        if($request->to_class){
+            $this->Validate($request, [
+                    'to_class' => 'required',
+                    'sub_to' => 'required',
+            ]);
+        }
+
+        if(!$request->to_class && !$request->to_teacher && !$request->to_committee){
+            $this->Validate($request, [
+                    'to_class' => 'required',
+                    'to_teacher' => 'required',
+                    'committee_part' => 'required',
+            ]);
+        }
 
     }
 
@@ -420,6 +429,11 @@ class SmsController extends Controller
             if($request->to_teacher){
                  $teachers=Staff::with('user')->where('school_id',$request->school_id)->current()->get();
                  $mobile_number=$sms_send->send_for_teacher($teachers);
+            }
+
+            if($request->to_committee){
+                 $committees=Commitee::with('user')->where('school_id',$request->school_id)->current()->get();
+                 $mobile_number=$sms_send->send_for_committee($committees);
             }
 
             $phone_number = implode(',',$mobile_number);
