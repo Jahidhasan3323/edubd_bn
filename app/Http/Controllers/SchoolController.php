@@ -196,6 +196,7 @@ class SchoolController extends Controller
 
         $this->validatorForUpdate($request,$school->id,$school->user->id);
         $data = $request->except(['logo','signatur_p','_token','_method']);
+        
         $data['api_key']=$request->api_key;
         $data['sender_id']=$request->sender_id;
         if($request->school_type_id){

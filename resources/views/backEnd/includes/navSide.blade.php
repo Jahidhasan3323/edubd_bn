@@ -893,61 +893,35 @@
             </li>
             @endif
 
-            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
+            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff') || Auth::is('root') )
             <li>
-                <li class="@yield('online_class')">
-                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>অনলাইন ক্লাস<span class="fa arrow"></span></a>
+                <li class="@yield('online_class_us')">
+                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইহসান অনলাইন কনফারেন্স<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        @if(Auth::is('teacher'))
+                        @if(Auth::is('root'))
                         <li>
-                            <a href="{{ route('online_class.create') }}">অনলাইন ক্লাস যোগ করুন</a>
+                            <a href="{{ route('online_class_us.create') }}">ইহসান অনলাইন কনফারেন্স যোগ করুন</a>
                         </li>
-                        <li>
-                            <a href="{{ route('online_class') }}">অনলাইন ক্লাসের তথ্য</a>
-                        </li>
+                        {{-- <li>
+                            <a href="{{ route('online_class_us') }}">ইহসান অনলাইন কনফারেন্সের তথ্য</a>
+                        </li> --}}
                         
                         @endif
                         @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
                         <li>
-                            <a href="{{ route('online_class.staff') }}">অনুরোধক্রিত অনলাইন ক্লাস</a>
+                            <a href="{{ route('online_class_us.staff') }}"> ইহসান অনলাইন কনফারেন্স</a>
                         </li>
                         @endif
                         @if(Auth::is('student'))
                         <li>
-                            <a href="{{ route('online_class.student') }}">অনলাইন ক্লাসের তথ্য</a>
+                            <a href="{{ route('online_class_us.student') }}">ইহসান অনলাইন কনফারেন্স</a>
                         </li>
                         @endif
                     </ul>
                 </li>
             </li>
             @endif
-            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
-            <li>
-                <li class="@yield('online_class_youtube')">
-                    <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইউটিউব অনলাইন ক্লাস<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        @if(Auth::is('teacher'))
-                        <li>
-                            <a href="{{ route('online_class_youtube.create') }}">অনলাইন ক্লাস যোগ করুন</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('online_class_youtube') }}">অনলাইন ক্লাসের তথ্য</a>
-                        </li>
-                        @endif
-                        @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
-                        <li>
-                            <a href="{{ route('online_class_youtube.staff') }}">অনুরোধক্রিত অনলাইন ক্লাস</a>
-                        </li>
-                        @endif
-                        @if(Auth::is('student'))
-                        <li>
-                            <a href="{{ route('online_class_youtube.student') }}">অনলাইন ক্লাসের তথ্য</a>
-                        </li>
-                        @endif
-                    </ul>
-                </li>
-            </li>
-            @endif
+            
             {{-- <li class="@yield('post')">
                     <a href="#">
                         <i class="fa fa-sitemap fa-2x"></i>ইহ্‌সান এডুকেশন সোশাল সাইট  <span
