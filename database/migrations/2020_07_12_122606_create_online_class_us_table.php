@@ -15,9 +15,10 @@ class CreateOnlineClassUsTable extends Migration
     {
         Schema::create('online_class_us', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('link');
+            $table->string('title')->nullable();
+            $table->string('link')->nullable();
             $table->string('password')->nullable();
+            $table->string('subject')->nullable();
             $table->integer('master_class_id');
             $table->string('shift');
             $table->string('section')->nullable();

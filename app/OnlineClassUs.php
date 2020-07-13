@@ -13,6 +13,11 @@ class OnlineClassUs extends Model
         return $this->belongsTo(MasterClass::class);
     }
     
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+    
 
     protected $guarded = array();
 }

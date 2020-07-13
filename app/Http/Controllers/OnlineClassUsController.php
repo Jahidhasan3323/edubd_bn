@@ -14,13 +14,13 @@ use Auth;
 
 class OnlineClassUsController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
+       
+        if(!Auth::is('root')){
             return redirect('/home');
         }
-        $online_class=OnlineClassUs::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->get();
+        $online_class=OnlineClassUs::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>$id])->orderBy('master_class_id', 'ASC')->get();
         //dd($online_class);
         return view('backEnd.online_class_us.index',compact('online_class'));
     }
@@ -31,18 +31,20 @@ class OnlineClassUsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
+        
+        if(!Auth::is('root')){
             return redirect('/home');
         }
-        $id=Auth::schoolType();
-        $school_type_ids=explode('|', $id);
-        $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
+        /* $id=Auth::schoolType();
+        $school_type_ids=explode('|', $id); */
+        $schools = School::get();
+        $classes = MasterClass::get();
         $group_classes=GroupClass::all();
-        $units=Unit::where('school_id',Auth::getSchool())->get();
-        return view('backEnd.online_class_us.create',compact('classes','group_classes','units'));
+        $units=Unit::get();
+        return view('backEnd.online_class_us.create',compact('classes','group_classes','units','schools'));
     }
 
     /**
@@ -55,13 +57,13 @@ class OnlineClassUsController extends Controller
     {
        $data=$request->all();
        $this->validate($request, [
-            'title' => 'required',
-            'link' => 'required',
+            'school_id' => 'required',
             'type' => 'required',
         ]);
        if ($request->type==1) {
         
             $this->validate($request, [
+                'subject' => 'required',
                 'master_class_id' => 'required',
                 'group' => 'required',
                 'section' => 'required',
@@ -69,15 +71,15 @@ class OnlineClassUsController extends Controller
             ]);
         }
         if ($request->type==2  ) {
+            $data['subject']=0;
             $data['master_class_id']=0;
             $data['group']=0;
             $data['section']=0;
             $data['shift']=0;
         }
         $data['created_by']=Auth::id();
-        $data['school_id']=Auth::getSchool();
         OnlineClassUs::create($data);
-        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us');
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
 
     /**
@@ -99,17 +101,17 @@ class OnlineClassUsController extends Controller
      */
     public function edit($oc_id)
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
+        if(!Auth::is('root')){
             return redirect('/home');
         }
-        $id=Auth::schoolType();
-        $school_type_ids=explode('|', $id);
-        $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
+        /* $id=Auth::schoolType();
+        $school_type_ids=explode('|', $id );*/
+        $schools = School::get();
+        $classes = MasterClass::get();
         $group_classes=GroupClass::all();
-        $units=Unit::where('school_id',Auth::getSchool())->get();
-        $online_class=OnlineClassUs::where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool(),'id'=>$oc_id])->first();
-        return view('backEnd.online_class_us.edit',compact('online_class','classes','group_classes','units'));
+        $units=Unit::get();
+        $online_class=OnlineClassUs::where(['created_by'=>Auth::id(),'id'=>$oc_id])->first();
+        return view('backEnd.online_class_us.edit',compact('online_class','classes','group_classes','units','schools'));
     }
 
     /**
@@ -123,14 +125,14 @@ class OnlineClassUsController extends Controller
     {
         $data=$request->except('_token');
         $this->validate($request, [
-            'title' => 'required',
-            'link' => 'required',
-            'password' => 'required',
+            
+            'school_id' => 'required',
             'type' => 'required',
         ]);
        if ($request->type==1) {
         
             $this->validate($request, [
+                'subject' => 'required',
                 'master_class_id' => 'required',
                 'group' => 'required',
                 'section' => 'required',
@@ -138,14 +140,15 @@ class OnlineClassUsController extends Controller
             ]);
         }
         if ($request->type==2  ) {
+            $data['subject']=0;
             $data['master_class_id']=0;
             $data['group']=0;
             $data['section']=0;
             $data['shift']=0;
         }
         
-        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->update($data);
-        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us');
+        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id()])->update($data);
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
 
     /**
@@ -156,12 +159,11 @@ class OnlineClassUsController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
+        if(!Auth::is('root')){
             return redirect('/home');
         }
-        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->delete();
-        return $this->returnWithSuccessRedirect('আপনার তথ্য মুছেফেলা হয়েছে !','online_class_us');
+        OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id()])->delete();
+        return $this->returnWithSuccess('আপনার তথ্য মুছেফেলা হয়েছে !');
     }
 
     public function student_class()
@@ -170,7 +172,7 @@ class OnlineClassUsController extends Controller
             return redirect('/home');
         }
          $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-         $online_class=OnlineClassUs::where(['group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
+         $online_class=OnlineClassUs::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
         //dd($online_class);
         return view('backEnd.online_class_us.student_class',compact('online_class'));
     }
@@ -183,7 +185,7 @@ class OnlineClassUsController extends Controller
         }
         $online_class=OnlineClassUs::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
         //dd($online_class);
-        return view('backEnd.online_class_us.student_class',compact('online_class'));
+        return view('backEnd.online_class_us.teacher_class',compact('online_class'));
     }
     
     public function link()

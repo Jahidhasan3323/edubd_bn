@@ -23,9 +23,8 @@
                     <thead>
                         <tr>
                             <th>ক্রমিক নং</th>
-                            <th>টাইটেল</th>
-                            <th>লিঙ্ক</th>
-                            <th>পাসওয়ার্ড</th>
+                            <th>বিষয়</th>
+                            <th>অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,9 +33,20 @@
                         @foreach($online_class as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->title}}</td>                            
-                            <td>{{$row->link}} <a href="https://us.worldehsan.org/{{$row->link}}" target="_blank"><i class="fa fa-external-link"></i></a></td>
-                            <td>{{$row->password}}</td>                            
+                            <td>{{$row->subject}}</td>                            
+                            <td>
+                                @if ($row->type==1)
+                                <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/{{$row->masterClass->name}}/{{$row->group}}/{{$row->shift}}/{{$row->subject}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                                @endif
+                               
+                                @if ($row->type==2)
+                                    <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/teacher">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                @endif
+                            </td>                         
                         </tr>
                         
                         @endforeach

@@ -29,45 +29,44 @@
             <form action="{{url('/online_class_us/edit',$online_class->id)}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="row">
+                    
                     <div class="col-sm-6">
-                        <div class="form-group {{$errors->has('link') ? 'has-error' : ''}}">
-                            <label class="" for="link">লিঙ্ক <span class="star">*</span></label>
+                        <div class="form-group {{$errors->has('master_class_id') ? 'has-error' : ''}}">
+                            <label class="" for="master_class_id">প্রতিষ্ঠান <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$online_class->link}}" type="text" name="link" class="form-control" placeholder="লিঙ্ক">
+                                <select class="form-control" name="school_id" id="school_id">
+                                    <option value="">প্রতিষ্ঠান নির্বাচন করুন</option>
+                                    @foreach($schools as $school)
+                                    <option value="{{$school->id}}">{{$school->user->name}}</option>
+                                    @endforeach
+
+                                </select>
                             </div>
-                            @if ($errors->has('link'))
+                            @if ($errors->has('master_class_id'))
                                 <span class="help-block">
-                                    <strong>{{$errors->first('link')}}</strong>
+                                    <strong>{{$errors->first('master_class_id')}}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
-                            <label class="" for="title">টাইটেল <span class="star">*</span></label>
+                        <div class="form-group {{$errors->has('type') ? 'has-error' : ''}}">
+                            <label class="" for="type">ব্যবহারকারী <span class="star">*</span></label>
                             <div class="">
-                                <input value="{{$online_class->title}}" type="text" name="title" class="form-control" placeholder="টাইটেল">
+                                <select class="form-control" name="type" id="type">
+                                    <option value="">ব্যবহারকারী</option>
+                                    <option value="1">শিক্ষার্থী</option>
+                                    <option value="2">কর্মচারী</option>
+                                </select>
                             </div>
-                            @if ($errors->has('title'))
+                            @if ($errors->has('type'))
                                 <span class="help-block">
-                                    <strong>{{$errors->first('title')}}</strong>
+                                    <strong>{{$errors->first('type')}}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group {{$errors->has('password') ? 'has-error' : ''}}">
-                            <label class="" for="password">পাসওয়ার্ড <span class="star">*</span></label>
-                            <div class="">
-                                <input value="{{$online_class->password}}" type="text" name="password" class="form-control" placeholder="পাসওয়ার্ড">
-                            </div>
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{$errors->first('password')}}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
+                    
                    <div class="col-sm-6">
                        <div class="form-group {{$errors->has('master_class_id') ? 'has-error' : ''}}">
                            <label class="" for="master_class_id">শ্রেণী <span class="star">*</span></label>
@@ -149,18 +148,14 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group {{$errors->has('type') ? 'has-error' : ''}}">
-                            <label class="" for="type">ব্যবহারকারী <span class="star">*</span></label>
+                        <div class="form-group {{$errors->has('subject') ? 'has-error' : ''}}">
+                            <label class="" for="subject">বিষয় <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="type" id="type">
-                                    <option value="">ব্যবহারকারী</option>
-                                    <option value="1">শিক্ষার্থী</option>
-                                    <option value="2">কর্মচারী</option>
-                                </select>
+                            <input value="{{$online_class->subject}}" type="text" name="subject" class="form-control" placeholder="বিষয়">
                             </div>
-                            @if ($errors->has('type'))
+                            @if ($errors->has('subject'))
                                 <span class="help-block">
-                                    <strong>{{$errors->first('type')}}</strong>
+                                    <strong>{{$errors->first('subject')}}</strong>
                                 </span>
                             @endif
                         </div>
@@ -188,6 +183,7 @@
         document.getElementById('section').value="{{$online_class->section}}";
         document.getElementById('group').value="{{$online_class->group}}";
         document.getElementById('type').value="{{$online_class->type}}";
+        document.getElementById('school_id').value="{{$online_class->school_id}}";
     </script>
    
 @endsection

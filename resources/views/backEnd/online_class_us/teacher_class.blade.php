@@ -23,13 +23,6 @@
                     <thead>
                         <tr>
                             <th>ক্রমিক নং</th>
-                            <th>বিষয়</th>
-                            <th>পাসওয়ার্ড</th>
-                            <th>শিফট</th>
-                            <th>শ্রেণী</th>
-                            <th>বিভাগ </th>
-                            <th>শাখা </th>
-                            <th>ব্যবহারকারী </th>
                             <th>অ্যাকশন</th>
                         </tr>
                     </thead>
@@ -39,43 +32,19 @@
                         @foreach($online_class as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                           
-                            <td>{{$row->subject}}</td>                            
-                            <td>{{$row->password}}</td>                            
-                            <td>{{$row->shift ?? ''}}</td>
-                            <td>{{$row->masterClass->name ?? ''}}</td>
-                            <td>{{$row->group ?? ''}}</td>
-                            <td>{{$row->section ?? ''}}</td>
-                            <td>{{$row->type==1 ? 'Student' : 'Staff'}}</td>
                             <td>
                                 @if ($row->type==1)
                                 <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/{{$row->masterClass->name}}/{{$row->group}}/{{$row->shift}}/{{$row->subject}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                 </a>
-                                <a  class="btn btn-success"  href="{{url('/online_class_us/edit/'.$row->id)}}">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </a>
                                 @endif
                                
                                 @if ($row->type==2)
-                            <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/teacher">
+                                    <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/teacher">
                                     <span class="glyphicon glyphicon-eye-open"></span>
-                                </a>
+                                    </a>
                                 @endif
-                            
-                                
-                                
-                                <a  class="btn btn-danger" onclick="return confirm('Are you sure to delete it ?')" href="{{url('/online_class_us/delete/'.$row->id)}}">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                                <script>
-                                    function deleteNodice{{$row->id}}() {
-                                        if (!confirm('Are you sure to delete it ?')){
-                                            event.preventDefault();
-                                        }
-                                    }
-                                </script>
-                            </td>
+                            </td>                         
                         </tr>
                         
                         @endforeach

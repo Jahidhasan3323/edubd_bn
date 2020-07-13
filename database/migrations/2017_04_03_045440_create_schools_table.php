@@ -38,6 +38,9 @@ class CreateSchoolsTable extends Migration
             $table->boolean('status');
             $table->string('total_student');
             $table->integer('service_type_id')->default(1);
+            $table->integer('online_class_access')->default(0)->comment('0 inactive, 1 active');
+            $table->string('oc_user_name')->default('teacher');
+            $table->string('oc_user_password')->default('teacher');
             $table->timestamps();
             $table->softDeletes();
         });

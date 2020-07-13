@@ -64,11 +64,14 @@ font-size: 16px;">
             {{ csrf_field() }}
         </form>
     </div>
-    <div class="navTopUser oc-dextop" style="color: white;
-    padding: 10px 50px 5px 50px;
-    float: right;
-    font-size: 16px;">
-    <a href="#" class="pull-left" style="margin-right:5px"><i class="fa fa-spinner fa-spin"></i></a>  
-<a target="_blank" href="{{url('online_class_us/link')}}" class="btn btn-danger square-btn-adjust pull-left">ইহসান অনলাইন কনফারেন্স</a> 
+    <div class="navTopUser oc-dextop" style="color: white; padding: 10px 50px 5px 50px; float: right; font-size: 16px;">
+        @if(Auth::is('student'))
+        <a href="#" class="pull-left" style="margin-right:5px"><i class="fa fa-spinner fa-spin"></i></a>  
+        <a target="_blank" href="{{url('online_class_us/student')}}" class="btn btn-danger square-btn-adjust pull-left">ইহসান অনলাইন কনফারেন্স</a> 
+        @endif
+        @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff') )
+        <a href="#" class="pull-left" style="margin-right:5px"><i class="fa fa-spinner fa-spin"></i></a>  
+            <a target="_blank" href="{{url('online_class_us/staff')}}" class="btn btn-danger square-btn-adjust pull-left">ইহসান অনলাইন কনফারেন্স</a> 
+        @endif
     </div>
 </nav>
