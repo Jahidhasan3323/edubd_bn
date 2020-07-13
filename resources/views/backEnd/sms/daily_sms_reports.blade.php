@@ -15,7 +15,6 @@
         @if(Session::has('sccmgs'))
             @include('backEnd.includes.success')
         @endif
-
         <div class="panel-body">
             <div class="table-responsive">
                 <table id="report_tbl" class="table table-bordered table-hover table-striped">
@@ -33,8 +32,8 @@
                     @php
                         $i = 1;
                     @endphp
-                    @foreach($daily_sms_reports as $daily_sms_report)
-                        <tbody>
+                    <tbody>
+                        @foreach($daily_sms_reports as $daily_sms_report)
                             <tr>
                                 <td class="text-center">{{ $i++ }}</td>
                                 <td class="text-left">{{ $daily_sms_report['name'] }}</td>
@@ -51,10 +50,9 @@
                                 <td class="text-center">
                                     {{ number_format($daily_sms_report['cost'],2) }} ৳
                                 </td>
-
                             </tr>
-                        </tbody>
-                    @endforeach
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

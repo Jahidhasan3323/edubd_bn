@@ -71,6 +71,9 @@
                         <li>
                             <a href="{{url('/schools')}}">প্রতিষ্ঠানের তালিকা</a>
                         </li>
+                        <li>
+                            <a href="{{url('/sms/api_sender_id')}}">প্রতিষ্ঠানের এপি,আই ও সেন্ডার আইডি</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="@yield('active_login_info')">
