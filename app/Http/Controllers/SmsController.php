@@ -136,7 +136,7 @@ class SmsController extends Controller
         $max_len = MessageLength::where([
             "school_id" => Auth::getSchool()
         ])->first();
-        $max_len = $max_len?$max_len->notification-$extra_length:'230';
+        $max_len = $max_len?$max_len->notification-$extra_length:'500';
         return view('backEnd.sms.notice',compact('classes','max_len'));
     }
 
@@ -244,9 +244,9 @@ class SmsController extends Controller
         $max_len = MessageLength::where([
             "school_id" => Auth::getSchool()
         ])->first();
-        $max_len = $max_len?$max_len->notification-$extra_length:'250';
+        $max_len = $max_len?$max_len->notification-$extra_length:'500';
         if (strlen($request->message) > $max_len) {
-            return $this->returnWithError('দুঃখিত, কমপক্ষে ১ জন শিক্ষার্থী নির্বাচন করুন !');
+            return $this->returnWithError('দুঃখিত, আপনার মেসেজ সাইজ আরো ছোট হতে হবে !');
         }
 
       if(!$request->message){
