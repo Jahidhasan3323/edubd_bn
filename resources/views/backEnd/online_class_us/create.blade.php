@@ -72,20 +72,16 @@
                 
                    
                </div>
-               <div class="row  student">
-                
+               <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group {{$errors->has('master_class_id') ? 'has-error' : ''}}">
-                            <label class="" for="master_class_id">শ্রেণী <span class="star">*</span></label>
-                            <div class="">
-                                <select class="form-control" name="master_class_id" id="master_class_id">
-                                    <option value="">শ্রেণী নির্বাচন করুন</option>
-                                    @foreach($classes as $class)
+                            <label for="master_class_id">শ্রেণী নির্বাচন করুন<span class="star">*</span></label>
+                            <select name="master_class_id[]" id="master_class_id" class="form-control" multiple="true">
+                                @foreach($classes as $class)
                                     <option value="{{$class->id}}">{{$class->name}}</option>
                                     @endforeach
+                            </select>
 
-                                </select>
-                            </div>
                             @if ($errors->has('master_class_id'))
                                 <span class="help-block">
                                     <strong>{{$errors->first('master_class_id')}}</strong>
@@ -112,6 +108,9 @@
                             @endif
                         </div>
                     </div>
+               </div>
+               <div class="row  student">
+                    
                     <div class="col-sm-6">
                         <div class="form-group {{$errors->has('section') ? 'has-error' : ''}}">
                             <label class="" for="section">শাখা <span class="star">*</span></label>
@@ -152,11 +151,11 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group {{$errors->has('subject') ? 'has-error' : ''}}">
                             <label class="" for="subject">বিষয় <span class="star">*</span></label>
                             <div class="">
-                                <input  type="text" name="subject" class="form-control" placeholder="বিষয়">
+                                <input  type="text" name="subject" class="form-control" placeholder="প্রতিটি বিষয় কমা দিয়ে আলাদা করুন">
                             </div>
                             @if ($errors->has('subject'))
                                 <span class="help-block">

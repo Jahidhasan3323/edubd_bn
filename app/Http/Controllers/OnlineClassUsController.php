@@ -56,19 +56,29 @@ class OnlineClassUsController extends Controller
     public function store(Request $request)
     {
        $data=$request->all();
+       $data['created_by']=Auth::id();
        $this->validate($request, [
             'school_id' => 'required',
             'type' => 'required',
         ]);
-       if ($request->type==1) {
         
+        if ($request->type==1) {
             $this->validate($request, [
                 'subject' => 'required',
                 'master_class_id' => 'required',
-                'group' => 'required',
-                'section' => 'required',
-                'shift' => 'required',
             ]);
+            $data['group']=0;
+            $data['section']=0;
+            $data['shift']=0;
+            foreach ($request->master_class_id as $class_id) {
+                $data['master_class_id']=$class_id;
+                $subjects = explode(',',$request->subject);
+                $subjects = array_filter($subjects);
+                foreach ($subjects as $subject) {
+                    $data['subject']=$subject;
+                    OnlineClassUs::create($data);
+                }
+            }
         }
         if ($request->type==2  ) {
             $data['subject']=0;
@@ -76,9 +86,10 @@ class OnlineClassUsController extends Controller
             $data['group']=0;
             $data['section']=0;
             $data['shift']=0;
+            OnlineClassUs::create($data);
         }
-        $data['created_by']=Auth::id();
-        OnlineClassUs::create($data);
+        
+        
         return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
 
@@ -134,10 +145,11 @@ class OnlineClassUsController extends Controller
             $this->validate($request, [
                 'subject' => 'required',
                 'master_class_id' => 'required',
-                'group' => 'required',
-                'section' => 'required',
-                'shift' => 'required',
+                // 'group' => 'required',
+                // 'section' => 'required',
+                // 'shift' => 'required',
             ]);
+            
         }
         if ($request->type==2  ) {
             $data['subject']=0;
