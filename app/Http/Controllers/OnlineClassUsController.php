@@ -67,9 +67,15 @@ class OnlineClassUsController extends Controller
                 'subject' => 'required',
                 'master_class_id' => 'required',
             ]);
-            $data['group']=0;
-            $data['section']=0;
-            $data['shift']=0;
+            if (!$request->group) {
+                $data['group']=0;
+            }
+            if (!$request->section) {
+                $data['section']=0;
+            }
+            if (!$request->shift) {
+                $data['shift']=0;
+            }
             foreach ($request->master_class_id as $class_id) {
                 $data['master_class_id']=$class_id;
                 $subjects = explode(',',$request->subject);
@@ -184,7 +190,11 @@ class OnlineClassUsController extends Controller
             return redirect('/home');
         }
          $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-         $online_class=OnlineClassUs::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
+         $online_class=OnlineClassUs::where(['master_class_id'=>$student_details->master_class_id,'school_id'=>Auth::getSchool(),'type'=>1])
+         ->whereIn('shift',[$student_details->shift,'0'])
+         ->whereIn('group',[$student_details->group,'0'])
+         ->whereIn('section',[$student_details->section,'0'])
+         ->get();
         //dd($online_class);
         return view('backEnd.online_class_us.student_class',compact('online_class'));
     }
