@@ -136,7 +136,7 @@ class SmsController extends Controller
         $max_len = MessageLength::where([
             "school_id" => Auth::getSchool()
         ])->first();
-        $max_len = $max_len?$max_len->notification-$extra_length:'230';
+        $max_len = $max_len?$max_len->notification-$extra_length:'500';
         return view('backEnd.sms.notice',compact('classes','max_len'));
     }
 
@@ -244,9 +244,9 @@ class SmsController extends Controller
         $max_len = MessageLength::where([
             "school_id" => Auth::getSchool()
         ])->first();
-        $max_len = $max_len?$max_len->notification-$extra_length:'250';
+        $max_len = $max_len?$max_len->notification-$extra_length:'500';
         if (strlen($request->message) > $max_len) {
-            return $this->returnWithError('দুঃখিত, কমপক্ষে ১ জন শিক্ষার্থী নির্বাচন করুন !');
+            return $this->returnWithError('দুঃখিত, আপনার মেসেজ সাইজ আরো ছোট হতে হবে !');
         }
 
       if(!$request->message){
@@ -260,6 +260,7 @@ class SmsController extends Controller
       $sms_limit = $sms_limit?$sms_limit->notification:'0';
       $school_name=($school==NULL) ? $sms_send->school_name_process(Auth::user()->name) : $school->short_name;
       $content=$request->message.' '.$school_name;
+      $msg_count=$request->message.' '.$school_name;
       $message= urlencode($content);
       if($school->service_type_id==1){
          $data['id_card_exits'] = 1;
@@ -296,30 +297,35 @@ class SmsController extends Controller
                if(count($mobile_number)>50){
                 $mobile_numbers=array_chunk($mobile_number,50);
                 foreach ($mobile_numbers as $key=>$mobile_number) {
-                  $mobile_number=implode(',',$mobile_number);
-                  $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
-                  if ($school->sms_service==0) {
-                      $a = $this->send_sms_by_curl($url_AllNumber);
-                  }else {
-                      if ($sms_report < $sms_limit && urldecode(strlen($message)) < 305) {
-                          $a = $this->send_sms_by_curl($url_AllNumber);
-                      }else {
-                          return json_encode(["status"=>"আপনার নির্ধারিত এস,এম,এসের পরিমান শেষ হয়েছে ।","error"=>"1"]);
-                      }
-                  }
+                    $mobile_number=implode(',',$mobile_number);
+                    // $mobile_number='01729890904';
+                    // dd($mobile_number);
+                    $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
+                    if ($school->sms_service==0) {
+                        $a = $this->send_sms_by_curl($url_AllNumber);
+                    }else {
+                        
+                        if ($sms_report < $sms_limit && strlen($msg_count) < 1500) {
+                            $a = $this->send_sms_by_curl($url_AllNumber);
+                        }else {
+                            return json_encode(["status"=>"Your SMS limit already end.","error"=>"1"]);
+                        }
+                    }
 
                 }
 
                }else {
                  $mobile_number=implode(',',$mobile_number);
+                //  $mobile_number='01729890904';
+                //  dd($mobile_number);
                  $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
                  if ($school->sms_service==0) {
                      $a = $this->send_sms_by_curl($url_AllNumber);
                  }else {
-                     if ($sms_report < $sms_limit && urldecode(strlen($message)) < 305) {
+                     if ($sms_report < $sms_limit && strlen($msg_count) < 1500) {
                          $a = $this->send_sms_by_curl($url_AllNumber);
                      }else {
-                         return json_encode(["status"=>"আপনার নির্ধারিত এস,এম,এসের পরিমান শেষ হয়েছে ।","error"=>"1"]);
+                         return json_encode(["status"=>"Your SMS limit already end.","error"=>"1"]);
                      }
                  }
                }

@@ -56,20 +56,28 @@ class OnlineClassUsController extends Controller
     public function store(Request $request)
     {
        $data=$request->all();
+       $data['created_by']=Auth::id();
        $this->validate($request, [
             'school_id' => 'required',
             'type' => 'required',
         ]);
-       if ($request->type==1) {
         
+        if ($request->type==1) {
             $this->validate($request, [
                 'subject' => 'required',
                 'master_class_id' => 'required',
-                'group' => 'required',
-                'shift' => 'required',
             ]);
-            if (!$request->section) {
-                $data['section']=0;
+            $data['group']=0;
+            $data['section']=0;
+            $data['shift']=0;
+            foreach ($request->master_class_id as $class_id) {
+                $data['master_class_id']=$class_id;
+                $subjects = explode(',',$request->subject);
+                $subjects = array_filter($subjects);
+                foreach ($subjects as $subject) {
+                    $data['subject']=$subject;
+                    OnlineClassUs::create($data);
+                }
             }
         }
         if ($request->type==2  ) {
@@ -78,9 +86,10 @@ class OnlineClassUsController extends Controller
             $data['group']=0;
             $data['section']=0;
             $data['shift']=0;
+            OnlineClassUs::create($data);
         }
-        $data['created_by']=Auth::id();
-        OnlineClassUs::create($data);
+        
+        
         return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
 
@@ -136,12 +145,11 @@ class OnlineClassUsController extends Controller
             $this->validate($request, [
                 'subject' => 'required',
                 'master_class_id' => 'required',
-                'group' => 'required',
-                'shift' => 'required',
+                // 'group' => 'required',
+                // 'section' => 'required',
+                // 'shift' => 'required',
             ]);
-            if (!$request->section) {
-                $data['section']=0;
-            }
+            
         }
         if ($request->type==2  ) {
             $data['subject']=0;
@@ -175,17 +183,8 @@ class OnlineClassUsController extends Controller
         if(!Auth::is('student')){
             return redirect('/home');
         }
-        $school=School::where(['id'=>Auth::getSchool(),'online_class_access'=>1])->first();
-        if (!$school) {
-
-            return $this->returnWithError(' ইহসান অনলাইন কনফারেন্সে আপনার অনুমতি নেই !');
-
-        }
-
          $student_details=student::where(['school_id'=>Auth::getSchool(),'user_id'=>Auth::id()])->first();
-         $online_class=OnlineClassUs::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])
-         ->whereIn('section',[$student_details->section,'0'])
-         ->get();
+         $online_class=OnlineClassUs::where(['master_class_id'=>$student_details->master_class_id,'shift'=>$student_details->shift,'group'=>$student_details->group,'school_id'=>Auth::getSchool(),'type'=>1])->get();
         //dd($online_class);
         return view('backEnd.online_class_us.student_class',compact('online_class'));
     }
@@ -195,13 +194,6 @@ class OnlineClassUsController extends Controller
             
         }else{
             return redirect('/home');
-        }
-
-        $school=School::where(['id'=>Auth::getSchool(),'online_class_access'=>1])->first();
-        if (!$school) {
-
-            return $this->returnWithError(' ইহসান অনলাইন কনফারেন্সে আপনার অনুমতি নেই !');
-
         }
         $online_class=OnlineClassUs::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
         //dd($online_class);

@@ -36,6 +36,7 @@ class OnlineClassController extends Controller
      */
     public function create()
     {
+        dd('Working');
         if(Auth::is('teacher')  || Auth::is('admin')){
         }else{
             return redirect('/home');
