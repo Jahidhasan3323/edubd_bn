@@ -157,6 +157,15 @@ class OnlineClassUsController extends Controller
             ]);
             
         }
+        if (!$request->group) {
+            $data['group']=0;
+        }
+        if (!$request->section) {
+            $data['section']=0;
+        }
+        if (!$request->shift) {
+            $data['shift']=0;
+        }
         if ($request->type==2  ) {
             $data['subject']=0;
             $data['master_class_id']=0;
