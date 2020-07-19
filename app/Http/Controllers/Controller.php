@@ -106,6 +106,7 @@ class Controller extends BaseController
     protected function sms_send_by_api($school,$mobile_number,$message){
         if ($school->sms_service==2) {
         }else{
+            // dd($mobile_number);
             $url_AllNumber = "http://sms.worldehsan.org/api/send_sms?api_key=".$school->api_key."&sender_id=".$school->sender_id."&number=".$mobile_number."&message=".$message;
             return file_get_contents($url_AllNumber);
         }

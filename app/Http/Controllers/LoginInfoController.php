@@ -46,7 +46,8 @@ class LoginInfoController extends Controller
 	public function st_sms(Request $request,SmsSendController $sms_send){
 		$school = School::find($request->school_id);
 		$student = Student::whereIn('id', $request->id)->first();
-		$students = Student::whereIn('id', $request->id)->get();
+        $students = Student::whereIn('id', $request->id)->get();
+        dd($students);
         $count = 0;
 		foreach ($students as $student) {
 			$new_email = $student->student_id.'@gmail.com';
@@ -61,12 +62,16 @@ class LoginInfoController extends Controller
 			$content='প্রিয় '.$user->name.' তোমার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
             // dd(urldecode($message));
-			$a = $this->sms_send_by_api($school,$user->mobile,$message);
-			// $a = 'Test';
-            $success = json_decode($a,true);
-            if ($success['error']==0) {
-                $count++;
+            if ($user->mobile) {
+                $a = $this->sms_send_by_api($school,$user->mobile,$message);
+                $success = json_decode($a,true);
+                if ($success['error']==0) {
+                    $count++;
+                }
             }
+           
+			// $a = 'Test';
+            
 		}
         // return redirect()->route('loginInfo.student')->with('sccmgs', $count.' জন শিক্ষার্থীকে লগইন তথ্য পাঠানো হয়েছে ।');
         return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
@@ -103,11 +108,12 @@ class LoginInfoController extends Controller
 			$school_name = $school->short_name??$sms_send->school_name_process($school->user->name);
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
-			$a = $this->sms_send_by_api($school,$user->mobile,$message);
-			// $a = 'Test';
-            $success = json_decode($a,true);
-            if ($success['error']==0) {
-                $count++;
+			if ($user->mobile) {
+                $a = $this->sms_send_by_api($school,$user->mobile,$message);
+                $success = json_decode($a,true);
+                if ($success['error']==0) {
+                    $count++;
+                }
             }
 		}
         // return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন শিক্ষক ও কর্মচারীকে লগইন তথ্য পাঠানো হয়েছে ।');
@@ -145,11 +151,12 @@ class LoginInfoController extends Controller
 			$school_name = $school->short_name??$sms_send->school_name_process($school->user->name);
 			$content='প্রিয় '.$user->name.' আপনার সফটওয়্যার লগইন তথ্য ! ওয়েব এড্রেস : '.$school->website.', ইমেইল : '.$new_email.', পাসওয়ার্ড : '.$new_pass.'. '.$school_name;
 			$message= urlencode($content);
-			$a = $this->sms_send_by_api($school,$user->mobile,$message);
-			// $a = 'Test';
-            $success = json_decode($a,true);
-            if ($success['error']==0) {
-                $count++;
+			if ($user->mobile) {
+                $a = $this->sms_send_by_api($school,$user->mobile,$message);
+                $success = json_decode($a,true);
+                if ($success['error']==0) {
+                    $count++;
+                }
             }
 		}
         // return redirect()->route('loginInfo.employee')->with('sccmgs', $count.' জন কমিটিকেে লগইন তথ্য পাঠানো হয়েছে ।');
