@@ -25,6 +25,7 @@ use App\WmGalleryCategory;
 use App\Holiday;
 use App\ImportantFile;
 use App\Care;
+use App\ClassRoutine;
 use App\OnlineAdmissionApplication;
 use App\OnlineAdmissionAccademicInfo;
 use App\OnlineAdmissionApplicationSubject;
@@ -614,6 +615,14 @@ public function admission_notice(Request $request)
          $admit=OnlineAdmissionApplication::with('online_admission','masterClass')->where(['online_admission_id'=>$admission->id,'school_id'=>$school->id,'status'=>2,'reg_no'=>$data['reg_no'],'password'=>$password])->first();
         }
         return $this->sendResponse($admit, 'admit data retrieved successfully.'); 
+    }
+
+
+    public function class_routine(Request $request)
+    {
+        $school=School::where('serial_no',$request->serial_no)->first();
+        $class_routine=ClassRoutine::with('master_class')->where(['school_id'=>$school->id,'status'=>1])->orderby('id','DESC')->get();
+       return $this->sendResponse($class_routine, 'Routine retrieved successfully.');  
     }
 
 }
