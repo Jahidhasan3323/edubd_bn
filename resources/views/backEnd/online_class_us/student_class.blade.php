@@ -1,12 +1,12 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'অনলাইন ক্লাস')
+@section('mainTitle', 'Online Class')
 @section('online_class_us', 'active')
 
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">অনলাইন ক্লাস</h1>
+            <h1 class="text-center text-temp">Online Class</h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -22,9 +22,9 @@
                 <table id="commitee_tbl" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>ক্রমিক নং</th>
-                            <th>বিষয়</th>
-                            <th>অ্যাকশন</th>
+                            <th>Si</th>
+                            <th>Subject</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
