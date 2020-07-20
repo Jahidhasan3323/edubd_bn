@@ -44,10 +44,10 @@ class LoginInfoController extends Controller
 	}
 
 	public function st_sms(Request $request,SmsSendController $sms_send){
+        set_time_limit(8000000);
 		$school = School::find($request->school_id);
 		$student = Student::whereIn('id', $request->id)->first();
         $students = Student::whereIn('id', $request->id)->get();
-        dd($students);
         $count = 0;
 		foreach ($students as $student) {
 			$new_email = $student->student_id.'@gmail.com';
@@ -93,6 +93,7 @@ class LoginInfoController extends Controller
 	}
 
 	public function em_sms(Request $request,SmsSendController $sms_send){
+        set_time_limit(8000000);
 		$school = School::find($request->school_id);
 		$employees = Staff::whereIn('id', $request->id)->get();
         $count = 0;
@@ -136,6 +137,7 @@ class LoginInfoController extends Controller
 	}
 
 	public function comm_sms(Request $request,SmsSendController $sms_send){
+        set_time_limit(8000000);
 		$school = School::find($request->school_id);
 		$committees = Commitee::whereIn('id', $request->id)->get();
         $count = 0;
@@ -216,7 +218,12 @@ class LoginInfoController extends Controller
         $student = Student::whereIn('user_id',$user_id)->first();
         $all_id = $this->password_generate($user_id);
         $students = Student::whereIn('user_id',$all_id)->get();
-		return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
+        if ($request->type==1) {
+            return view('backEnd.login_info.print.student_login_info_slip',compact('school','students','student'));
+        }else{
+            return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
+        }
+		
     }
 
     public function employee_login_info()
@@ -234,7 +241,12 @@ class LoginInfoController extends Controller
         if (count($employees) < 1) {
             return redirect()->route('employee_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
         }
-		return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
+        if ($request->type==1) {
+            return view('backEnd.login_info.print.employee_login_info_slip',compact('school','employees'));
+        }else{
+            return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
+        }
+		
     }
 
     public function committee_login_info()
@@ -252,7 +264,12 @@ class LoginInfoController extends Controller
         if (count($committees) < 1) {
             return redirect()->route('committee_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
         }
-		return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
+        if ($request->type==1) {
+            return view('backEnd.login_info.print.committee_login_info_slip',compact('school','committees'));
+        }else{
+            return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
+        }
+		
     }
 
     public function password_generate($user_id)

@@ -113,6 +113,20 @@
                         </span>
                         @endif
                     </div>
+                    <div class="col-md-6 {{$errors->has('type') ? 'has-error' : ''}}">
+                        <div class="form-group">
+                            <select name="type" id="type" class="form-control" required="">
+                                <option value="">শীটের ধরণ নির্বাচন করুন </option>
+                                <option value="1">স্লিপ অনুযায়ী প্রিন্ট</option>
+                                <option value="2">সকল শিক্ষার্থী একসাথে প্রিন্ট</option>
+                            </select>
+                        </div>
+                        @if($errors->has('type'))
+                        <span class="help-block">
+                            <strong>{{$errors->first('type')}}</strong>
+                        </span>
+                        @endif
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <br>
