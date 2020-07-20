@@ -893,15 +893,15 @@
             </li>
             @endif
 
-            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff') || Auth::is('root') )
+            @if(Auth::is('teacher') || Auth::is('student') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff')  )
             <li>
                 <li class="@yield('online_class_us')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইহসান অনলাইন কনফারেন্স<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         @if(Auth::is('root'))
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('online_class_us.create') }}">ইহসান অনলাইন কনফারেন্স যোগ করুন</a>
-                        </li>
+                        </li> --}}
                         {{-- <li>
                             <a href="{{ route('online_class_us') }}">ইহসান অনলাইন কনফারেন্সের তথ্য</a>
                         </li> --}}

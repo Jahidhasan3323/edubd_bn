@@ -1,12 +1,14 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'অনলাইন ক্লাস')
+@section('mainTitle', 'Online Class')
 @section('online_class_us', 'active')
 
 @section('content')
     <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">অনলাইন ক্লাস</h1>
+            <h1 class="text-center text-temp">Online Class
+            <a style="margin-left: 5px" class="btn btn-info pull-right" href="{{url('online_class_us/create/'.$school_id)}}"><i class="fa fa-plus"></i>  Add Student Class</a> 
+            <a class="btn btn-success pull-right" href="{{url('online_class_us/create_staff/'.$school_id)}}"><i class="fa fa-plus"></i> Add Teacher Class</a></h1>
         </div>
 
         @if(Session::has('errmgs'))
@@ -22,15 +24,15 @@
                 <table id="commitee_tbl" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>ক্রমিক নং</th>
-                            <th>বিষয়</th>
-                            <th>পাসওয়ার্ড</th>
-                            <th>শিফট</th>
-                            <th>শ্রেণী</th>
-                            <th>বিভাগ </th>
-                            <th>শাখা </th>
-                            <th>ব্যবহারকারী </th>
-                            <th>অ্যাকশন</th>
+                            <th>SI</th>
+                            <th>Class</th>
+                            {{--  <th>পাসওয়ার্ড</th> --}}
+                            <th>Shift</th>
+                            <th>Group </th>
+                            <th>Section </th>
+                            <th>Subject</th>
+                            <th>User </th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,12 +42,12 @@
                         <tr>
                             <td>{{$i++}}</td>
                            
-                            <td>{{$row->subject}}</td>                            
-                            <td>{{$row->password}}</td>                            
-                            <td>{{$row->shift ?? ''}}</td>
                             <td>{{$row->masterClass->name ?? ''}}</td>
+                            {{-- <td>{{$row->password}}</td>  --}}                           
+                            <td>{{$row->shift ?? ''}}</td>
                             <td>{{$row->group ?? ''}}</td>
                             <td>{{$row->section ?? ''}}</td>
+                            <td>{{$row->subject}}</td>                            
                             <td>{{$row->type==1 ? 'Student' : 'Staff'}}</td>
                             <td>
                                 @if ($row->type==1)
