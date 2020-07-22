@@ -9,7 +9,6 @@ use App\Unit;
 use App\Student;
 use App\Http\Controllers\Controller;
 use App\School;
-use App\Staff;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -21,10 +20,9 @@ class OnlineClassUsController extends Controller
         if(!Auth::is('root')){
             return redirect('/home');
         }
-        $school_id=$id;
         $online_class=OnlineClassUs::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>$id])->orderBy('master_class_id', 'ASC')->get();
         //dd($online_class);
-        return view('backEnd.online_class_us.index',compact('online_class','school_id'));
+        return view('backEnd.online_class_us.index',compact('online_class'));
     }
 
 
@@ -34,21 +32,19 @@ class OnlineClassUsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function create($school_id)
+    public function create()
     {
         
         if(!Auth::is('root')){
             return redirect('/home');
         }
-        $school = School::where('id',$school_id)->first();
-        $id = $school->school_type_id;
-        $school_type_ids=explode('|', $id);
-        $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
+        /* $id=Auth::schoolType();
+        $school_type_ids=explode('|', $id); */
+        $schools = School::get();
+        $classes = MasterClass::get();
         $group_classes=GroupClass::all();
-        $units=Unit::where('school_id',$school_id)->get();
-        $teachers=Staff::with('teacher')->where('school_id',$school_id)->get();
-        //dd($teachers);
-        return view('backEnd.online_class_us.create',compact('classes','group_classes','units','schools','teachers','school_id'));
+        $units=Unit::get();
+        return view('backEnd.online_class_us.create',compact('classes','group_classes','units','schools'));
     }
 
     /**
@@ -59,91 +55,50 @@ class OnlineClassUsController extends Controller
      */
     public function store(Request $request)
     {
-       $data1=$request->all();
-       $this->validate($request, [
-            'master_class_id' => 'required',
-        ]);
+       $data=$request->all();
        $data['created_by']=Auth::id();
-       $data['school_id']=$request->school_id;
-       $data['type']=1;
-        $class=$request->master_class_id;
-       $i=0;
-       if($class)
-        {    foreach ($class as $row) {
-                if (isset($request->group[$i])) {
-                    $data['group']=$request->group[$i];
-                }else{
-                    $data['group']=0;
+       $this->validate($request, [
+            'school_id' => 'required',
+            'type' => 'required',
+        ]);
+        
+        if ($request->type==1) {
+            $this->validate($request, [
+                'subject' => 'required',
+                'master_class_id' => 'required',
+            ]);
+            if (!$request->group) {
+                $data['group']=0;
+            }
+            if (!$request->section) {
+                $data['section']=0;
+            }
+            if (!$request->shift) {
+                $data['shift']=0;
+            }
+            foreach ($request->master_class_id as $class_id) {
+                $data['master_class_id']=$class_id;
+                $subjects = explode(',',$request->subject);
+                $subjects = array_filter($subjects);
+                foreach ($subjects as $subject) {
+                    $data['subject']=$subject;
+                    OnlineClassUs::create($data);
                 }
-                if (isset($request->section[$i])) {
-                    $data['section']=$request->section[$i];
-                }else{
-                    $data['section']=0;
-                }
-                if (isset($request->shift[$i])) {
-                    $data['shift']=$request->shift[$i];
-                }else{
-                    $data['shift']=0;
-                }
-                if (isset($request->subject[$i])) {
-                    $data['subject']=$request->subject[$i];
-                }else{
-                    $data['subject']=0;
-                }
-                if (isset($request->master_class_id[$i])) {
-                    $data['master_class_id']=$request->master_class_id[$i];
-                }else{
-                    $data['master_class_id']=0;
-                }
-                if (isset($request->teacher_id[$i])) {
-                    $data['teacher_id']=$request->teacher_id[$i];
-                }else{
-                    $data['teacher_id']=0;
-                }
-                $i++;
-                OnlineClassUs::create($data);
             }
         }
-        return $this->returnWithSuccessRedirect('Data stored successfully !','online_class_us/index/'.$request->school_id);
-       
-    }
-    /* public function create($school_id)
-    {
+        if ($request->type==2  ) {
+            $data['subject']=0;
+            $data['master_class_id']=0;
+            $data['group']=0;
+            $data['section']=0;
+            $data['shift']=0;
+            OnlineClassUs::create($data);
+        }
         
-        if(!Auth::is('root')){
-            return redirect('/home');
-        }
-        $school = School::where('id',$school_id)->first();
-        $id = $school->school_type_id;
-        $school_type_ids=explode('|', $id);
-        $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
-        $group_classes=GroupClass::all();
-        $units=Unit::where('school_id',$school_id)->get();
-        $teachers=Staff::with('teacher')->where('school_id',$school_id)->get();
-        return view('backEnd.online_class_us.create',compact('classes','group_classes','units','schools','teachers','school_id'));
-    } */
-    public function store_staff($school_id)
-    {
-        if(!Auth::is('root')){
-            return redirect('/home');
-        }
-        $check_status=OnlineClassUs::where('school_id',$school_id)->first();
-        if($check_status){
-            return $this->returnWithSuccessRedirect('Data stored successfully !','online_class_us/index/'.$school_id);
-        }
-       //$data=$request->all();
-       $data['created_by']=Auth::id();
-       $data['school_id']=$school_id;
-       $data['type']=2;
-       $data['subject']=0;
-        $data['master_class_id']=0;
-        $data['group']=0;
-        $data['section']=0;
-        $data['shift']=0;
-        $data['teacher_id']=0;
-        OnlineClassUs::create($data);
-        return $this->returnWithSuccessRedirect('Data stored successfully !','online_class_us/index/'.$school_id);
+        
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
+
     /**
      * Display the specified resource.
      *
@@ -220,7 +175,7 @@ class OnlineClassUsController extends Controller
         }
         
         OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id()])->update($data);
-        return $this->returnWithSuccessRedirect('Data stored successfully !','online_class_us/index/'.$request->school_id);
+        return $this->returnWithSuccessRedirect('আপনার তথ্য সংরক্ষণ হয়েছে !','online_class_us/index/'.$request->school_id);
     }
 
     /**
@@ -235,7 +190,7 @@ class OnlineClassUsController extends Controller
             return redirect('/home');
         }
         OnlineClassUs::where(['id'=>$id,'created_by'=>Auth::id()])->delete();
-        return $this->returnWithSuccess('Data deleted successfully !');
+        return $this->returnWithSuccess('আপনার তথ্য মুছেফেলা হয়েছে !');
     }
 
     public function student_class()
@@ -259,7 +214,7 @@ class OnlineClassUsController extends Controller
         }else{
             return redirect('/home');
         }
-        $online_class=OnlineClassUs::where(['school_id'=>Auth::getSchool()])->whereIn('teacher_id',[Auth::id(),'0'])->get();
+        $online_class=OnlineClassUs::where(['school_id'=>Auth::getSchool(),'type'=>2])->get();
         //dd($online_class);
         return view('backEnd.online_class_us.teacher_class',compact('online_class'));
     }
@@ -270,7 +225,7 @@ class OnlineClassUsController extends Controller
         if ($school) {
             return redirect('https://us.worldehsan.org/');
         }else{
-            return $this->returnWithError('You have no permission for conference !');
+            return $this->returnWithError(' ইহসান অনলাইন কনফারেন্সে আপনার অনুমতি নেই !');
         }
     }
 }

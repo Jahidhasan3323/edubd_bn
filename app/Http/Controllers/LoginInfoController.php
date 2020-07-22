@@ -218,10 +218,11 @@ class LoginInfoController extends Controller
         $student = Student::whereIn('user_id',$user_id)->first();
         $all_id = $this->password_generate($user_id);
         $students = Student::whereIn('user_id',$all_id)->get();
+        $photo_status = $request->photo_status;
         if ($request->type==1) {
-            return view('backEnd.login_info.print.student_login_info_slip',compact('school','students','student'));
+            return view('backEnd.login_info.print.student_login_info_slip',compact('school','students','student','photo_status'));
         }else{
-            return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student'));
+            return view('backEnd.login_info.print.student_login_info_print',compact('school','students','student','photo_status'));
         }
 		
     }
@@ -241,10 +242,11 @@ class LoginInfoController extends Controller
         if (count($employees) < 1) {
             return redirect()->route('employee_login_info')->with('errmgs','শিক্ষক বা কর্মচারী খুজে পাওয়া যায়নি ।');
         }
+        $photo_status = $request->photo_status;
         if ($request->type==1) {
-            return view('backEnd.login_info.print.employee_login_info_slip',compact('school','employees'));
+            return view('backEnd.login_info.print.employee_login_info_slip',compact('school','employees','photo_status'));
         }else{
-            return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees'));
+            return view('backEnd.login_info.print.employee_login_info_print',compact('school','employees','photo_status'));
         }
 		
     }
@@ -264,10 +266,11 @@ class LoginInfoController extends Controller
         if (count($committees) < 1) {
             return redirect()->route('committee_login_info')->with('errmgs','কমিটি খুজে পাওয়া যায়নি ।');
         }
+        $photo_status = $request->photo_status;
         if ($request->type==1) {
-            return view('backEnd.login_info.print.committee_login_info_slip',compact('school','committees'));
+            return view('backEnd.login_info.print.committee_login_info_slip',compact('school','committees','photo_status'));
         }else{
-            return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees'));
+            return view('backEnd.login_info.print.committee_login_info_print',compact('school','committees','photo_status'));
         }
 		
     }

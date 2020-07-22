@@ -127,6 +127,19 @@
                         </span>
                         @endif
                     </div>
+                    <div class="col-md-6 {{$errors->has('photo_status') ? 'has-error' : ''}}">
+                        <div class="form-group">
+                            <select name="photo_status" id="photo_status" class="form-control" required="">
+                                <option value="1">ছবিসহ প্রিন্ট</option>
+                                <option value="2">ছবি ছাড়া প্রিন্ট</option>
+                            </select>
+                        </div>
+                        @if($errors->has('photo_status'))
+                        <span class="help-block">
+                            <strong>{{$errors->first('photo_status')}}</strong>
+                        </span>
+                        @endif
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <br>

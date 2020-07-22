@@ -25,13 +25,13 @@ use App\WmGalleryCategory;
 use App\Holiday;
 use App\ImportantFile;
 use App\Care;
-use App\ClassRoutine;
 use App\OnlineAdmissionApplication;
 use App\OnlineAdmissionAccademicInfo;
 use App\OnlineAdmissionApplicationSubject;
 use App\OnlineAdmission;
 use App\MasterClass;
 use App\WmSocial;
+use App\ClassRoutine;
 use Validator;
 use DB;
 
@@ -616,8 +616,6 @@ public function admission_notice(Request $request)
         }
         return $this->sendResponse($admit, 'admit data retrieved successfully.'); 
     }
-
-
     public function class_routine(Request $request)
     {
         $school=School::where('serial_no',$request->serial_no)->first();

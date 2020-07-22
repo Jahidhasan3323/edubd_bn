@@ -14,6 +14,7 @@ class SmsLimitController extends Controller
 		$schools = School::all();
 		return view('backEnd.sms.sms_setup',compact('schools'));
 	}
+
     public function search(Request $request){
 		$schools = School::all();
 		$school = School::find($request->school_id);
