@@ -22,10 +22,11 @@
                 <table id="commitee_tbl" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>Si</th>
-                            <th>Class</th>
-                            <th>Subject</th>
-                            <th>Action</th>
+                           
+                            <th>ক্রমিক নং</th>
+                            <th>শ্রেণী</th>
+                            <th>বিষয়</th>
+                            <th>অ্যাকশন</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,8 +35,16 @@
                         @foreach($online_class as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->masterClass->name ?? 'Staff'}}</td>
-                            <td>{{$row->subject}}</td> 
+                            <td>
+                                @if ($row->type==2)
+                                    {{$row->masterClass->name ?? 'Staff'}}
+                                    
+                                @else
+                                Guardian
+                                @endif
+                                
+                            </td>
+                            <td>{{$row->subject }}</td> 
                             <td>
                                 @if ($row->type==1)
                                 <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/{{$row->masterClass->name}}/{{$row->group}}/{{$row->shift}}/{{$row->subject}}">
@@ -45,6 +54,11 @@
                                
                                 @if ($row->type==2)
                                     <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/teacher">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                @endif
+                                @if ($row->type==3)
+                                    <a target="_blank"  class="btn btn-info"  href="https://us.worldehsan.org/{{$row->school->serial_no}}/guardian">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                     </a>
                                 @endif

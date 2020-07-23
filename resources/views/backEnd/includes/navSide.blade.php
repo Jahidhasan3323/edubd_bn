@@ -898,16 +898,12 @@
                 <li class="@yield('online_class_us')">
                     <a href="#"><i class="fa fa-sitemap fa-2x"></i>ইহসান অনলাইন কনফারেন্স<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        @if(Auth::is('root'))
-                        {{-- <li>
-                            <a href="{{ route('online_class_us.create') }}">ইহসান অনলাইন কনফারেন্স যোগ করুন</a>
-                        </li> --}}
-                        {{-- <li>
-                            <a href="{{ route('online_class_us') }}">ইহসান অনলাইন কনফারেন্সের তথ্য</a>
-                        </li> --}}
-                        
+                        @if(Auth::is('admin'))
+                        <li>
+                            <a href="{{ route('online_class_us.school_class') }}"> ইহসান অনলাইন কনফারেন্স</a>
+                        </li>
                         @endif
-                        @if(Auth::is('teacher') || Auth::is('admin') || Auth::is('commitee') || Auth::is('staff'))
+                        @if(Auth::is('teacher') || Auth::is('commitee') || Auth::is('staff'))
                         <li>
                             <a href="{{ route('online_class_us.staff') }}"> ইহসান অনলাইন কনফারেন্স</a>
                         </li>
@@ -1008,3 +1004,5 @@
     </div>
 
 </nav>
+
+
