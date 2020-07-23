@@ -68,6 +68,7 @@
 			font-size: 12px;
 		}
 		.box{
+			position: relative;
 			padding: 5px;
 			margin-bottom: 10px; 
 			border: 1px solid #ddd;
@@ -78,6 +79,17 @@
                 page-break-inside: avoid;
             }
         }
+		.powered{
+			padding: 10px 10px;
+			font-size: 10px;
+		}
+		.photo{
+			position: absolute;
+			width: 80px;
+			height: 80px;
+			right: 3%;
+			top: 10%;
+		}
 	</style>
 	<script type="text/javascript">
 		window.print();
@@ -94,6 +106,9 @@
 						{{ $school->user->name??'' }} <br>
 						<img class="logo" src="{{ Storage::url($school->logo??'public/images/default/user.png') }}" alt="Logo"><br>
 						<span class="address">{{ $school->address }}</span> <br>
+						@if ($photo_status==1)
+							<img class="photo" src="{{ Storage::url($employee->photo??'public/images/user.png') }}" alt="Photo" />
+						@endif
 					</h2>
 					<h3>শিক্ষক ও কর্মচারীদের লগিনের তথ্যাবলী</h3>
 					<br>
@@ -118,6 +133,11 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="powered">
+					<center>
+						Powered by Ehsan Software
+					</center>
+				</div>
 			</div>
 		@endforeach
 	</div>

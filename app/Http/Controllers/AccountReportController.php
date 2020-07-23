@@ -12,7 +12,6 @@ use App\BankDeposit;
 use App\BanksWithdraw;
 use App\FineCollection;
 use App\Asset;
-use App\User;
 use Auth;
 
 use Illuminate\Support\Facades\File;
@@ -20,10 +19,7 @@ use Illuminate\Support\Facades\File;
 
 class AccountReportController extends Controller
 {
-
      public function test(){
-      //  $user = User::where('mobile','01743443956')->first();
-      //  dd($user);
         File::link(
             storage_path('app/public'),public_path('storage'));
     }

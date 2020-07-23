@@ -19,8 +19,7 @@ class OnlineClassController extends Controller
      */
     public function index()
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
+        if(!Auth::is('teacher')){
             return redirect('/home');
         }
         $online_class=OnlineClass::with('masterClass')->where(['created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->get();
@@ -36,11 +35,6 @@ class OnlineClassController extends Controller
      */
     public function create()
     {
-        dd('Working');
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
-            return redirect('/home');
-        }
         $id=Auth::schoolType();
         $school_type_ids=explode('|', $id);
         $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
@@ -104,10 +98,6 @@ class OnlineClassController extends Controller
      */
     public function edit($oc_id)
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
-            return redirect('/home');
-        }
         $id=Auth::schoolType();
         $school_type_ids=explode('|', $id);
         $classes = MasterClass::whereIn('school_type_id', $school_type_ids)->get();
@@ -161,10 +151,6 @@ class OnlineClassController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::is('teacher')  || Auth::is('admin')){
-        }else{
-            return redirect('/home');
-        }
         OnlineClass::where(['id'=>$id,'created_by'=>Auth::id(),'school_id'=>Auth::getSchool()])->delete();
         return $this->returnWithSuccessRedirect('আপনার তথ্য মুছেফেলা হয়েছে !','online_class');
     }
