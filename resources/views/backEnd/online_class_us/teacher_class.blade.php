@@ -9,7 +9,7 @@
             <h1 class="text-center text-temp">Online Class</h1>
         </div>
 
-        @if(Session::has('errmgs'))
+        @if(Session::has('errmgs')) 
             @include('backEnd.includes.errors')
         @endif
         @if(Session::has('sccmgs'))
