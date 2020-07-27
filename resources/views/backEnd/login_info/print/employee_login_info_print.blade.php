@@ -72,6 +72,11 @@
 			width: 80px;
 			height: 80px;
 		}
+		.powered_by{
+			padding: 15 15px;
+			font-size: 10px;
+			text-align: center;
+		}
 	</style>
 	<script type="text/javascript">
 		window.print();
@@ -116,6 +121,9 @@
 				@endforeach
 			</tbody>
 		</table>
+		<div class="powered_by">
+			<p>Powered By Ehsan Software</p>
+		</div>
 	</div>
 
 </body>
