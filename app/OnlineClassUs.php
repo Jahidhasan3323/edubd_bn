@@ -26,7 +26,7 @@ class OnlineClassUs extends Model
     
     public function online_class_teacher1()
     {
-        return $this->hasMany(OnlineClassTeacher::class)->where('teacher_id',Auth::id());
+        return $this->hasMany(OnlineClassTeacher::class,'online_class_us_id','id')->where('teacher_id',Auth::id());
     }
     
 
