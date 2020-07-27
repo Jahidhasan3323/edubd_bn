@@ -17,6 +17,9 @@ use DB;
 class LoginInfoController extends Controller
 {
     public function student(){
+        if (!Auth::is('root')){
+            return redirect('/home');
+        }
 		$schools = School::all();
         $class_groups=$this->groupClasses();
         $units=$this->getUnits();
@@ -79,6 +82,9 @@ class LoginInfoController extends Controller
 
     // Employee Login Infoormation (SMS)
     public function employee(){
+        if (!Auth::is('root')){
+            return redirect('/home');
+        }
 		$schools = School::all();
 		return view('backEnd.login_info.employee',compact('schools'));
 	}
@@ -123,6 +129,9 @@ class LoginInfoController extends Controller
 
     // Committee Login Infoormation (SMS)
     public function committee(){
+        if (!Auth::is('root')){
+            return redirect('/home');
+        }
 		$schools = School::all();
 		return view('backEnd.login_info.committee',compact('schools'));
 	}
@@ -194,6 +203,9 @@ class LoginInfoController extends Controller
 
     public function student_login_info()
     {
+        if (!Auth::is('root')){
+            return redirect('/home');
+        }
         $schools = School::all();
         $class_groups=$this->groupClasses();
         $units=$this->getUnits();
@@ -229,6 +241,9 @@ class LoginInfoController extends Controller
 
     public function employee_login_info()
     {
+        if (!Auth::is('root')){
+            return redirect('/home');
+        }
         $schools = School::all();
         return view('backEnd.login_info.print.employee_login_info',compact('schools'));
     }

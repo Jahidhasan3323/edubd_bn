@@ -8,59 +8,59 @@
 @endsection
 @section('active_sms_login_info', 'active')
 @section('content')
-  <div class="row">
-    <div class="col-md-12">
-      <h2 class="text-center text-temp">এস,এম,এসের পরিমার নির্ধারণ করুন</h2>
-    </div>
-    <div class="col-md-12">
-      @if(session('success_msg'))
-        <div class="alert alert-success alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{session('success_msg')}}
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center text-temp">এস,এম,এসের পরিমার নির্ধারণ করুন</h2>
         </div>
-      @endif
-      @if($errors->any())
-          @foreach($errors->all() as $error)
-          <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{$error}}
-          </div>
-        @endforeach
-      @endif
+        <div class="col-md-12">
+            @if(session('success_msg'))
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{session('success_msg')}}
+                </div>
+            @endif
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{$error}}
+                </div>
+                @endforeach
+            @endif
+        </div>
     </div>
-  </div>
-  <div class="col-md-12" style="border: 1px solid #ddd;">
-      <h4 style="margin-bottom: 20px;" class="text-center">প্রতিষ্ঠান নির্বাচন করুন</h4>
-      <div class="row col-md-8 col-md-offset-2">
-          <form action="{{route('smsLimit.search')}}" method="post">
+    <div class="col-md-12" style="border: 1px solid #ddd;">
+        <h4 style="margin-bottom: 20px;" class="text-center">প্রতিষ্ঠান নির্বাচন করুন</h4>
+        <div class="row col-md-8 col-md-offset-2">
+            <form action="{{route('smsLimit.search')}}" method="post">
               {{csrf_field()}}
-              <div class="col-sm-8 {{$errors->has('school_id') ? 'has-error' : ''}}">
-                  <div class="form-group">
-                      <select class="form-control" name="school_id" id="school_id">
+                <div class="col-sm-8 {{$errors->has('school_id') ? 'has-error' : ''}}">
+                    <div class="form-group">
+                        <select class="form-control" name="school_id" id="school_id">
                             @isset($school_info)
                                 <option value="{{$school_info->id}}" >{{$school_info->user->name}}</option>
                             @endisset
                             @foreach($schools as $school)
                                 <option value="{{$school->id}}" >{{$school->user->name}}</option>
                             @endforeach
-                      </select>
-                  </div>
-                  @if($errors->has('school_id'))
-                  <span class="help-block">
-                      <strong>{{$errors->first('school_id')}}</strong>
-                  </span>
-                  @endif
-              </div>
+                        </select>
+                    </div>
+                    @if($errors->has('school_id'))
+                        <span class="help-block">
+                            <strong>{{$errors->first('school_id')}}</strong>
+                        </span>
+                    @endif
+                </div>
 
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-primary">অনুসন্ধান</button>
-                  </div>
-              </div>
-          </form>
-      </div>
-  </div>
-  @isset($school_info)
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">অনুসন্ধান</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @isset($school_info)
       <div class="panel col-md-8 col-md-offset-2" style="border: 1px solid #ddd;">
         <h3 class="text-center">{{ $school_info->user->name }}</h3>
             <div class="panel-body">
@@ -140,7 +140,7 @@
                 </form>
             </div>
         </div>
-  @endisset
+     @endisset
 
 @endsection
 @section('script')
