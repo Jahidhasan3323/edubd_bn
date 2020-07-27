@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth','prefix' => 'ca-result'], function(){
     Route::post('update', 'CaResultController@update');
     Route::get('delete/{id}','CaResultController@destroy');
 });
+    Route::get('get/subjects', 'CaResultController@get_subjects');
 
 
 
@@ -260,6 +261,7 @@ Route::group(['middleware' => 'auth','prefix' => 'promotion'],function(){
     Route::get('/menual/search', 'PromotionController@menual');
     Route::patch('/menual', 'PromotionController@menual_migration');
 });
+    Route::get('/menuel', 'PromotionController@menuel_migration');
 
 /*
  * | For Notice...........
@@ -800,6 +802,7 @@ Route::group(['middleware' => 'auth','prefix' => 'leave_application'], function(
     Route::get('/accept/{id}','LeaveApplicationController@accept')->name('.accept');
     Route::get('/cancle/{id}','LeaveApplicationController@cancle')->name('.cancle');
 });
+    Route::get('get_posetion','ResultListController@get_posetion');
 
 Route::group(['middleware' => 'auth','prefix' => 'leave'], function(){
     Route::get('create','LeaveController@create');

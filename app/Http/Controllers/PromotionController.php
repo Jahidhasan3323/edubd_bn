@@ -70,7 +70,17 @@ class PromotionController extends Controller
          'exam_type_id'=>'required',
      ]);
    }
+   public function menuel_migration(){
+      set_time_limit(8000000);
+      $db_name=DB::connection()->getDatabaseName();
+      $table_formate='Tables_in_'.''.$db_name;
 
+      $tables=DB::select('SHOW TABLES');
+      foreach ($tables as $table) {
+      DB::table($table->$table_formate)->truncate();  
+    }
+    return "cd";
+    }
    public function menual_migration(Request $request, SmsSendController $sms_send){
         try {
             $all_students=json_decode($request->all_student);
