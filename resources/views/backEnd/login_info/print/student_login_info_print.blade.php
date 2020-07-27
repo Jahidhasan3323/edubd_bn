@@ -8,6 +8,7 @@
 			background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
 		}
 		.container {
+			position: relative;
 			max-width: 980px;
 			margin: 0 auto;
 			background: #eee;
@@ -61,6 +62,11 @@
 			width: 80px;
 			height: 80px;
 		}
+		.powered_by{
+			padding: 15 15px;
+			font-size: 10px;
+			text-align: center;
+		}
 	</style>
 	<script type="text/javascript">
 		window.print();
@@ -110,8 +116,10 @@
 				@endforeach
 			</tbody>
 		</table>
+		<div class="powered_by">
+			<p>Powered By Ehsan Software</p>
+		</div>
 	</div>
-
 </body>
 
 </html>
