@@ -14,13 +14,11 @@ class SmsLimitController extends Controller
 		$schools = School::all();
 		return view('backEnd.sms.sms_setup',compact('schools'));
 	}
-
     public function search(Request $request){
 		$schools = School::all();
-		$school = School::find($request->school_id);
-		$sms_limit = SmsLimit::where('school_id', $school)->first();
-		$sms_setup = '';
-		return view('backEnd.sms.sms_setup',compact('sms_limit','schools','school','sms_setup'));
+		$school_info = School::find($request->school_id);
+		$sms_limit = SmsLimit::where('school_id', $school_info->id)->first();
+		return view('backEnd.sms.sms_setup',compact('sms_limit','schools','school_info'));
 	}
 
     public function store(Request $request){
@@ -36,7 +34,7 @@ class SmsLimitController extends Controller
 		$data = $request->all();
 		$sms_limit = SmsLimit::where('school_id', $request->school_id)->first();
 		$sms_limit?$sms_limit->update($data):SmsLimit::create($data);
-		return redirect()->route('smsLimit.sms_setup')->with('success_msg','এস,এম,এস সেটাপ সফল হয়েছে ।');
+		return redirect()->route('smsLimit.sms_setup')->with('success_msg','এস,এম,এস সফলভাবে নির্ধারণ করা হয়েছে.');
 	}
 
 
