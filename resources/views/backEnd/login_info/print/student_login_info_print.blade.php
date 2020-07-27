@@ -75,6 +75,7 @@
 				{{ $school->user->name??'' }} <br>
 				<img class="logo" src="{{ Storage::url($school->logo??'public/images/default/user.png') }}" alt="Logo"><br>
 				<span class="address">{{ $school->address }}</span> <br>
+				<span class="address">ওয়েবসাইট : {{ $school->website }}</span> <br>
 				<span class="search_info">
 					<b>শ্রেণীঃ </b>{{ $student->masterClass->name??'' }},  <b>বিভাগঃ</b> {{ $student->group }}, <b>শিফটঃ</b> {{ $student->shift }}, <b>শাখাঃ</b> {{ $student->section }}, <b>শিক্ষাবর্ষঃ</b> {{ $student->session }}
 				</span>

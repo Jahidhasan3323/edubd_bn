@@ -86,6 +86,7 @@
 				{{ $school->user->name??'' }} <br>
 				<img class="logo" src="{{ Storage::url($school->logo??'public/images/default/user.png') }}" alt="Logo"><br>
 				<span class="address">{{ $school->address }}</span> <br>
+				<span class="address">ওয়েবসাইট : {{ $school->website }}</span> <br>
 			</h2>
 			<h3>কমিটিদের লগিনের তথ্যাবলী</h3>
 			<br>
