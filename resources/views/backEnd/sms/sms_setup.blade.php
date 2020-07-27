@@ -60,7 +60,7 @@
           </form>
       </div>
   </div>
-  @isset($school)
+  @isset($sms_setup)
       <div class="panel col-md-8 col-md-offset-2" style="border: 1px solid #ddd;">
             <div class="panel-body">
                 <form action="{{ route('smsLimit.store') }}" method="post" enctype="multipart/form-data">
