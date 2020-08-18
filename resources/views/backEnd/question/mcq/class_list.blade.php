@@ -56,7 +56,7 @@
 </style>
 <div class="panel col-sm-12" style="margin-top: 15px; margin-bottom: 15px;">
     <div class="page-header">
-        <h1 class="text-center text-temp">{{$tittle}} প্রশ্নের বিষয়ের তালিকা</h1>
+        <h1 class="text-center text-temp">শ্রেণীর তালিকা</h1>
     </div>
     <div class="row">
       
@@ -74,20 +74,20 @@
             <thead>
                 <tr>
                     <th>ক্রমিক নং</th>
-                    <th>বিষয়</th>
+                    <th>শ্রেণী</th>
                     <th>অ্যাকশন</th>
                 </tr>
             </thead>
             <tbody>
-                @if(isset($questions))
+                @if(isset($class))
 
-                    @php($x = Get::serial($questions))
-                    @foreach($questions as $question)
+                    @php($x = Get::serial($class))
+                    @foreach($class as $row)
                         <tr>
                             <td>{{$x}}</td>
-                            <td>{{$question->subject->subject_name}}</td>
+                            <td>{{$row->masterClass->name}}</td>
                             <td>
-                              <a style="margin-bottom: 10px;" href="{{url('/mcq/question/subjectwise/'.$question->master_class_id.'/'.$question->subject_id)}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>
+                              <a style="margin-bottom: 10px;" href="{{url('/mcq/question/subject_list/'.$row->master_class_id)}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>
 
                             </td>
                         </tr>

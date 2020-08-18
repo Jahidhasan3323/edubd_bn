@@ -1,12 +1,12 @@
 @extends('backEnd.master')
 
-@section('mainTitle', 'প্রস্ন তৈরি করুন')
+@section('mainTitle', 'প্রশ্ন তৈরি করুন')
 @section('question', 'active')
 
 @section('content')
     <div class="panel col-md-12" style="margin-top: 15px; margin-bottom: 15px;">
         <div class="page-header">
-            <h1 class="text-center text-temp">প্রস্ন তৈরি করুন</h1>
+            <h1 class="text-center text-temp">প্রশ্ন তৈরি করুন</h1>
             <hr>
             
         </div>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group {{$errors->has('question') ? 'has-error' : ''}}">
-                            <label class="" for="question">প্রস্ন <span class="star">*</span></label>
+                            <label class="" for="question">প্রশ্ন <span class="star">*</span></label>
                             <div class="">
                                 <textarea  class="form-control" name="question" id="speech" >{{old('question')}}</textarea>
                             </div>
@@ -64,7 +64,7 @@
                         <div class="form-group {{$errors->has('master_class_id') ? 'has-error' : ''}}">
                             <label class="" for="master_class_id">শ্রেণী <span class="star">*</span></label>
                             <div class="">
-                                <select class="form-control" name="master_class_id" id="master_class_id" data-validation="required" >
+                                <select class="form-control" name="master_class_id[]" id="master_class_id" data-validation="required" multiple>
                                     <option value="">শ্রেণী নির্বাচন করুন</option>
                                     @if($classes)
                                         @foreach($classes as $class)

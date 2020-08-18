@@ -24,13 +24,13 @@
             </div>
           </div>
         </div>
-      	<div class="col-md-4 text-center">
-      		<h3>{{$school->user->name}}</h3>
-      		<p>Established: {{date('Y', strtotime($school->established_date))}}</p>
-      		<h5>{{$school->address}}</h5>
-      		<h3>{{$exam->name}} - {{$data['exam_year']}}</h3>
-      		<h3>Tabulation Sheet</h3>
-      	</div>
+        <div class="col-md-4 text-center">
+          <h3>{{$school->user->name}}</h3>
+          <p>Established: {{date('Y', strtotime($school->established_date))}}</p>
+          <h5>{{$school->address}}</h5>
+          <h3>{{$exam->name}} - {{$data['exam_year']}}</h3>
+          <h3>Tabulation Sheet</h3>
+        </div>
         <div class="col-md-4">
           <div class="pull-right" style="margin-top:25px;">
             <table class="table table-bordered grade-sheet">
@@ -70,9 +70,9 @@
       </div>
       <div class="bg-logo">
           <div class="row">
-          	<div class="col-md-12 text-center">
-          		<p> {{$class->name}} Class, Section - {{$data['section']}}, Division - {{DB::table('group_classes')->where('id',$data['group_class_id'])->select('name')->first()->name}}, Shift - {{$data['shift']}} </p>
-          	</div>
+            <div class="col-md-12 text-center">
+              <p> {{$class->name}} Class, Section - {{$data['section']}}, Division - {{DB::table('group_classes')->where('id',$data['group_class_id'])->select('name')->first()->name}}, Shift - {{$data['shift']}} </p>
+            </div>
           </div>
 
           <div class="row">
@@ -80,30 +80,31 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>রোল নং</th>
-                    <th style="width:280px;">শিক্ষার্থীর তথ্য</th>
+                    <th>Roll No.</th>
+                    <th style="width:280px;">Student Information</th>
                     @php $item=0; @endphp
-                    @foreach($copulsary_subject as $key=>$subject)
-                    @if($subject[0]->subject_type=='ধর্ম শিক্ষা')
-                    <th>ধর্ম বা নৈতিক শিক্ষা</th>
-                    @else
-                    <th>{{str_replace('-','',$key)}}</th>
+                    @if(in_array('Religion Education',$subject_type))
+                      <th>Religion or Moral Education</th>
                     @endif
+
+                    @foreach($copulsary_subject as $key=>$subject)
+                     @if($subject[0]->subject_type!=='Religion Education'&&$subject[0]->subject_type!='Elective')
+                     <th>{{str_replace(['-'],'',$key)}}</th>
+                     @endif
                     @endforeach
 
-                    @if(in_array('নির্বাচনী',$subject_type))
+                    @if(in_array('Elective',$subject_type))
                       @for($x = 0; $x < $elective_count; $x++)
-                       <th>নির্বাচনী বিষয়</th>
+                       <th>Elective Subject</th>
                       @endfor
                     @endif
-
-                    @if(in_array('ঐচ্ছিক',$subject_status))
-                     <th>অতিরিক্ত বিষয়</th>
+                    @if(in_array('Optional',$subject_status))
+                     <th>Extra Subject</th>
                     @endif
 
-                    <th>সর্বমোট নম্বর</th>
-                    <th style="width:100px;">অতিরিক্ত বিষয় ব্যাতিত (জিপিএ)</th>
-                    <th style="width:100px;">গ্রেড পয়েন্ট গড় (জিপিএ)</th>
+                    <th>The Total Number</th>
+                    <th style="width:100px;">Except for the extra subject (GPA)</th>
+                    <th style="width:100px;">Grade Point Average (GPA)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -114,8 +115,8 @@
                   @foreach($results as $key => $student_results)
                   @php
                   $student_results=$student_results->sortBy("subject_id");
-                  $copulsary_results = collect($student_results)->where('subject_status','আবশ্যিক')->groupBy(function($element){
-                   return str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $element['subject_name']);
+                  $copulsary_results = collect($student_results)->where('subject_status','Compulsory')->groupBy(function($element){
+                   return str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $element['subject_name']);
                   });
                   $copulsary_sub_totals=$copulsary_results->map(function($row){
                     return $row->sum('sub_total');
@@ -123,8 +124,8 @@
                   $copulsary_total_marks=$copulsary_results->map(function($row){
                     return $row->sum('total_mark');
                   });
-                  $optional_results = collect($student_results)->where('subject_status','ঐচ্ছিক')->groupBy(function($element){
-                   return str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $element['subject_name']);
+                  $optional_results = collect($student_results)->where('subject_status','Optional')->groupBy(function($element){
+                   return str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $element['subject_name']);
                   });
                   $optional_sub_totals=$optional_results->map(function($row){
                     return $row->sum('sub_total');
@@ -132,8 +133,8 @@
                   $optional_total_marks=$optional_results->map(function($row){
                     return $row->sum('total_mark');
                   });
-
-                  $student = App\Student::with('user')->where(['school_id'=>Auth::getSchool(),'student_id'=>$key])->first();
+                    $st_id=(string)$key;
+                  $student = App\Student::with('user')->where(['school_id'=>Auth::getSchool(),'student_id'=>$st_id])->first();
                   @endphp
                   @php
                    $i=1;
@@ -143,7 +144,7 @@
                    }
                    foreach ($subjects as $key => $subject){
                        if(count($subject)>1){
-                       $name=str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $subject[0]->subject_name);
+                       $name=str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $subject[0]->subject_name);
                        $ca_mark[$name]=($subject[0]->ca_mark=='--'?0:$subject[0]->ca_mark)+
                                ($subject[1]->ca_mark=='--'?0:$subject[1]->ca_mark);
                        $cr_mark[$name]=($subject[0]->cr_mark=='--'?0:$subject[0]->cr_mark)+
@@ -162,7 +163,7 @@
                        $pr_pass_mark[$name]=($subject[0]->pr_pass_mark=='--'?0:$subject[0]->pr_pass_mark)+
                                ($subject[1]->pr_pass_mark=='--'?0:$subject[1]->pr_pass_mark);
                        }else{
-                        $name=str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $subject[0]->subject_name);
+                        $name=str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $subject[0]->subject_name);
                         $ca_mark[$name]=($subject[0]->ca_mark=='--'?0:$subject[0]->ca_mark);
                         $cr_mark[$name]=($subject[0]->cr_mark=='--'?0:$subject[0]->cr_mark);
                         $mcq_mark[$name]=($subject[0]->mcq_mark=='--'?0:$subject[0]->mcq_mark);
@@ -185,7 +186,7 @@
                    }
                    foreach ($subjectss as $key => $subject){
                        if(count($subject)>1){
-                       $name=str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $subject[0]->subject_name);
+                       $name=str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $subject[0]->subject_name);
                        $op_ca_mark[$name]=($subject[0]->ca_mark=='--'?0:$subject[0]->ca_mark)+
                                ($subject[1]->ca_mark=='--'?0:$subject[1]->ca_mark);
                        $op_cr_mark[$name]=($subject[0]->cr_mark=='--'?0:$subject[0]->cr_mark)+
@@ -204,7 +205,7 @@
                        $op_pr_pass_mark[$name]=($subject[0]->pr_pass_mark=='--'?0:$subject[0]->pr_pass_mark)+
                                ($subject[1]->pr_pass_mark=='--'?0:$subject[1]->pr_pass_mark);
                        }else{
-                        $name=str_replace(['১ম পত্র','২য় পত্র','প্রথম পত্র','দ্বিতীয় পত্র','১ম','২য়','প্রথম','দ্বিতীয়'], '', $subject[0]->subject_name);
+                        $name=str_replace(['1st letter', '2nd letter', '1st paper', '2nd paper', 'first paper', 'second paper','1st Letter', '2nd Letter', '1st Paper', '2nd Paper', 'first Paper', 'second Paper'], '', $subject[0]->subject_name);
                         $op_ca_mark[$name]=($subject[0]->ca_mark=='--'?0:$subject[0]->ca_mark);
                         $op_cr_mark[$name]=($subject[0]->cr_mark=='--'?0:$subject[0]->cr_mark);
                         $op_mcq_mark[$name]=($subject[0]->mcq_mark=='--'?0:$subject[0]->mcq_mark);
@@ -239,22 +240,22 @@
                       $gpa[$key][$in_key++]="0.00";
                     }
                     @endphp
-                      @if($copulsary_results[$com_ke][0]->subject_type=='ধর্ম শিক্ষা')
+                      @if($copulsary_results[$com_ke][0]->subject_type=='Religion Education')
                       <td>{{str_replace('-','',$com_ke)}}<hr>{{$grade}}<br>{{$copulsary_sub_total}}</td>
                       @else
-                        @if($copulsary_results[$com_ke][0]->subject_type!='নির্বাচনী')
+                        @if($copulsary_results[$com_ke][0]->subject_type!='Elective')
                         <td>{{$grade}}<br>{{$copulsary_sub_total}}</td>
                         @else
                          <td>{{str_replace('-','',$com_ke)}} {{$grade}}<br>{{$copulsary_sub_total}}</td>
                         @endif
                       @endif
                     @endforeach
-                    @if(!in_array('ঐচ্ছিক',$subject_status))
+                    @if(!in_array('Optional',$subject_status))
                      @php $op_grade = "F";
                      $op_gpa[$key][$in_key++]="0.00";
                      @endphp
                     @endif
-                    @if(in_array('ঐচ্ছিক',$subject_status))
+                    @if(in_array('Optional',$subject_status))
                      @php $in_key=1;  @endphp
                      @foreach($optional_sub_totals as $op_ke=> $optional_sub_total)
                      @php
